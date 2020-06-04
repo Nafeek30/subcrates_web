@@ -1,0 +1,521 @@
+:root {
+    --primary-color: whitesmoke
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    
+}
+
+
+body {
+    font-family: 'Poppins', sans-serif;
+    --webkit-font-smoothing: antialiased;
+    background: whitesmoke;
+    color: whitesmoke;
+}
+
+
+/* All ul */
+ul {
+    list-style: none;
+}
+
+/* All links */
+
+a {
+    color: whitesmoke;
+    text-decoration: none;
+}
+
+a:hover {
+    color: whitesmoke;
+}
+
+
+/* All paragraphs */
+
+p {
+    margin: 0.5rem 0;
+}
+
+img {
+    width: 100%;
+}
+
+
+/* STYLE THE NAVBAR */
+.topnav {
+    overflow: hidden;
+    background-color: #4669c8;
+  }
+  
+  /* Navbar links */
+  .topnav a {
+    float: left;
+    display: block;
+    color: black;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 25px;
+  }
+  
+  /* Navbar links on mouse-over */
+  .topnav a:hover {
+    background-color: #4669c8;
+    color: black;
+  }
+  
+  /* Active/current link */
+  .topnav a.active {
+    background-color: #4669c8;
+    color: whitesmoke;
+    font-size: 30px;
+  }
+  
+  
+
+
+  /* Style the input container */
+  .topnav .login-container {
+    float: right;
+  }
+  
+  /* Style the input field inside the navbar */
+  .topnav input[type=text] {
+    padding: 6px;
+    margin-top: 8px;
+    margin-right: 6px;
+    font-size: 17px;
+    border: none;
+    width: 150px; /* adjust as needed (as long as it doesn't break the topnav) */
+  }
+  
+  /* Style the button inside the input container */
+  .topnav .login-container button {
+    float: right;
+    padding: 6px;
+    margin-top: 8px;
+    margin-right: 16px;
+    background: #2ecc71;
+    color: whitesmoke;
+    font-size: 17px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .topnav .login-container button:hover {
+    background: #2ecc71;
+  }
+
+
+
+
+/* All Containers */
+.container {
+    max-width: 70%;
+    margin: auto;
+    overflow: hidden;
+    padding: 0 2rem;
+}
+
+
+.landing-showcase {
+    width: 100%;
+    height: 95vh;
+    background:  #4669c8;
+    position: relative;
+}
+
+
+.landing-showcaseTop {
+    position: relative;
+    height: 90px;
+    z-index: 2;
+}
+
+.landing-showcaseTopLogo {
+    width: 170px;
+    position: absolute;
+    top: 50%;
+    left: 7%;
+    transform: translate(-50%, -50%);
+}
+
+.landing-loginFormControl {
+    position: absolute;
+    top: 50%;
+    right: 0%;
+    transform: translate(-5%, -50%);
+}
+
+
+.landing-loginField {
+    margin-right: 0.2rem;
+}
+
+
+.landing-loginTextForgotPassword {
+    color: whitesmoke;
+}
+
+
+.landing-loginTextForgotPassword:hover {
+    opacity: 0.9;
+    color: whitesmoke;
+    text-emphasis-color: whitesmoke;
+    text-decoration-color: whitesmoke;
+}
+
+
+.landing-loginButton {
+    font-size: 0.5rem;
+}
+
+
+
+#forgot-password {
+    color: whitesmoke;
+    font-size: 10px;
+    width: fit-content;
+}
+
+
+.landing-showcaseContent h1 {
+    font-weight: 700;
+    font-size: 3rem;
+    line-height: 1.1;
+    margin: 0 0 2rem;
+}
+
+.landing-showcaseContent p {
+    text-transform: uppercase;
+    font-weight: 300;
+    font-size: 1.8rem;
+    line-height: 1.25;
+    margin: 0 0 2rem;
+}
+
+.landing-Signup {
+    width: 40vw;
+    height: 5vh;
+    margin: 5px auto;
+    display: flex;
+    -webkit-box-flex: 5;
+    flex-grow: 5;
+    min-width: 0;
+    border-radius: 0.3rem;
+    line-height: 2rem;
+    border-color: whitesmoke;
+    border-style: solid;
+    padding: 0.1rem 0.1rem;
+    font-size: 1rem;
+}
+
+.btn {
+    display: inline-block;
+    background: #2ecc71;
+    color: whitesmoke;
+    padding: 0.4rem 1.3rem;
+    font-size: 0.5rem;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+    margin-right: 0.5rem;
+    outline: none;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.45);
+    border-radius: 2px;
+}
+
+.btn:hover {
+    opacity: 0.9;
+}
+
+.btn-rounded {
+    border-radius: 5px;
+}
+
+.btn-l {
+    font-size: 1rem;
+    width: 70%;
+    margin: 15px, auto;
+    padding: auto;
+    text-transform: uppercase;
+    line-height: 2;
+    text-align: center;
+    border-radius: 10px;
+}
+
+
+.landing-signupButton {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 5px;
+}
+
+.landing-showcaseContent {
+    position: relative;
+    z-index: 2;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: 7rem;
+}
+
+
+.tabs {
+    background: #fff;
+    padding-top: 1rem;
+    color: #000;
+}
+
+
+.tabs .container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 1rem;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+
+.tabs p {
+    font-size: 1.2rem;
+    padding-top: 0.5rem;
+}
+
+
+.tabs .container > div {
+    padding: 1.5rem 0;
+}
+
+
+.tabs .container > div :hover {
+    cursor: pointer;
+}
+
+.landing-tab-content {
+    padding: 3rem 0;
+    color: black;
+}
+
+
+.landing-productPromote {
+    color: #2c3e50;
+}
+
+
+.WMG-link {
+    color: #f39c12;
+}
+
+.WMG-link:hover {
+    color: #f39c12;
+    text-emphasis-color: #f39c12;
+    text-decoration-color: #f39c12;
+}
+
+.landing-contentHeaders {
+    margin: 1.25rem auto;
+}
+
+
+.landing-lead {
+    color: #34495e;
+}
+
+
+.row-data {
+    margin-top: 50px;
+}
+
+
+
+.faq-section {
+    background: white;
+}
+
+.collapse {
+    color: #34495e;
+}
+
+
+.landing-faq-header {
+    font-family: 'Poppins', sans-serif;
+    margin-top: 40px;
+    text-align: center;
+    font-weight: 600;
+    font-size: 2rem;
+    color: #2c3e50;
+    text-transform: uppercase;
+}
+.accordion-section .panel-default > .panel-heading {
+    border: 0;
+    background: #f4f4f4;
+    padding: 0;
+}
+.accordion-section .panel-default .panel-title a {
+    display: block;
+    font-style: italic;
+    font-size: 1.5rem;
+    color: #34495e;
+}
+.accordion-section .panel-default .panel-title a:after {
+    font-family: 'FontAwesome';
+    font-style: normal;
+    font-size: 3rem;
+    content: "\f106";
+    color: #1f7de2;
+    float: right;
+    margin-top: -12px;
+}
+.accordion-section .panel-default .panel-title a.collapsed:after {
+    content: "\f107";
+}
+.accordion-section .panel-default .panel-body {
+    font-size: 1.2rem;
+}
+
+
+.landing-bottom-signup {
+    background: white;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding-bottom: 20px;
+
+}
+
+.landing-bottomSignUpLink {
+    width: 32vw;
+    height: 7vh;
+    font-size: 1.5rem;
+    padding-top: 5px;
+    margin: 0 auto;
+    text-align: center;
+    color: whitesmoke;
+}
+
+
+.landing-bottom-signup a {
+    background: whitesmoke;
+   color: #2ecc71;
+}
+
+#bottom-signup {
+    color: #34495e;
+}
+
+
+
+.landing-bottom-signup p {
+    color: #34495e;
+    font-size: 1.5rem;
+}
+
+
+
+/* MEDIA QUERY MUST COME AT THE BOTTOM SO IT'S NOT OVERRIDEN */
+  /* Add responsiveness - On small screens, display the navbar vertically instead of horizontally */
+
+  @media screen and (max-width: 600px) {
+
+    .topnav .login-container {
+      float: right;
+    }
+    .topnav a, .topnav input[type=text], .topnav .login-container button {
+      /* float: none; */
+      /* display: inline; */
+      margin-top: 8px;
+      text-align: left;
+      margin-right: none;
+      width: 90px;
+      padding: 2px;
+    }
+    .topnav input[type=text] {
+      border:none;
+    }
+
+
+    .topnav .login-container button {
+        width: 55px;
+        text-align: center;
+    }
+
+    .topnav a.active {
+        font-size: 20px;
+        line-height: 2rem;
+        margin-right: 50px;
+    }
+
+    .landing-showcaseContent h1 {
+        font-size: 25px;
+    }
+
+    .landing-showcaseContent p {
+        font-size: 18px;
+    }
+
+
+    .landing-Signup {
+        width: 100%;
+        align-items: center;
+        justify-content: center;
+    }
+
+
+    .landing-signupButton {
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        width: 70%;
+        padding: 5px;
+        font-size: 13px;
+    }
+
+    .landing-bottomSignUpLink {
+        width: 250px;
+    }
+
+  }
+
+
+  @media screen and (max-width: 400px) {
+
+    .topnav a, .topnav input[type=text], .topnav .login-container button {
+        /* float: none; */
+        /* display: inline; */
+        margin-top: 8px;
+        text-align: left;
+        margin-right: none;
+        font-size: small;
+        line-height: 1.85;
+        width: 75px;
+        padding: 2px;
+      }
+
+
+    .topnav a.active {
+        font-size: 15px;
+        line-height: 1.2rem;
+        margin-right: 10px;
+    }
+
+    .topnav .login-container button {
+        width: 40px;
+        text-align: center;
+        font-size: 12px;
+        line-height: 1.5rem;
+    }
+
+  }
+
+  /* NAVBAR STYLE ENDS */

@@ -1,0 +1,116 @@
+/* NNAVBAR CSS CODE SHOULD BE AT THE VERY TOP INCLUDING THE MEDIA QUERY CODE */
+
+
+.navbar {
+    width: 100%;
+}
+
+.bg-light {
+    background-color:  #4669c8!important;
+}
+
+.navbar-light .navbar-brand {
+    color: whitesmoke;
+}
+
+.login-elements {
+    justify-content: space-around;
+}
+
+
+.btn {
+    color: whitesmoke;
+}
+
+.btn :hover {
+    color: whitesmoke;
+}
+
+.login-search {
+    background-color: #2ecc71;
+    color: whitesmoke;
+    
+}
+
+
+.login-search :hover {
+    background-color: #2ecc71;
+    color: whitesmoke;
+}
+
+
+.navbar-light .navbar-nav .nav-link {
+    color: whitesmoke;
+}
+
+
+.login-options {
+    padding-right: 70px;
+    font-size: 1rem;
+}
+
+.dropdown-item {
+    padding: 0.25rem 0.75rem;
+}
+
+ #login-searchBar {
+    width: 900px;
+}
+
+
+
+@media screen and (max-width: 1300px) {
+    #login-searchBar {
+        width: 800px;
+    }
+
+    .dropdown-menu {
+        min-width: 4rem;
+    }
+}
+
+
+@media screen and (max-width: 1000px) {
+    #login-searchBar {
+        width: 400px;
+    }
+
+    .dropdown-menu {
+        min-width: 4rem;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    #login-searchBar {
+        width: 200px;
+    }
+
+    .dropdown-menu {
+        min-width: 2rem;
+    }
+} 
+
+
+@media screen and (max-width: 400px) {
+
+    .login-options {
+        padding-right: 20px;
+        font-size: 0.6rem;
+    }
+
+
+    .login-logo {
+        font-size: small;
+    }
+
+    .dropdown-menu {
+        min-width: 2rem;
+    }
+
+    #login-searchBar {
+        width: 10rem;
+    }
+}
+
+
+/* NAVBAR CSS CODE ENDS HERE */

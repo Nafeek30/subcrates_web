@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap CSS -->
+    <%- include("partials/header") %>    
+    <link rel="stylesheet" a href="../public/css/Homepage.css" />
+    <link rel="stylesheet" a href="../public/css/loginNavbar.css" />
+    <link rel="stylesheet" a href="../public/css/footer.css" />
+
+
+    <title>Subcrates Home: Subscription Categories & Subscriptions List</title>
+</head>
+<body>
+    <%- include("partials/loginNavbar") %>
+
+
+    <div class="container homepage-content">
+        <% for(let i = 0; i < 5; i++) { %>
+        <div class="row">
+            <h3>Category</h3>
+            <hr>
+        </div>
+        <div class="homepage-category-items">
+            <% for(let i = 0; i < 5; i++) { %>
+                <div class="homepage-card-container">
+                    <figure class="homepage-card">
+                        <div class="pomepage-card-hero">
+                            <img src="https://www.rd.com/wp-content/uploads/2019/09/Cute-cat-lying-on-his-back-on-the-carpet.-Breed-British-mackerel-with-yellow-eyes-and-a-bushy-mustache.-Close-up-e1573490045672.jpg" class="homepage-card-img" alt="Card Image">
+                        </div>
+                        <div class="homepage-card-content">
+                            <div class="homepage-card-middle">
+                                <p class="homepage-card-middle-text">
+                                    Netflix
+                                </p>
+                            </div>
+        
+                            <div class="homepage-card-info">
+                                <h6 class="homepage-card-price"> Starts At: $8.99</h6>
+                                <p class="homepage-card-description"> Online Streaming service for movies & tv shows. Be sure to download this cool app.</p>
+                            </div>
+        
+                            <div class="homepage-card-buttons">
+                                <a href="#" class="homepage-card-btn">View More</a>
+                            </div>
+        
+                        </div>
+                    </figure>
+                </div>        
+            <% } %>
+        </div>
+        <% } %>
+    </div>
+
+
+    <%- include("partials/footer") %>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <%- include("partials/scripts") %>
+</body>
+</html>

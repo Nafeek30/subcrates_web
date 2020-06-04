@@ -1,0 +1,231 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <%- include("../partials/header") %>
+    <link rel="stylesheet" a href="../../public/css/landingPage.css" />
+    <link rel="stylesheet" a href="../../public/css/footer.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+    <title>Subcrates - Manage and find subscriptions in one place</title>
+  </head>
+  <body>
+   
+    <!-- TOP NAVBAR FOR LOGIN -->
+  
+    <header class="landing-showcase">
+      <%- include("../partials/signupNavbar") %>
+      <div class="landing-showcaseContent">
+        <h1>All your subscriptions in one place.</h1>
+        <p>Save BIG by only paying for what you use.</p>
+        <div class="landing-rightContent">
+          <!-- <h1>Sign Up - It's Free</h1> -->
+          <form id="landing-signupForm" action="" method="post" onsubmit>
+            <table>
+              <tr>
+                <td><input type="text" placeholder=" Email " class="landing-Signup" /></td>
+              </tr>
+              <tr>
+                <td><input type="password" placeholder=" Password " class="landing-Signup" /></td>
+              </tr>
+              <tr>
+                <td><button class="btn btn-l landing-signupButton" type="submit" value="1">TRY 14 DAYS FREE</button> </td>
+              </tr>
+            </table>
+          </form>
+        </div>
+      </div>
+    </header>
+
+    <!-- The tabs section of landing page with ios and android download links -->
+    <section class="tabs">
+      <div class="container">
+        <div id="tab-1" class="tab-item">
+          <i class="fab fa-apple fa-3x"></i>
+          <p class="hide-sm">Download on the App Store.</p>
+        </div>
+        <div id="tab-2" class="tab-item">
+          <i class="fab fa-android fa-3x"></i>
+          <p class="hide-sm">Download on Google Play Store.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ALL IMAGES AND TEXTS TO PROMOTE THE PRODUCT ON LANDING PAGE -->
+    <section class="container-fluid landing-productPromote">
+        <!-- 1ST ROW DATA -->
+      <div class="row align-items-center row-data">
+        <div class="col-md-6">
+          <img src="https://www.rd.com/wp-content/uploads/2019/09/Cute-cat-lying-on-his-back-on-the-carpet.-Breed-British-mackerel-with-yellow-eyes-and-a-bushy-mustache.-Close-up-e1573490045672.jpg" alt="" class="img-fluid">
+        </div>
+        <div class="col-md-6 text-center">
+          <div class="row justify-content-center">
+            <div class="col-10 col-lg-8">
+              <h3 class="landing-contentHeaders">View details, plans and monthly expenses of all your subscriptions</h3>
+              <p>   </p>
+              <p class="landing-lead">
+                View all your subscriptions in details and know exactly what you are paying
+                every month. According to a 2018 survey by <a class="WMG-link" href="https://www.westmonroepartners.com/perspectives/point-of-view/americas-relationship-with-subscription-services">WMG</a>, 84% of Americans underestimate 
+                what they spend on subscription-based services. We'll help you stay in the other 16%.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- SECOND ROW DATA -->
+      <div class="row align-items-center row-data">
+        <div class="col-md-6 text-center order-2 order-md-1">
+          <div class="row justify-content-center">
+            <div class="col-10 col-lg-8">
+              <h3 class="landing-contentHeaders">Discover 150+ subscriptions from 14 categories for all your needs</h3>
+              <p>   </p>
+              <p class="landing-lead">
+                From services to clothes, from makeup and fashion to baby products, we have you covered.
+                We have a collection of over 150+ subscriptions in 14 categories (that we are continuously 
+                expanding) so you can find what you need. 
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 order-1 order-md-2">
+          <img src="https://www.rd.com/wp-content/uploads/2019/09/Cute-cat-lying-on-his-back-on-the-carpet.-Breed-British-mackerel-with-yellow-eyes-and-a-bushy-mustache.-Close-up-e1573490045672.jpg" alt="" class="img-fluid">
+        </div>
+      </div>
+      <!-- THIRD ROW DATA -->
+      <div class="row align-items-center row-data">
+        <div class="col-md-6">
+          <img src="https://www.rd.com/wp-content/uploads/2019/09/Cute-cat-lying-on-his-back-on-the-carpet.-Breed-British-mackerel-with-yellow-eyes-and-a-bushy-mustache.-Close-up-e1573490045672.jpg" alt="" class="img-fluid">
+        </div>
+        <div class="col-md-6 text-center">
+          <div class="row justify-content-center">
+            <div class="col-10 col-lg-8">
+              <h3 class="landing-contentHeaders">It's so cheap, it's almost free. And you can cancel anytime</h3>
+              <p>   </p>
+              <p class="landing-lead">
+                New members joining the Subcrates family will get a 14-day free trial when you sign up. After that, it's only $0.99 a month.
+                Like we said, it's so cheap, it's almost free! Plus, you can cancel anytime.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ SECTION -->
+    <section class="accordion-section clearfix mt-3 faq-section" aria-label="Question Accordions">
+      <div class="container">
+      
+        <h2 class="landing-faq-header">Frequently Asked Questions </h2>
+        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+        <div class="panel panel-default">
+          <div class="panel-heading p-3 mb-3" role="tab" id="heading0">
+          <h3 class="panel-title">
+            <a class="collapsed" role="button" title="" data-toggle="collapse" data-parent="#accordion" href="#collapse0" aria-expanded="true" aria-controls="collapse0">
+            What is Subcrates?
+            </a>
+          </h3>
+          </div>
+          <div id="collapse0" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading0">
+          <div class="panel-body px-3 mb-4">
+            <p>
+              Subcrates is a subscription-platform that helps you manage all your subscriptions and also
+               find new ones. With our subcription manager you'll always know what you're spending on and how much. 
+               We also provide a collection of 150+ subscriptions in 14 different categories (that we will 
+               continuously expand) so you can find new subscriptions for pretty much anything. We give you all the 
+               information like pricing, details, and the services each subscription provides so you can compare and 
+               choose what you want. 
+            </p>
+          </div>
+          </div>
+        </div>
+        
+        <div class="panel panel-default">
+          <div class="panel-heading p-3 mb-3" role="tab" id="heading1">
+          <h3 class="panel-title">
+            <a class="collapsed" role="button" title="" data-toggle="collapse" data-parent="#accordion" href="#collapse1" aria-expanded="true" aria-controls="collapse1">
+              Why use Subcrates?
+            </a>
+          </h3>
+          </div>
+          <div id="collapse1" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading1">
+          <div class="panel-body px-3 mb-4">
+            <p>
+              As subscriptions get more and more common, it can be hard to manage them all. You may even be paying for 
+              one that you just forgot about which can end up costing you hundreds of dollars over time. Subcrates helps
+              you to manage them, find new subscriptions that you may not have known about and helps you choose the best 
+              ones for you. 
+            </p>
+          </div>
+          </div>
+        </div>
+        
+        <div class="panel panel-default">
+          <div class="panel-heading p-3 mb-3" role="tab" id="heading2">
+          <h3 class="panel-title">
+            <a class="collapsed" role="button" title="" data-toggle="collapse" data-parent="#accordion" href="#collapse2" aria-expanded="true" aria-controls="collapse2">
+              How do I manage my subscriptions?
+            </a>
+          </h3>
+          </div>
+          <div id="collapse2" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading2">
+          <div class="panel-body px-3 mb-4">
+            <p>
+              Once you sign up, go to 'My Subcrate' by clicking the hamburger icon on the top-right. Here you'll
+              be able to add or remove a subscription from your list, choose the plan & pricing for each subscription you own and also 
+              see a list of your current subscriptions with their details, how much you pay for each and your monthly 
+              expenses for all of them.
+            </p>
+          </div>
+          </div>
+        </div>
+        
+        <div class="panel panel-default">
+          <div class="panel-heading p-3 mb-3" role="tab" id="heading3">
+          <h3 class="panel-title">
+            <a class="collapsed" role="button" title="" data-toggle="collapse" data-parent="#accordion" href="#collapse3" aria-expanded="true" aria-controls="collapse3">
+              How does the free trial work?
+            </a>
+          </h3>
+          </div>
+          <div id="collapse3" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading3">
+          <div class="panel-body px-3 mb-4">
+            <p>
+              All new members will automatically get a 14-day free trial when they sign up. Once the free trial expires, 
+              you'll be prompted to subscribe 
+              and it's only <em>$0.99 a month</em>. You can also fill in your payment information in 'Settings' before 
+              your free trial expires by clicking the hamburger icon at the top-right after you're logged in, and we'll
+               bill you each 30-day period after your free trial is over. We use Stripe to make sure your payment
+                is safe and secure and we don't save any of your payment innformation. 
+            </p>
+          </div>
+          </div>
+        </div>
+        </div>
+      
+      </div>
+    </section>
+
+    <div class="landing-bottom-signup">
+      <div class="landing-bottomSignUpLink">
+        <a id="bottom-signup" href="/" type="button" style="background: rgb(46, 204, 113);">Try 14 Days Free</a>
+      </div>
+      <p>
+        Ready to try Subcrates?
+      </p>
+    </div>
+
+
+    
+    <%- include("../partials/footer") %>
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <%- include("../partials/scripts") %>
+
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- BOOTSTRAP CSS -->
+    <%- include("./partials/header") %>    
+    <link rel="stylesheet" a href="../public/css/subscriptionDetails.css" />
+    <link rel="stylesheet" a href="../public/css/loginNavbar.css" />
+    <link rel="stylesheet" a href="../public/css/footer.css" />
+
+
+    <title>Netflix - Subscription details and pricing</title>
+</head>
+<body>
+    <%- include("partials/loginNavbar") %>
+
+    <div class="container">
+        <div class="card">
+            <div class="subDetail-Background">
+                <img style="width: 100%; height: 100%; object-fit: contain; background-color: black;" src="https://www.rd.com/wp-content/uploads/2019/09/Cute-cat-lying-on-his-back-on-the-carpet.-Breed-British-mackerel-with-yellow-eyes-and-a-bushy-mustache.-Close-up-e1573490045672.jpg" alt="" class="logo">
+            </div>
+            <div class="info">
+                <div class="subscription-name">
+                    <div>
+                        <h1 class="big">
+                            <a href="#">Netflix</a>
+                        </h1>
+                        <!-- <span class="new">new</span> -->
+                    </div>
+                    <h3 class="small">Entertainment</h3>
+                </div>
+                <div class="description">
+                    <h3 class="title">Subscription Info</h3>
+                    <p class="text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's.</p>
+                </div>
+
+                <!-- THE PRICING CONTAINER CONTAINING PRICES FOR EACH PLAN OFFERED -->
+                <div class="price-container">
+                    <h3 class="title">Pricing</h3>
+                    
+                </div>
+
+                <!-- ADD THIS TO YOUR SUBSCRIPTION LIST -->
+                <div class="buy-price">
+                    <a href="#" class="buy">Add to My Crate</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <%- include("partials/scripts") %>
+</body>
+</html>
