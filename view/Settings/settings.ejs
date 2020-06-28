@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <!-- BOOTSTRAP CSS -->
+    <%- include("../partials/header") %>    
+    <link rel="stylesheet" a href="../../public/css/settings.css" />
+    <link rel="stylesheet" a href="../../public/css/loginNavbar.css" />
+    <link rel="stylesheet" a href="../../public/css/footer.css" />
+
+    <title>Subcrates - Settings - Change Password and Payment Information</title>
+</head>
+<body>
+    <%- include("../partials/loginNavbar") %>
+
+
+    <section class="container-fluid">
+
+        <h1>Personal Information: </h1>
+
+        <div class="settings-email-group">
+            <h6 id="settings-email">Email: </h6>
+            <p id="settings-email-value">nafeek30@gmail.com</p>
+        </div>
+
+        <div class="settings-password-group">
+            <h6 id="settings-password">Password: </h6>
+            <p id="settings-password-value"><a class="top-buttons" href="/resetpassword">Reset Password</a></p>
+        </div>
+
+        <hr style="border:1px solid #4669c8;">
+
+        <div class="settings-payment-info">
+            <h1>Payment Information: </h1>
+            <div class="settings-payment-group">
+                Card info
+            </div>
+        </div>
+
+    </section>
+
+
+
+
+    <%- include("../partials/footer") %>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <%- include("../partials/scripts") %>
+    
+</body>
+</html>

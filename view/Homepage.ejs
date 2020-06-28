@@ -19,13 +19,15 @@
 
 
     <div class="container homepage-content">
-        <% for(let i = 0; i < 5; i++) { %>
+        <h1><%- name %></h1>
+        <% for(let i = 0; i < uniqueCategories.length; i++) { %>
         <div class="row">
-            <h3>Category</h3>
+            <h3><%- uniqueCategories[i] %></h3>
             <hr>
         </div>
         <div class="homepage-category-items">
-            <% for(let i = 0; i < 5; i++) { %>
+            <% allSubscriptions.forEach(subscription => { %>
+                <% if(subscription.data().category === uniqueCategories[i]) { %>
                 <div class="homepage-card-container">
                     <figure class="homepage-card">
                         <div class="pomepage-card-hero">
@@ -34,23 +36,27 @@
                         <div class="homepage-card-content">
                             <div class="homepage-card-middle">
                                 <p class="homepage-card-middle-text">
-                                    Netflix
+                                    <%- subscription.data().subscriptionName %>
                                 </p>
                             </div>
         
                             <div class="homepage-card-info">
-                                <h6 class="homepage-card-price"> Starts At: $8.99</h6>
-                                <p class="homepage-card-description"> Online Streaming service for movies & tv shows. Be sure to download this cool app.</p>
+                                <!-- <h6 class="homepage-card-price"> Starts At: $8.99</h6> -->
+                                <p class="homepage-card-description"> 
+                                    <%- subscription.data().shortDesc %>
+                                </p>
                             </div>
         
                             <div class="homepage-card-buttons">
-                                <a href="#" class="homepage-card-btn">View More</a>
+                                <!-- href="/subscription/:id" && 'id' is subscription.id where subscription is one subscription -->
+                                <a href="/subscription/<%-subscription.id%>" class="homepage-card-btn">View More</a>
                             </div>
         
                         </div>
                     </figure>
-                </div>        
+                </div> 
             <% } %>
+            <% }) %>
         </div>
         <% } %>
     </div>

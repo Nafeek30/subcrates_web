@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- BOOTSTRAP CSS -->
+    <%- include("./partials/header") %>
+    <link rel="stylesheet" a href="../public/css/subscriptionDetails.css" />
+    <link rel="stylesheet" a href="../public/css/addSubscription.css" />
+    <link rel="stylesheet" a href="../public/css/loginNavbar.css" />
+    <link rel="stylesheet" a href="../public/css/footer.css" />
+
+        <title>Subcrates - Add subscription. Add <%- subscription.data().subscriptionName %> subscription to your crate.</title>
+</head>
+<body>
+    <%- include("partials/loginNavbar") %>
+
+    <!-- ALL JS VARIABLES AND DECLARATIONS [START] -->
+    <% let plans = subscription.data().plans %>
+    <% let prices = subscription.data().prices %>
+    <!-- ALL JS VARIABLES AND DECLARATIONS [END] -->
+
+
+    <div class="container">
+        <div class="card">
+        <h1>Add <%- subscription.data().subscriptionName %> : </h1>
+            
+            <div class="info">
+
+                <div class="form-container">
+                    <form id="add-subscriptionForm" action="/addsubscription/<%-subscription.id%>" method="POST" onsubmit>
+                        <div class="input-fields">
+                            <!-- Subscription Name -->
+                            <input type="text" name="name" id="name" class="inputs" placeholder="Subscription Name..." value="<%- subscription.data().subscriptionName %>" required>
+
+                            <!-- Subscription plan -->
+
+                            <label for="subscriptionPlans" style="margin-top: 2rem;">Choose a subscription plan:</label>
+                            <select name="subscriptionPlans" id="subscriptionPlans">
+                                <option value="unselected" selected>Unselected</option>
+                                <% for(let i = 0; i < plans.length; i++) { %>
+                                    <option value="<%- plans[i] %>"><%- plans[i] %></option>
+                                <% } %>
+                            </select>
+                            <input type="text" name="customPlan" id="customPlan" class="inputs" placeholder="Enter Custom Plan Name..." value="">
+                            <p class="" style="font-size: 0.75rem; color: #4669c8;">
+                                If you use a custom plan name leave the dropdown option for plans as 'unselected'.*
+                            </p>
+
+                            <!-- Subscription price -->
+                            <label for="subscriptionPrice" style="margin-top: 2rem;">Choose a subscription price:</label>
+                            <select name="subscriptionPrice" id="subscriptionPrice">
+                                <option value="unselected" selected>Unselected</option>
+                                <% for(let i = 0; i < prices.length; i++) { %>
+                                    <option value="<%- prices[i] %>">$<%- prices[i] %></option>
+                                <% } %>
+                            </select>
+                            <input type="text" name="customPrice" id="customPrice" class="inputs" placeholder="Enter Custom Price Value..." value="">
+                            <p class="" style="font-size: 0.75rem; color: #4669c8;">
+                                If you use a custom price value leave the dropdown option for price as 'unselected'.*
+                            </p>
+
+                            <!-- Subscription Date -->
+                            <input type="date" class="inputs" name="lastBillDate" id="lastBillDate" placeholder="mm/dd/yyyy" value="">
+                            <p class="" style="font-size: 0.75rem; color: #4669c8;">
+                                Enter last bill date in the format shown above. For example, type 06/01/2020 if the 
+                                last bill date was June 1st, 2020. Date can't be in the future.*
+                            </p>
+
+
+                            <!-- Subscription notification time (in days) -->
+                            <label for="subscriptionFrequency" style="margin-top: 2rem;">How often does this subscription renew? </label>
+                            <select name="subscriptionFrequency" id="subscriptionFrequency">
+                                <option value="unselected" selected>Unselected</option>
+                                <option value="weekly">Weekly</option>
+                                <option value="monthly">Monthly</option>
+                                <option value="yearly">Yearly</option>
+                            </select>
+
+
+                            <!-- Subscription notification time (in days) -->
+                            <label for="subscriptionNotification" style="margin-top: 2rem;">Notify me ___ day(s) before bill is due:</label>
+                            <select name="subscriptionNotification" id="subscriptionNotification">
+                                <option value="unselected" selected>Unselected</option>
+                                <option value="0">0</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                            </select>
+                            <p class="" style="font-size: 0.75rem; color: #4669c8;">
+                                We can notify you between 0 - 6 days before your bill is due. 
+                                'Unselected' means don't notify me about this bill. '0' means notify me on the same day
+                                as the bill is due.*
+                            </p>
+                        </div>
+
+                        <div class="notes">
+                            <textarea name="subscriptionNotes" id="subscriptionNotes" placeholder="Add a personal note to this subscription..."></textarea>
+                            <!-- <a href="/addsubscription/<%-subscription.id%>" class="addbutton">Add to My Crate</a> -->
+
+                            <button class="addbutton" type="submit" name="addbutton">ADD TO MY CRATE</button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Disclaimer -->
+                <div class="buy-price">
+                    <p style="margin-left: 5px; color: #e74c3c;">
+                        Disclaimer: Adding a subscription to your crate doesn't subscribe you to the service. 
+                        Go on their official website to subscribe.
+                    </p>                    
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <%- include("partials/footer") %>
+
+        <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <%- include("partials/scripts") %>
+</body>
+</html>

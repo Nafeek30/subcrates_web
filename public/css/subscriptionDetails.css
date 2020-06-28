@@ -19,6 +19,11 @@ body {
 }
 
 
+a {
+  color: #4669c8;
+}
+
+
 .container{
   min-height: 100vh;
   display: flex;
@@ -176,12 +181,23 @@ body {
   padding: 10px 0;
 }
 
-.row-config{
+.product-pricing-row {
   display: flex;
   overflow-x: scroll;
-  padding: 10px;
+  padding: 0.75rem;
 }
 
+.product-pricing-container {
+  display: flex;
+  justify-content: start;
+  align-items: flex-start;
+  margin: 0.5rem;
+}
+
+.btn-primary {
+  background-color: #4669c8;
+  border-color: #4669c8;
+}
 
 .pricing-cards {
   display: flex;
@@ -202,7 +218,7 @@ body {
   padding: .7rem 1rem;
   background-color: var(--primary);
   text-decoration: none;
-  color: #fff;
+  color: whitesmoke;
   text-transform: uppercase;
   letter-spacing: 1px;
   font-weight: 500;
@@ -212,6 +228,7 @@ body {
 
 .buy:hover{
   transform: scale(1.1);
+  color: whitesmoke;
 }
 
 .buy i{
