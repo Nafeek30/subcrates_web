@@ -18,7 +18,9 @@
     <%- include("../partials/loginNavbar") %>
 
     <!-- ALL JS VARIABLES AND DECLARATIONS [START] -->
-    
+    <% var random = (Math.floor(10000000 + Math.random() * 90000000)).toString() %>
+    <% var date = new Date(); var time = date.getTime().toString(); %>
+    <% var newid = random + time; %>
     <!-- ALL JS VARIABLES AND DECLARATIONS [END] -->
 
 
@@ -27,7 +29,7 @@
         <div class="myCrate-top-buttons" style="border: 3px solid transparent;">
             <div class="myCrate-addButton-group">
                 <!-- <a class="top-buttons" href="">+ New Subscription</a> -->
-                <a class="top-buttons" href="/addsubscription/<%- Date.now() %>">+ Custom Subscription</a>
+                <a class="top-buttons" href="/editsubscription/<%- newid %>">+ Custom Subscription</a>
             </div>
         </div>
         <h1 class="myCrate-header">
@@ -82,7 +84,7 @@
                         <div class="myCrate-table-row">
                             <div class="table-cell">
                                 <p>
-                                    <a href="" style="color: #2ecc71;">Edit</a>
+                                    <a href="/addsubscription/<%- subList[i]['subID'] %>" style="color: #2ecc71;">Edit</a>
                                 </p>
         
                             </div>

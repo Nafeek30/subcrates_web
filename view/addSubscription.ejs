@@ -11,7 +11,7 @@
     <link rel="stylesheet" a href="../public/css/loginNavbar.css" />
     <link rel="stylesheet" a href="../public/css/footer.css" />
 
-        <title>Subcrates - Add subscription. Add <%- subscription.data().subscriptionName %> subscription to your crate.</title>
+        <title>Subcrates - Add or Edit subscription. Add or Edit <%- subscription.data().subscriptionName %> subscription to your crate.</title>
 </head>
 <body>
     <%- include("partials/loginNavbar") %>
@@ -24,7 +24,7 @@
 
     <div class="container">
         <div class="card">
-        <h1>Add <%- subscription.data().subscriptionName %> : </h1>
+        <h1><%- subscription.data().subscriptionName %> : </h1>
             
             <div class="info">
 
@@ -39,8 +39,10 @@
                             <label for="subscriptionPlans" style="margin-top: 2rem;">Choose a subscription plan:</label>
                             <select name="subscriptionPlans" id="subscriptionPlans">
                                 <option value="unselected" selected>Unselected</option>
+                                <% if( typeof plans !== 'undefined') { %>
                                 <% for(let i = 0; i < plans.length; i++) { %>
                                     <option value="<%- plans[i] %>"><%- plans[i] %></option>
+                                <% } %>
                                 <% } %>
                             </select>
                             <input type="text" name="customPlan" id="customPlan" class="inputs" placeholder="Enter Custom Plan Name..." value="">
@@ -52,8 +54,10 @@
                             <label for="subscriptionPrice" style="margin-top: 2rem;">Choose a subscription price:</label>
                             <select name="subscriptionPrice" id="subscriptionPrice">
                                 <option value="unselected" selected>Unselected</option>
+                                <% if(typeof prices !== 'undefined') { %>
                                 <% for(let i = 0; i < prices.length; i++) { %>
                                     <option value="<%- prices[i] %>">$<%- prices[i] %></option>
+                                <% } %>
                                 <% } %>
                             </select>
                             <input type="text" name="customPrice" id="customPrice" class="inputs" placeholder="Enter Custom Price Value..." value="">

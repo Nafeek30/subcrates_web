@@ -216,6 +216,8 @@ function isAuthenticated(req, res, next) {
 
         // Filter all categories to get unique categories and put in array
         uniqueCategories = Array.from(new Set(allCategories));
+        // Remove custom items from homepage display
+        uniqueCategories = uniqueCategories.filter(item => item !== 'Custom');
 
         // THEN RENDER HOMEPAGE
         res.render('Homepage', {allSubscriptions, uniqueCategories, name: loginEmail});
@@ -333,16 +335,17 @@ function isAuthenticated(req, res, next) {
         console.log(subList);
         // Check if any subscriptions match with the newly added one
         for(let i = 0; i < subList.length; i++) {
-          console.log(subList[i]['subName']);
-          if(subName === subList[i]['subName']) {
+          console.log(subList[i]['subID']);
+          if(docID === subList[i]['subID']) {
             // Delete that item and store the newly added item
             users.doc(firebase.auth().currentUser.email).update({
-              userSubscriptions: user.data().userSubscriptions.filter(s => s.subName != subName)
+              userSubscriptions: user.data().userSubscriptions.filter(s => s.subID != docID)
             }).then(newly => {
 
               // Then update firebase document with the new subsciption that's been added 
               users.doc(firebase.auth().currentUser.email).update({
                 "userSubscriptions": admin.firestore.FieldValue.arrayUnion({
+                  "subID": docID,
                   "subName": subName,
                   "planName": plan,
                   "price": price,
@@ -369,6 +372,7 @@ function isAuthenticated(req, res, next) {
         // Otherwise update firebase document with the new subsciption that's been added 
         users.doc(firebase.auth().currentUser.email).update({
           "userSubscriptions": admin.firestore.FieldValue.arrayUnion({
+            "subID": docID,
             "subName": subName,
             "planName": plan,
             "price": price,
@@ -399,17 +403,28 @@ function isAuthenticated(req, res, next) {
 
     // Get the subscription name which is the document id from the query
     var docID = req.params.id;
+    console.log(docID);
+    var n = 'Custom name';
 
-    subscriptions.doc(docID).get()
-      .then( subscription => {
-        res.render('editSubscription', {subscription});
+
+
+    let data = {
+      subscriptionName: n,
+      category: "Custom",
+    }
+
+     subscriptions.doc(docID).set(data)
+      .then(sub => {
+        var q = '/addSubscription/' + docID;
+        res.redirect(q);
+        return;
       })
       .catch(err1 => {
         res.render('errorpage', { message: err1});
       });
 
   });
-
+ 
 
 
   // GET ROUTE FOR DELETING A SUBSCRIPTION [FORMAT /addsubscription/:id -> the id(name) of the subscription being displayed/added]
@@ -520,22 +535,6 @@ function isAuthenticated(req, res, next) {
 
 
 
-  // GET ROUTE FOR LOGOUT - log out user when they click on [Option > Logout]
-  app.get('/logout', (req, res) => {
-    
-    // Log out user using firebase logout
-    firebase.auth().signOut()
-    .then(result => {
-        res.redirect('/');
-    })
-    .catch(err => {
-        console.log('logout err')
-        res.render('errorPage', {message: err})
-    })
-  });
-
-
-
 
 // RESET PASSWORD PAGE GET ROUTE
 app.get('/resetpassword', (req, res) => {
@@ -559,3 +558,20 @@ app.post('/resetpassword', (req, res) => {
       res.render('errorpage', { message: "Enter a valid email" });
   }
 });
+
+
+
+
+  // GET ROUTE FOR LOGOUT - log out user when they click on [Option > Logout]
+  app.get('/logout', (req, res) => {
+    
+    // Log out user using firebase logout
+    firebase.auth().signOut()
+    .then(result => {
+        res.redirect('/');
+    })
+    .catch(err => {
+        console.log('logout err')
+        res.render('errorPage', {message: err})
+    })
+  });

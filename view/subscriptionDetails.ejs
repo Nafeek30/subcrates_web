@@ -48,6 +48,7 @@
                     
                     <div class="product-pricing-row">
                         <!-- Declare plans & prices array to variables and use them for plans & pricing -->
+                        <% if( typeof plans !== 'undefined') { %>
                         <% for(let i = 0; i < plans.length; i++) { %>
                             <div class="product-pricing-container">
                                 <div class="card" style="width: 12rem; text-align: center;">
@@ -58,6 +59,7 @@
                                     </div>
                                   </div>
                             </div>
+                        <% } %>
                         <% } %>
                     </div>
                 </div>
