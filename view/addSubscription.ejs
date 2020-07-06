@@ -55,9 +55,11 @@
                             <select name="subscriptionPrice" id="subscriptionPrice">
                                 <option value="unselected" selected>Unselected</option>
                                 <% if(typeof prices !== 'undefined') { %>
-                                <% for(let i = 0; i < prices.length; i++) { %>
-                                    <option value="<%- prices[i] %>">$<%- prices[i] %></option>
-                                <% } %>
+                                    <% for(let i = 0; i < prices.length; i++) { %>
+                                        <% if(prices[i] != 0.01) { %>
+                                            <option value="<%- prices[i] %>">$<%- prices[i] %></option>
+                                        <% } %>
+                                    <% } %>
                                 <% } %>
                             </select>
                             <input type="text" name="customPrice" id="customPrice" class="inputs" placeholder="Enter Custom Price Value..." value="">

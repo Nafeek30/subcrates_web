@@ -16,8 +16,13 @@
 const firebase = require('firebase');
 const analytics = require('@firebase/analytics');
 const admin = require('firebase-admin');
-
-
+// cloud storage firebase
+const {Storage} = require('@google-cloud/storage');
+const storage = new Storage({
+  projectId: 'subcrates',
+  keyFilename: 'subcrates-firebase-adminsdk-a4mf1-10268ea17c.json'
+});
+// Initialize firebase service account
 const serviceAccount = require('./subcrates-firebase-adminsdk-a4mf1-10268ea17c.json');
 
 
@@ -47,6 +52,8 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 // firebase.analytics();
 
+// Initialize bucket for firebase storage. USE UPLOAD AND DOWNLOADS USING THIS VARIABLE - [bucket]
+ const bucket = storage.bucket('gs://subcrates.appspot.com');
 
 
 /* ALL OTHER IMPORTS */
@@ -212,12 +219,15 @@ function isAuthenticated(req, res, next) {
           allSubscriptions.push(singleSubscription);
           // push all categories into array
           allCategories.push(singleSubscription.data().category);
+          
         });
-
+         
         // Filter all categories to get unique categories and put in array
         uniqueCategories = Array.from(new Set(allCategories));
         // Remove custom items from homepage display
         uniqueCategories = uniqueCategories.filter(item => item !== 'Custom');
+        // imageKeys = Object.keys(allImages);
+        // imageValues = Object.values(allImages);
 
         // THEN RENDER HOMEPAGE
         res.render('Homepage', {allSubscriptions, uniqueCategories, name: loginEmail});
@@ -231,6 +241,33 @@ function isAuthenticated(req, res, next) {
   });
 
 
+
+  // POST ROUTE - SEARCH - Use the name from the search query to find the item and display it in 
+  // subscription details page.
+  // If name is not in the subscription list in db then return 'Subscription Not found. Use Custom sub
+  // to create your own subscription.'
+  app.post('/search', isAuthenticated, (req, res) => {
+
+    // Get the name of the subscription from the search body 
+    var name = req.body.searchBar;
+
+    // Get all subscriptions and then find the one whose [subscriptionName] matches [name] and redirect
+    // to [subscriptionDetails] page.
+    subscriptions.get()
+      .then(subscriptionSnap => {
+        subscriptionSnap.forEach(singleSubscription => {
+          if(singleSubscription.data().subscriptionName == name) {
+            res.redirect('/subscription/' + singleSubscription.id);
+            return;
+          }
+        });
+        res.render('errorpage', 
+        { message: 'No such subscription found in our database. Please use custom subscription to add it. If you would like us to add this subscription let us know by contacting us.'})
+      })
+
+    
+  });
+
   
 
   // GET ROUTE FOR SUBSCRIPTIONS [FORMAT /subscription/id] where [id] -> the id/name of the subscription being displayed
@@ -238,7 +275,6 @@ function isAuthenticated(req, res, next) {
 
     // Get the subscription name which is the document id from the query
     var docID = req.params.id;
-    console.log(docID);
 
     subscriptions.doc(docID).get()
       .then( subscription => {
@@ -276,8 +312,6 @@ function isAuthenticated(req, res, next) {
 
     // Get the subscription name which is the document id from the query
     var docID = req.params.id;
-    console.log(docID);
-
     
     // Get the subscription innformation from the GET page
     // Subscriptions to retrieve and store: name, plan, price, last bill date, frequency of renewal, 
@@ -332,10 +366,9 @@ function isAuthenticated(req, res, next) {
       .then(user => {
         // Get the list of current subscriptions
         let subList = user.data().userSubscriptions;
-        console.log(subList);
+
         // Check if any subscriptions match with the newly added one
         for(let i = 0; i < subList.length; i++) {
-          console.log(subList[i]['subID']);
           if(docID === subList[i]['subID']) {
             // Delete that item and store the newly added item
             users.doc(firebase.auth().currentUser.email).update({
@@ -403,8 +436,7 @@ function isAuthenticated(req, res, next) {
 
     // Get the subscription name which is the document id from the query
     var docID = req.params.id;
-    console.log(docID);
-    var n = 'Custom name';
+    var n = 'Custom subscription';
 
 
 
@@ -432,17 +464,14 @@ function isAuthenticated(req, res, next) {
 
     // Get the name of the subscription from the id
     var subName = req.params.id;
-    console.log(subName);
 
     // First check if the subscription is already added and delete it if it is
     users.doc(firebase.auth().currentUser.email).get()
       .then(user => {
         // Get the list of current subscriptions
         let subList = user.data().userSubscriptions;
-        console.log(subList);
         // Check if any subscriptions match with the newly added one
         for(let i = 0; i < subList.length; i++) {
-          console.log(subList[i]['subName']);
           if(subName === subList[i]['subName']) {
             // Delete the subscription by filtering it out of the array
             users.doc(firebase.auth().currentUser.email).update({

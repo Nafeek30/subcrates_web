@@ -5,11 +5,11 @@
     </button>
 
     <div class="navbar-collapse login-elements">
-        <form class="form-inline">
+        <form class="form-inline" action="/search" method="POST" onsubmit>
             <div class="input-group">                    
-                <input type="text" class="form-control" id="login-searchBar" placeholder="Search">
+                <input type="text" class="form-control" name="searchBar" id="login-searchBar" placeholder="Search">
                 <div class="input-group-append">
-                    <button type="button" class="btn login-search"><i class="fa fa-search"></i></button>
+                    <button type="submit" class="btn login-search"><i class="fa fa-search"></i></button>
                 </div>
             </div>
         </form>

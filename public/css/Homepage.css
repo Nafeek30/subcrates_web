@@ -3,14 +3,14 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    color: #34495e;
 }
 
 
 body {
-    font-family: 'Poppins', sans-serif;
     font-weight: 300;
     font-size: 75%;
-    color: #34495e;
 }
 
 
@@ -53,8 +53,12 @@ body {
 
 
 .homepage-card-img {
-    display: block;
+    /* display: block; */
     width: 100%;
+    /* specify height to keep all boxes of similar size */
+    height: 150px;  
+    object-fit: cover;
+    /* background-color: #4669c8; */
 }
 
 
@@ -76,7 +80,7 @@ body {
 
 
 .homepage-card-middle-text {
-    font-size: 1rem;
+    font-size: 0.75rem;
     border-radius: 2px;
     background-color: #ecf0f1;
     padding: 10px 22px;

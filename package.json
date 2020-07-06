@@ -19,6 +19,7 @@
   "homepage": "https://github.com/Nafeek30/subcrates_web#readme",
   "dependencies": {
     "@firebase/analytics": "^0.3.6",
+    "@google-cloud/storage": "^5.1.1",
     "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.5",
     "csurf": "^1.11.0",

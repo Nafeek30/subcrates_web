@@ -19,7 +19,7 @@
 
 
     <div class="container homepage-content">
-        <h1><%- name %></h1>
+        <!-- <h1><%- name %></h1> -->
         <% for(let i = 0; i < uniqueCategories.length; i++) { %>
         <div class="row">
             <h3><%- uniqueCategories[i] %></h3>
@@ -30,8 +30,8 @@
                 <% if(subscription.data().category === uniqueCategories[i]) { %>
                 <div class="homepage-card-container">
                     <figure class="homepage-card">
-                        <div class="pomepage-card-hero">
-                            <img src="https://www.rd.com/wp-content/uploads/2019/09/Cute-cat-lying-on-his-back-on-the-carpet.-Breed-British-mackerel-with-yellow-eyes-and-a-bushy-mustache.-Close-up-e1573490045672.jpg" class="homepage-card-img" alt="Card Image">
+                        <div class="homepage-card-hero">
+                            <img src="<%- subscription.data().image %>" class="homepage-card-img" alt="Card Image">
                         </div>
                         <div class="homepage-card-content">
                             <div class="homepage-card-middle">
