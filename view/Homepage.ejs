@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Bootstrap CSS -->
+    <%- include("partials/header") %>    
+    <link rel="stylesheet" a href="../public/css/Homepage.css" />
+    <link rel="stylesheet" a href="../public/css/loginNavbar.css" />
+    <link rel="stylesheet" a href="../public/css/footer.css" />
+
+
+    <title>Subcrates Home: Subscription Categories & Subscriptions List</title>
+</head>
+<body>
+    <%- include("partials/loginNavbar") %>
+
+
+    <div class="container homepage-content">
+        <!-- <h1><%- name %></h1> -->
+        <% for(let i = 0; i < uniqueCategories.length; i++) { %>
+        <div class="row">
+            <h3><%- uniqueCategories[i] %></h3>
+            <hr>
+        </div>
+        <div class="homepage-category-items">
+            <% allSubscriptions.forEach(subscription => { %>
+                <% if(subscription.data().category === uniqueCategories[i]) { %>
+                <div class="homepage-card-container">
+                    <figure class="homepage-card">
+                        <div class="homepage-card-hero">
+                            <img src="<%- subscription.data().image %>" class="homepage-card-img" alt="Card Image">
+                        </div>
+                        <div class="homepage-card-content">
+                            <div class="homepage-card-middle">
+                                <p class="homepage-card-middle-text">
+                                    <%- subscription.data().subscriptionName %>
+                                </p>
+                            </div>
+        
+                            <div class="homepage-card-info">
+                                <!-- <h6 class="homepage-card-price"> Starts At: $8.99</h6> -->
+                                <p class="homepage-card-description"> 
+                                    <%- subscription.data().shortDesc %>
+                                </p>
+                            </div>
+        
+                            <div class="homepage-card-buttons">
+                                <!-- href="/subscription/:id" && 'id' is subscription.id where subscription is one subscription -->
+                                <a href="/subscription/<%-subscription.id%>" class="homepage-card-btn">View More</a>
+                            </div>
+        
+                        </div>
+                    </figure>
+                </div> 
+            <% } %>
+            <% }) %>
+        </div>
+        <% } %>
+    </div>
+
+
+    <%- include("partials/footer") %>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <%- include("partials/scripts") %>
+</body>
+</html>

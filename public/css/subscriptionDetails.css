@@ -1,0 +1,359 @@
+:root { 
+  --primary: #4669c8;
+}
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+
+body {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 300;
+    font-size: 75%;
+    color: #34495e;
+  background-color: #efefef;
+}
+
+
+a {
+  color: #4669c8;
+}
+
+
+.container{
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  overflow: hidden;
+}
+
+.card{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 860px;
+}
+
+.subDetail-Background{
+  position: relative;
+  width: 50%;
+  height: 475px;
+  box-shadow: -15px 0 35px rgba(0, 0, 0, 0.1),
+  0 -15px 35px rgba(0, 0, 0, 0.1),
+  0 15px 35px rgba(0, 0, 0, 0.1);
+  transition: .5s;
+}
+
+/* .gradients{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+} */
+
+
+@keyframes width{
+  from{
+      width: 0%;
+  }
+  to{
+      width: 100%;
+  }
+}
+
+.second{
+  z-index: -1;
+}
+
+
+.logo{
+  width: max-content;
+  height: fit-content;
+}
+
+.share{
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background-color: #fff;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  text-align: center;
+  font-size: 1.3rem;
+  text-decoration: none;
+  color: var(--primary);
+  transition: .5s;
+}
+
+.share:hover{
+  transform: scale(1.1);
+}
+
+.share i{
+  line-height: 50px;
+}
+
+.shoe{
+  position: absolute;
+  width: 140%;
+  opacity: 0;
+  bottom: 0;
+  right: 0;
+  transform: rotate(-20deg);
+  transition: .5s;
+}
+
+.shoe.show{
+  opacity: 1;
+}
+
+.info{
+  width: 50%;
+  background-color: #fff;
+  z-index: 1;
+  padding: 35px 40px;
+  box-shadow: 15px 0 35px rgba(0, 0, 0, 0.1),
+  0 -15px 35px rgba(0, 0, 0, 0.1),
+  0 15px 35px rgba(0, 0, 0, 0.1);
+}
+
+.subscription-name{
+  padding: 0 0 10px 0;
+}
+
+.subscription-name div{
+  display: flex;
+  align-items: center;
+}
+
+.subscription-name div .big{
+  margin-right: 10px;
+  font-size: 2rem;
+  color: #333;
+  line-height: 1;
+}
+
+.subscription-name div .new{
+  background-color: var(--primary);
+  text-transform: uppercase;
+  color: #fff;
+  padding: 3px 10px;
+  border-radius: 5px;
+  transition: .5s;
+}
+
+.subscription-name .small{
+  font-weight: 500;
+  color: #f39c12;
+  margin-top: 3px;
+  text-transform: capitalize;
+}
+
+.subscription-name, .description, .price-container{
+  border-bottom: 1px solid #4669c8;
+}
+
+.description{
+  padding: 10px 0;
+}
+
+.title{
+  color: #3a3a3a;
+  font-weight: 600;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+}
+
+.text{
+  color: #555;
+  font-size: 17px;
+}
+
+.price-container{
+  padding: 10px 0;
+}
+
+.product-pricing-row {
+  display: flex;
+  overflow-x: scroll;
+  padding: 0.75rem;
+}
+
+.product-pricing-container {
+  display: flex;
+  justify-content: start;
+  align-items: flex-start;
+  margin: 0.5rem;
+}
+
+.btn-primary {
+  background-color: #4669c8;
+  border-color: #4669c8;
+}
+
+.pricing-cards {
+  display: flex;
+    justify-content: start;
+    align-items: flex-start;
+    margin: 0.5rem;
+}
+
+
+.buy-price{
+  padding-top: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.buy{
+  padding: .7rem 1rem;
+  background-color: var(--primary);
+  text-decoration: none;
+  color: whitesmoke;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 500;
+  font-size: 1.1rem;
+  transition: .5s;
+}
+
+.buy:hover{
+  transform: scale(1.1);
+  color: whitesmoke;
+}
+
+.buy i{
+  margin-right: 2px;
+}
+
+
+
+
+/* ALL MEDIA QUERY CODE GOES BELOW THIS POINT */
+
+@media screen and (max-width: 1070px){
+  .shoe{
+      width: 135%;
+  }
+}
+
+@media screen and (max-width: 1500px){
+  .card{
+      flex-direction: column;
+      width: 100%;
+      box-shadow: 0 0 35px 1px rgba(0, 0, 0, 0.2);
+  }
+  
+  .card > div{
+      width: 100%;
+      box-shadow: none;
+  }
+
+  .shoe{
+      width: 100%;
+      transform: rotate(-5deg) translateY(-50%);
+      top: 55%;
+      right: 2%;
+  }
+}
+
+
+
+
+@media screen and (max-width: 1500px){
+  .share{
+      width: 40px;
+      height: 40px;
+  }
+
+  .share i {
+      font-size: 1rem;
+      line-height: 40px;
+  }
+
+  .logo{
+      width: 70px;
+  }
+}
+
+@media screen and (max-width: 1500px){
+
+  .subscription-name div .big{
+      font-size: 1.3rem;
+      /* color: #e74c3c; */
+      text-decoration-line: underline;
+  }
+
+  .small{
+      font-size: 1rem;
+  }
+
+  .new{
+      padding: 2px 6px;
+      font-size: .9rem;
+  }
+
+  .title{
+      font-size: .9rem;
+  }
+
+  .text{
+      font-size: .8rem;
+  }
+
+  .buy{
+      padding: .5rem .8rem;
+      font-size: .8rem;
+  }
+
+  .price h1{
+      font-size: 1.5rem;
+  }
+
+  .price i{
+      font-size: .9rem;
+  }
+
+  .share{
+      width: 35px;
+      height: 35px;
+      top: 10px;
+      right: 10px;
+  }
+
+  .share i{
+      font-size: .8rem;
+      line-height: 35px;
+  }
+
+  .logo{
+      width: 60px;
+      top: 10px;
+      left: 10px;
+  }
+
+  .info{
+      padding: 20px;
+  }
+}
+
+@media screen and (max-width: 400px){
+  .buy i{
+      display: none;
+  }
+
+  .container{
+      padding: 20px;
+  }
+}
+
+

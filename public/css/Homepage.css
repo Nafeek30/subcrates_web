@@ -1,0 +1,144 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    color: #34495e;
+}
+
+
+body {
+    font-weight: 300;
+    font-size: 75%;
+}
+
+
+
+.homepage-content {
+    padding-top: 1.5rem;
+}
+
+/* ALL CARD CSS IN THE HOMEPAGE */
+
+.homepage-category-items {
+    display: flex;
+    overflow-x: scroll;
+    padding: 0.75rem;
+}
+
+
+.homepage-card-container {
+    display: flex;
+    justify-content: start;
+    align-items: flex-start;
+    margin: 0.5rem;
+}
+
+
+.homepage-card{
+    width: 14rem;
+    overflow: hidden;
+    border-radius: 1px;
+    box-shadow: 0 0 0 0.1em #4669c8;
+
+
+    transition: all 0.5;
+}
+
+
+.homepage-card-hero {
+    flex: 0 0 50%;
+}
+
+
+.homepage-card-img {
+    /* display: block; */
+    width: 100%;
+    /* specify height to keep all boxes of similar size */
+    height: 150px;  
+    object-fit: cover;
+    /* background-color: #4669c8; */
+}
+
+
+.homepage-card-content {
+    flex: 1;
+    padding: 25px 30px 20px 30px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.homepage-card-middle {
+    position: absolute;
+    top: -15px;
+}
+
+
+.homepage-card-middle-text {
+    font-size: 0.75rem;
+    border-radius: 2px;
+    background-color: #ecf0f1;
+    padding: 10px 22px;
+    font-weight: bold;
+    box-shadow: 0 0 0 0.1em #4669c8;
+}
+
+
+.homepage-card-info {
+    width: 100%;
+    margin: 15px 5px 0;
+}
+
+
+.homepage-card-price {
+    font-weight: 500;
+    font-size: 1.2rem;
+    margin-bottom: 0.25rem;
+}
+
+
+.homepage-card-address {
+    font-size: 0.75rem;
+    font-weight: 400;
+    margin-bottom: 0.4rem;
+}
+
+
+.homepage-card-details {
+    font-size: 0.6rem;
+    font-weight: 400;
+    margin-bottom: 1rem;
+}
+
+
+.homepage-card-description {
+    height: 3rem;
+    overflow: scroll;
+    max-lines: 3;
+}
+
+.homepage-card-buttons {
+    margin-top: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+}
+
+
+.homepage-card-btn {
+    text-transform: uppercase;
+    text-decoration: none;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #4669c8;
+}
+
+
+.homepage-card-btn:not(:last-child) {
+    margin-right: 2rem;
+}

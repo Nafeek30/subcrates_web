@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+    <!-- BOOTSTRAP CSS -->
+    <%- include("../partials/header") %>    
+    <link rel="stylesheet" a href="../../public/css/myCrate.css" />
+    <link rel="stylesheet" a href="../../public/css/loginNavbar.css" />
+    <link rel="stylesheet" a href="../../public/css/footer.css" />
+
+
+    <title>My Crate - View, Add and Edit Your Subscriptions.</title>
+</head>
+<body>
+    <%- include("../partials/loginNavbar") %>
+
+    <!-- ALL JS VARIABLES AND DECLARATIONS [START] -->
+    <% var random = (Math.floor(10000000 + Math.random() * 90000000)).toString() %>
+    <% var date = new Date(); var time = date.getTime().toString(); %>
+    <% var newid = random + time; %>
+    <!-- ALL JS VARIABLES AND DECLARATIONS [END] -->
+
+
+    <section class="container-fluid">
+        <div class="myCrate-top-buttons" style="border: 3px solid transparent;">
+            <div class="myCrate-addButton-group">
+                <!-- <a class="top-buttons" href="">+ New Subscription</a> -->
+                <a class="top-buttons" href="/editsubscription/<%- newid %>">+ Custom Subscription</a>
+            </div>
+        </div>
+        <h1 class="myCrate-header">
+            MY CRATE:
+        </h1>
+        <h6>
+            Today's date is 
+            <script> document.write(new Date().toLocaleDateString()); </script>
+        </h6>
+        <div class="myCrate-list-container">
+            <!-- USE THE VIDEOS TO MAKE THE TABLE -->
+            <div class="myCrate-table-box">
+                <!--  -->
+                <!-- HEADER ROW FOR MY CRATE LIST -->
+                <!--  -->
+                <div class="myCrate-table-row" id="table-header">
+                    <div class="table-cell">
+                        <p></p>
+                    </div>
+                    <div class="table-cell">
+                        <p>Logo</p>
+                    </div>
+                    <div class="table-cell">
+                        <p>Name</p>
+                    </div>
+                    <div class="table-cell">
+                        <p>Plan</p>
+                    </div>
+                    <div class="table-cell">
+                        <p>Price</p>
+                    </div>
+                    <div class="table-cell">
+                        <p>Next Bill Date</p>
+                    </div>
+                    <div class="table-cell">
+                        <p>Remind Me</p>
+                    </div>
+                    <div class="table-cell">
+                        <p>Billing Frequency</p>
+                    </div>
+                    <div class="table-cell">
+                        <p></p>
+                    </div>
+                </div>
+
+                <!--  -->
+                <!-- CONTENT ROW FOR MY CRATE LIST -->
+                <!--  -->
+                <% for(let i = 0; i < subList.length; i++) { %>
+
+                    <div class="myCrate-row-and-notes">
+                        <div class="myCrate-table-row">
+                            <div class="table-cell">
+                                <p>
+                                    <a href="/addsubscription/<%- subList[i]['subID'] %>" style="color: #2ecc71;">Edit</a>
+                                </p>
+        
+                            </div>
+                            <div class="table-cell">
+                                <p>Netflix.logo</p>
+                            </div>
+                            <div class="table-cell">
+                                <p><%- subList[i]['subName'] %></p>
+                            </div>
+                            <div class="table-cell">
+                                <p><%- subList[i]['planName'] %></p>
+                            </div>
+                            <div class="table-cell">
+                                <p>$<%- subList[i]['price'] %></p>
+                            </div>
+                            <div class="table-cell">
+                                <p><%- dateList[i] %></p>
+                            </div>
+                            <div class="table-cell">
+                                <% if(subList[i]['subscriptionNotification'] == 7) { %>
+                                    <p>Don't notify me. </p>
+                                <% } else { %>
+                                <p><%- subList[i]['subscriptionNotification'] %> day(s) before due</p>
+                                <% } %>
+                            </div>
+                            <div class="table-cell">
+                                <% if(subList[i]['subscriptionFrequency'] == '') { %>
+                                    <p>Please add billing frequency. </p>
+                                <% } else { %>
+                                <p><%- subList[i]['subscriptionFrequency'] %></p>
+                                <% } %>
+                            </div>
+                            <div class="table-cell">
+                                <p><a href="/deletesubscription/<%- subList[i]['subName'] %>" style="color: #e74c3c;">Delete</a></p>
+                            </div>
+                        </div>
+                        <!--  -->
+                        <!-- TABLE ROW THAT CONTAINS NOTES THAT DISPLAYS ON CLICK -->
+                        <!--  -->
+                        <div id="myCrate-notes" style="display: none;">
+                            <h6>
+                                Notes:
+                            </h6>
+                            <p>
+                                <%- subList[i]['subscriptionNotes'] %>
+                            </p>
+                        </div>
+                    </div>
+        
+                <% } %>
+
+                <!-- TOTAL COST OF ALL SUBSCRIPTIONS -->
+                <div class="myCrate-total" style="text-align: center; font-size: 1.25rem;">
+                    <p>
+                        Total weekly expenses = <span style="color: #2ecc71;">$ <%- weeklyCost %></span> 
+                    </p>
+                    <p>
+                        Total monthly expenses = <span style="color: #f1c40f;">$ <%- monthlyCost %></span>
+                    </p>
+                    <p>
+                        Total yearly expenses = <span style="color: #e67e22;">$ <%- yearlyCost %></span>
+                    </p>
+                </div>
+            </div>
+      
+            <!-- DISCLAIMERS BEFORE FOOTER -->
+            <p style="padding: 2rem 0; color: #4669c8;">
+                Adding subscriptions hint: Use the search field to find subscriptions available in our database. 
+                If you can't find it use custom subscription button to add a custom subscription.
+            </p>
+            <p style="padding: 0.5rem 0; color: #4669c8;">
+                Notes Hint: Click on a subscription to view its notes.
+            </p>
+            <p style="padding: 0.5rem 0; color: #e74c3c;">
+                Disclaimer: Adding to your crate doesn't subscribe you to the service.
+                Subscribe on official website.
+            </p>
+           
+        </div>
+    </section>
+
+
+
+
+
+    <%- include("../partials/footer") %>
+
+
+    <!-- JAVASCRIPT FUNCTIONS -->
+    <!-- TOGGLE NOTES SECTION ON AND OFF -->
+<script>
+    var coll = document.getElementsByClassName('myCrate-table-row');
+    var item = document.getElementById('myCrate-notes');
+    var i;
+
+    for(i = 0; i < coll.length; i++) {
+        coll[i].addEventListener('click', function() {
+            this.classList.toggle('active');
+            var content = this.nextElementSibling;
+            console.log(content);
+            if(content.style.display === 'block') {
+                content.style.display = 'none';
+            } else {
+                content.style.display = 'block';
+            }
+        });
+    }
+</script>
+
+        <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <%- include("../partials/scripts") %>
+
+</body>
+</html>
+
+
+
+
