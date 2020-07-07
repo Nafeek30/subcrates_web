@@ -34,6 +34,9 @@
                             <!-- Subscription Name -->
                             <input type="text" name="name" id="name" class="inputs" placeholder="Subscription Name..." value="<%- subscription.data().subscriptionName %>" required>
 
+                            <!-- Subscription logo -->
+                            <input type="text" name="logo" id="logo" class="inputs" value="<%- subscription.data().image %>" hidden>
+
                             <!-- Subscription plan -->
 
                             <label for="subscriptionPlans" style="margin-top: 2rem;">Choose a subscription plan:</label>

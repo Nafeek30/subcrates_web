@@ -77,74 +77,96 @@
                 <!--  -->
                 <!-- CONTENT ROW FOR MY CRATE LIST -->
                 <!--  -->
-                <% for(let i = 0; i < subList.length; i++) { %>
+                <% if(subList != undefined) { %>
+                    <% for(let i = 0; i < subList.length; i++) { %>
 
-                    <div class="myCrate-row-and-notes">
-                        <div class="myCrate-table-row">
-                            <div class="table-cell">
+                        <div class="myCrate-row-and-notes">
+                            <div class="myCrate-table-row">
+                                <div class="table-cell">
+                                    <p>
+                                        <a href="/addsubscription/<%- subList[i]['subID'] %>" style="color: #2ecc71;">Edit</a>
+                                    </p>
+            
+                                </div>
+                                <div class="table-cell">
+                                    <img src="<%- subList[i]['logoLink'] %>" alt="subscription logo" height="100" width="90%" >
+                                </div>
+                                <div class="table-cell">
+                                    <p><%- subList[i]['subName'] %></p>
+                                </div>
+                                <div class="table-cell">
+                                    <p><%- subList[i]['planName'] %></p>
+                                </div>
+                                <div class="table-cell">
+                                    <% if(subList[i]['price'] == undefined || subList[i]['price'] < 0.01) { %>
+                                        <p></p>
+                                    <% } else { %>
+                                        <p>$<%- subList[i]['price'] %></p>
+                                    <% } %>
+                                </div>
+                                <div class="table-cell">
+                                    <p><%- dateList[i] %></p>
+                                </div>
+                                <div class="table-cell">
+                                    <% if(subList[i]['subscriptionNotification'] == 7) { %>
+                                        <p>Don't notify me. </p>
+                                    <% } else { %>
+                                    <p><%- subList[i]['subscriptionNotification'] %> day(s) before due</p>
+                                    <% } %>
+                                </div>
+                                <div class="table-cell">
+                                    <% if(subList[i]['subscriptionFrequency'] == '') { %>
+                                        <p>Please add billing frequency. </p>
+                                    <% } else { %>
+                                    <p><%- subList[i]['subscriptionFrequency'] %></p>
+                                    <% } %>
+                                </div>
+                                <div class="table-cell">
+                                    <p><a href="/deletesubscription/<%- subList[i]['subName'] %>" style="color: #e74c3c;">Delete</a></p>
+                                </div>
+                            </div>
+                            <!--  -->
+                            <!-- TABLE ROW THAT CONTAINS NOTES THAT DISPLAYS ON CLICK -->
+                            <!--  -->
+                            <div id="myCrate-notes" style="display: none;">
+                                <h6>
+                                    Notes:
+                                </h6>
                                 <p>
-                                    <a href="/addsubscription/<%- subList[i]['subID'] %>" style="color: #2ecc71;">Edit</a>
+                                    <%- subList[i]['subscriptionNotes'] %>
                                 </p>
-        
-                            </div>
-                            <div class="table-cell">
-                                <p>Netflix.logo</p>
-                            </div>
-                            <div class="table-cell">
-                                <p><%- subList[i]['subName'] %></p>
-                            </div>
-                            <div class="table-cell">
-                                <p><%- subList[i]['planName'] %></p>
-                            </div>
-                            <div class="table-cell">
-                                <p>$<%- subList[i]['price'] %></p>
-                            </div>
-                            <div class="table-cell">
-                                <p><%- dateList[i] %></p>
-                            </div>
-                            <div class="table-cell">
-                                <% if(subList[i]['subscriptionNotification'] == 7) { %>
-                                    <p>Don't notify me. </p>
-                                <% } else { %>
-                                <p><%- subList[i]['subscriptionNotification'] %> day(s) before due</p>
-                                <% } %>
-                            </div>
-                            <div class="table-cell">
-                                <% if(subList[i]['subscriptionFrequency'] == '') { %>
-                                    <p>Please add billing frequency. </p>
-                                <% } else { %>
-                                <p><%- subList[i]['subscriptionFrequency'] %></p>
-                                <% } %>
-                            </div>
-                            <div class="table-cell">
-                                <p><a href="/deletesubscription/<%- subList[i]['subName'] %>" style="color: #e74c3c;">Delete</a></p>
                             </div>
                         </div>
-                        <!--  -->
-                        <!-- TABLE ROW THAT CONTAINS NOTES THAT DISPLAYS ON CLICK -->
-                        <!--  -->
-                        <div id="myCrate-notes" style="display: none;">
-                            <h6>
-                                Notes:
-                            </h6>
-                            <p>
-                                <%- subList[i]['subscriptionNotes'] %>
-                            </p>
-                        </div>
-                    </div>
-        
+            
+                    <% } %>
                 <% } %>
+
 
                 <!-- TOTAL COST OF ALL SUBSCRIPTIONS -->
                 <div class="myCrate-total" style="text-align: center; font-size: 1.25rem;">
                     <p>
-                        Total weekly expenses = <span style="color: #2ecc71;">$ <%- weeklyCost %></span> 
+                        Total weekly expenses = 
+
+                        <% if(weeklyCost != undefined) { %>
+                            <span style="color: #2ecc71;">$ <%- weeklyCost %></span> 
+                        <% } %>
+
                     </p>
                     <p>
-                        Total monthly expenses = <span style="color: #f1c40f;">$ <%- monthlyCost %></span>
+                        Total monthly expenses = 
+                        
+                        <% if(monthlyCost != undefined) { %>
+                            <span style="color: #f1c40f;">$ <%- monthlyCost %></span>
+                        <% } %>
+
                     </p>
                     <p>
-                        Total yearly expenses = <span style="color: #e67e22;">$ <%- yearlyCost %></span>
+                        Total yearly expenses = 
+                        
+                        <% if(yearlyCost != undefined) { %>
+                            <span style="color: #e67e22;">$ <%- yearlyCost %></span>
+                        <% } %>
+
                     </p>
                 </div>
             </div>
