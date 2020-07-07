@@ -98,7 +98,7 @@
                                     <p><%- subList[i]['planName'] %></p>
                                 </div>
                                 <div class="table-cell">
-                                    <% if(subList[i]['price'] == undefined || subList[i]['price'] < 0.01) { %>
+                                    <% if(subList[i]['price'] == undefined) { %>
                                         <p></p>
                                     <% } else { %>
                                         <p>$<%- subList[i]['price'] %></p>
