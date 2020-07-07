@@ -153,7 +153,19 @@ function isAuthenticated(req, res, next) {
             /// signing in and redirecting to homepage with new account
             firebase.auth().signInWithEmailAndPassword(signupEmail, signupPassword)
               .then(result3 => {
-                
+              
+                // Current date
+                var date = new Date().toLocaleDateString();
+                // Then update firebase document with the new subsciption that's been added 
+              users.doc(firebase.auth().currentUser.email).update({
+                "userSubscriptions": admin.firestore.FieldValue.arrayUnion({
+                  "subID": 'subcrates',
+                  "subName": 'Subcrates',
+                  "logoLink": 'https://firebasestorage.googleapis.com/v0/b/subcrates.appspot.com/o/subscriptionImages%2Fsubcrates.png?alt=media&token=3dd33224-e8fb-4156-bf30-11027a0157f3',
+                  "lastPaidDate": date,
+                })
+              });
+
                 // THEN RENDER HOMEPAGE
                 res.redirect('/homepage'); 
 
@@ -165,12 +177,12 @@ function isAuthenticated(req, res, next) {
           })
           .catch(err2 => {
             console.log('signup err2');
-            res.render('errorpage', { message: err2.message })
+            res.render('errorPage', { message: err2.message })
           })
       })
       .catch((err1) => {
         console.log('signup err1');
-        res.render('errorpage', { message: err1.message })
+        res.render('errorPage', { message: err1.message })
       });
     } else {
     /**
@@ -187,10 +199,10 @@ function isAuthenticated(req, res, next) {
       .catch(err1 => {
         if (loginEmail == "") {
           console.log('login err1');
-          res.render('errorpage', { message: "The email is blank!" });
+          res.render('errorPage', { message: "The email is blank!" });
         } else {
           console.log('login err2');
-          res.render('errorpage', { message: err1.message });
+          res.render('errorPage', { message: err1.message });
         }
       })
     }
@@ -261,7 +273,7 @@ function isAuthenticated(req, res, next) {
             return;
           }
         });
-        res.render('errorpage', 
+        res.render('errorPage', 
         { message: 'No such subscription found in our database. Please use custom subscription to add it. If you would like us to add this subscription let us know by contacting us.'})
       })
 
@@ -281,7 +293,7 @@ function isAuthenticated(req, res, next) {
         res.render('subscriptionDetails', {subscription});
       })
       .catch(err1 => {
-        res.render('errorpage', { message: err1});
+        res.render('errorPage', { message: err1});
       });
 
   });
@@ -300,7 +312,7 @@ function isAuthenticated(req, res, next) {
         res.render('addSubscription', {subscription});
       })
       .catch(err1 => {
-        res.render('errorpage', { message: err1});
+        res.render('errorPage', { message: err1});
       });
 
   });
@@ -357,7 +369,11 @@ function isAuthenticated(req, res, next) {
       subscriptionNotification = Number(req.body.subscriptionNotification);
     }
 
+    // notes
     var subscriptionNotes = req.body.subscriptionNotes;
+
+    // logo
+    var logoLink = req.body.logo;
 
 
 
@@ -382,6 +398,7 @@ function isAuthenticated(req, res, next) {
                   "subName": subName,
                   "planName": plan,
                   "price": price,
+                  "logoLink": logoLink,
                   "lastPaidDate": lastPaidlDate,
                   "subscriptionFrequency": subscriptionFrequency,
                   "subscriptionNotification": subscriptionNotification,
@@ -393,7 +410,7 @@ function isAuthenticated(req, res, next) {
                 return;
               })
               .catch(err3 => {
-                res.render('errorpage', { message: err3});
+                res.render('errorPage', { message: err3});
               })
             })
             .catch(err2 => {
@@ -409,6 +426,7 @@ function isAuthenticated(req, res, next) {
             "subName": subName,
             "planName": plan,
             "price": price,
+            "logoLink": logoLink,
             "lastPaidDate": lastPaidlDate,
             "subscriptionFrequency": subscriptionFrequency,
             "subscriptionNotification": subscriptionNotification,
@@ -419,11 +437,11 @@ function isAuthenticated(req, res, next) {
           res.redirect('/mycrate');
         })
         .catch(err3 => {
-          res.render('errorpage', { message: err3});
+          res.render('errorPage', { message: err3});
         })
       })
       .catch(err1 => {
-      res.render('errorpage', { message: err1});
+      res.render('errorPage', { message: err1});
       })
 
   }); // END POST ROUTE FOR ADDING A SUBSCRIPTION
@@ -452,7 +470,7 @@ function isAuthenticated(req, res, next) {
         return;
       })
       .catch(err1 => {
-        res.render('errorpage', { message: err1});
+        res.render('errorPage', { message: err1});
       });
 
   });
@@ -465,7 +483,11 @@ function isAuthenticated(req, res, next) {
     // Get the name of the subscription from the id
     var subName = req.params.id;
 
-    // First check if the subscription is already added and delete it if it is
+    if(subName == 'Subcrates') {
+      res.render('errorPage', { message: 'Error: This subscription can only be edited.'});
+      return;
+    } else {
+      // First check if the subscription is already added and delete it if it is
     users.doc(firebase.auth().currentUser.email).get()
       .then(user => {
         // Get the list of current subscriptions
@@ -483,11 +505,12 @@ function isAuthenticated(req, res, next) {
             })
             .catch(err1 => {
               console.log(err1);
-              res.render('errorpage', { message: err1});
-            })
+              res.render('errorPage', { message: err1});
+            });
           }
         }
-      })
+      });
+    }
 
   });
 
@@ -507,47 +530,49 @@ function isAuthenticated(req, res, next) {
       .then(user => {
         let subList = user.data().userSubscriptions;
 
-        subList.forEach((sub) => {
-          console.log(sub['lastPaidDate']['_seconds']);
-          console.log(Date.today());
-          // FOR WEEKLY COST
-          if(sub['subscriptionFrequency'] == 'weekly') {
-            var nextbill = new Date((sub['lastPaidDate']['_seconds'] + 604800) * 1000).toISOString();
-            nextbill = Date.parse(nextbill).toString("M/d/yyyy");
-            dateList.push(nextbill);
 
-            if(sub['price'] != '') {
-              weeklyCost += sub['price'];
-              monthlyCost += (sub['price'] * 4);
-              yearlyCost += (sub['price'] * 48);
-            }
-          // FOR MONTHLY COST
-          } else if(sub['subscriptionFrequency'] == 'monthly') {
-            var nextbill = new Date((sub['lastPaidDate']['_seconds'] + 2592000) * 1000).toISOString();
-            nextbill = Date.parse(nextbill).toString("M/d/yyyy");
-            dateList.push(nextbill);
+          // Get firebase date in seconds and set up bill date display and calculate weekly, monthly & yearly expenses
+          subList.forEach((sub) => {
+            console.log(sub['lastPaidDate']['_seconds']);
+            console.log(Date.today());
+            // FOR WEEKLY COST
+            if(sub['subscriptionFrequency'] == 'weekly') {
+              var nextbill = new Date((sub['lastPaidDate']['_seconds'] + 604800) * 1000).toISOString();
+              nextbill = Date.parse(nextbill).toString("M/d/yyyy");
+              dateList.push(nextbill);
 
-            if(sub['price'] != '') {
-              weeklyCost += (sub['price'] / 4);
-              monthlyCost += sub['price'];
-              yearlyCost += (sub['price'] * 12);
-            }
-          // FOR YEARLY COST
-          } else if (sub['subscriptionFrequency'] == 'yearly') {
-            var nextbill = new Date((sub['lastPaidDate']['_seconds'] + (2592000 * 12)) * 1000).toISOString();
-            nextbill = Date.parse(nextbill).toString("M/d/yyyy");
-            dateList.push(nextbill);
+              if(sub['price'] != '') {
+                weeklyCost += sub['price'];
+                monthlyCost += (sub['price'] * 4);
+                yearlyCost += (sub['price'] * 48);
+              }
+            // FOR MONTHLY COST
+            } else if(sub['subscriptionFrequency'] == 'monthly') {
+              var nextbill = new Date((sub['lastPaidDate']['_seconds'] + 2592000) * 1000).toISOString();
+              nextbill = Date.parse(nextbill).toString("M/d/yyyy");
+              dateList.push(nextbill);
 
-            if(sub['price'] != '') {
-              weeklyCost += (sub['price'] / 48);
-              monthlyCost += (sub['price'] / 12);
-              yearlyCost += sub['price'];
+              if(sub['price'] != '') {
+                weeklyCost += (sub['price'] / 4);
+                monthlyCost += sub['price'];
+                yearlyCost += (sub['price'] * 12);
+              }
+            // FOR YEARLY COST
+            } else if (sub['subscriptionFrequency'] == 'yearly') {
+              var nextbill = new Date((sub['lastPaidDate']['_seconds'] + (2592000 * 12)) * 1000).toISOString();
+              nextbill = Date.parse(nextbill).toString("M/d/yyyy");
+              dateList.push(nextbill);
+
+              if(sub['price'] != '') {
+                weeklyCost += (sub['price'] / 48);
+                monthlyCost += (sub['price'] / 12);
+                yearlyCost += sub['price'];
+              }
+            } else {
+              var text = 'Date or frequency is missing';
+              dateList.push(text);
             }
-          } else {
-            var text = 'Date or frequency is missing';
-            dateList.push(text);
-          }
-        });
+          });
 
         res.render('MyCrate/myCrate', {subList, dateList, weeklyCost, monthlyCost, yearlyCost});
       })
@@ -584,7 +609,7 @@ app.post('/resetpassword', (req, res) => {
               res.redirect('/');
           })
   } else {
-      res.render('errorpage', { message: "Enter a valid email" });
+      res.render('errorPage', { message: "Enter a valid email" });
   }
 });
 
