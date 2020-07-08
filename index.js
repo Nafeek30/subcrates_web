@@ -161,7 +161,7 @@ function isAuthenticated(req, res, next) {
                 "userSubscriptions": admin.firestore.FieldValue.arrayUnion({
                   "subID": 'subcrates',
                   "subName": 'Subcrates',
-                  "logoLink": 'https://firebasestorage.googleapis.com/v0/b/subcrates.appspot.com/o/subscriptionImages%2Fsubcrates.png?alt=media&token=3dd33224-e8fb-4156-bf30-11027a0157f3',
+                  "logoLink": 'https://firebasestorage.googleapis.com/v0/b/subcrates.appspot.com/o/subscriptionImages%2Fsubcrates.png?alt=media&token=7472cfaa-3d67-4f12-b517-96d82090b9cd',
                   "lastPaidDate": date,
                 })
               });
