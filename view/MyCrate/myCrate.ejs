@@ -101,7 +101,7 @@
                                     <% if(subList[i]['price'] == undefined) { %>
                                         <p></p>
                                     <% } else { %>
-                                        <p>$<%- subList[i]['price'] %></p>
+                                        <p>$<%- parseFloat(subList[i]['price']).toFixed(2) %></p>
                                     <% } %>
                                 </div>
                                 <div class="table-cell">
@@ -148,7 +148,7 @@
                         Total weekly expenses = 
 
                         <% if(weeklyCost != undefined) { %>
-                            <span style="color: #2ecc71;">$ <%- weeklyCost %></span> 
+                            <span style="color: #2ecc71;">$ <%- parseFloat(weeklyCost).toFixed(2) %></span> 
                         <% } %>
 
                     </p>
@@ -156,7 +156,7 @@
                         Total monthly expenses = 
                         
                         <% if(monthlyCost != undefined) { %>
-                            <span style="color: #f1c40f;">$ <%- monthlyCost %></span>
+                            <span style="color: #f1c40f;">$ <%- parseFloat(monthlyCost).toFixed(2) %></span>
                         <% } %>
 
                     </p>
@@ -164,7 +164,7 @@
                         Total yearly expenses = 
                         
                         <% if(yearlyCost != undefined) { %>
-                            <span style="color: #e67e22;">$ <%- yearlyCost %></span>
+                            <span style="color: #e67e22;">$ <%- parseFloat(yearlyCost).toFixed(2) %></span>
                         <% } %>
 
                     </p>

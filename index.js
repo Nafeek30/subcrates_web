@@ -22,19 +22,6 @@ const storage = new Storage({
   projectId: 'subcrates',
   keyFilename: 'subcrates-firebase-adminsdk-a4mf1-10268ea17c.json'
 });
-// Initialize firebase service account
-const serviceAccount = require('./subcrates-firebase-adminsdk-a4mf1-10268ea17c.json');
-
-
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: 'https://subcrates.firebaseio.com'
-});
-
-const db = admin.firestore();
-const users = db.collection('users');
-const subscriptions = db.collection('subscriptions');
-
 
 
 // Your web app's Firebase configuration
@@ -54,6 +41,23 @@ firebase.initializeApp(firebaseConfig);
 
 // Initialize bucket for firebase storage. USE UPLOAD AND DOWNLOADS USING THIS VARIABLE - [bucket]
  const bucket = storage.bucket('gs://subcrates.appspot.com');
+
+// Initialize firebase service account
+const serviceAccount = require('./subcrates-firebase-adminsdk-a4mf1-10268ea17c.json');
+
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: 'https://subcrates.firebaseio.com'
+});
+
+const db = admin.firestore();
+// db.enablePersistence();
+const users = db.collection('users');
+const subscriptions = db.collection('subscriptions');
+
+
+
 
 
 /* ALL OTHER IMPORTS */
@@ -231,7 +235,6 @@ function isAuthenticated(req, res, next) {
           allSubscriptions.push(singleSubscription);
           // push all categories into array
           allCategories.push(singleSubscription.data().category);
-          
         });
          
         // Filter all categories to get unique categories and put in array
