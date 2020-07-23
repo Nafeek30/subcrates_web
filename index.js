@@ -533,13 +533,10 @@ function isAuthenticated(req, res, next) {
       .then(user => {
         let subList = user.data().userSubscriptions;
 
-
           // Get firebase date in seconds and set up bill date display and calculate weekly, monthly & yearly expenses
           subList.forEach((sub) => {
-            console.log(sub['lastPaidDate']['_seconds']);
-            console.log(Date.today());
             // FOR WEEKLY COST
-            if(sub['subscriptionFrequency'] == 'weekly') {
+            if(sub['subscriptionFrequency'] == 'Weekly') {
               var nextbill = new Date((sub['lastPaidDate']['_seconds'] + 604800) * 1000).toISOString();
               nextbill = Date.parse(nextbill).toString("M/d/yyyy");
               dateList.push(nextbill);
@@ -547,10 +544,10 @@ function isAuthenticated(req, res, next) {
               if(sub['price'] != '') {
                 weeklyCost += sub['price'];
                 monthlyCost += (sub['price'] * 4);
-                yearlyCost += (sub['price'] * 48);
+                yearlyCost += (sub['price'] * 52);
               }
             // FOR MONTHLY COST
-            } else if(sub['subscriptionFrequency'] == 'monthly') {
+            } else if(sub['subscriptionFrequency'] == 'Monthly') {
               var nextbill = new Date((sub['lastPaidDate']['_seconds'] + 2592000) * 1000).toISOString();
               nextbill = Date.parse(nextbill).toString("M/d/yyyy");
               dateList.push(nextbill);
@@ -561,13 +558,13 @@ function isAuthenticated(req, res, next) {
                 yearlyCost += (sub['price'] * 12);
               }
             // FOR YEARLY COST
-            } else if (sub['subscriptionFrequency'] == 'yearly') {
+            } else if (sub['subscriptionFrequency'] == 'Yearly') {
               var nextbill = new Date((sub['lastPaidDate']['_seconds'] + (2592000 * 12)) * 1000).toISOString();
               nextbill = Date.parse(nextbill).toString("M/d/yyyy");
               dateList.push(nextbill);
 
               if(sub['price'] != '') {
-                weeklyCost += (sub['price'] / 48);
+                weeklyCost += (sub['price'] / 52);
                 monthlyCost += (sub['price'] / 12);
                 yearlyCost += sub['price'];
               }
