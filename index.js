@@ -568,7 +568,7 @@ function isSubscribed(req, res, next) {
           if(subID === subList[i]) {
             // Delete the subscription from user's array list 
             users.doc(firebase.auth().currentUser.email).update({
-              userSubscriptions: admin.firestore.FieldValue.arrayRemove(subID)
+              usersubscriptions: admin.firestore.FieldValue.arrayRemove(subID)
             }).then(result => {
               // Delete the subscription from [user subscription] collection
               // for this user
