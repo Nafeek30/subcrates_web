@@ -10,6 +10,8 @@
     <link rel="stylesheet" a href="../../public/css/settings.css" />
     <link rel="stylesheet" a href="../../public/css/loginNavbar.css" />
     <link rel="stylesheet" a href="../../public/css/footer.css" />
+    <link rel="stylesheet" a href="../../public/css/stripe.css" />
+
 
     <title>Subcrates - Settings - Change Password and Payment Information</title>
 </head>
@@ -23,7 +25,7 @@
 
         <div class="settings-email-group">
             <h6 id="settings-email">Email: </h6>
-            <p id="settings-email-value">nafeek30@gmail.com</p>
+            <p id="settings-email-value"> <%= userEmail %> </p>
         </div>
 
         <div class="settings-password-group">
@@ -35,9 +37,79 @@
 
         <div class="settings-payment-info">
             <h1>Payment Information: </h1>
-            <div class="settings-payment-group">
-                Card info
+            
+            <div class="setting-payment-block">
+                <div class="setting-payment-card">
+                    <div class="generic_content clearfix">
+                        
+                        <!--HEAD PRICE DETAIL START-->
+                        <div class="generic_head_price clearfix">
+                        
+                            <!--HEAD CONTENT START-->
+                            <div class="generic_head_content clearfix">
+                            
+                                <!--HEAD START-->
+                                <div class="head_bg"></div>
+                                <div class="head">
+                                    <span>Monthly Plan</span>
+                                </div>
+                                <!--//HEAD END-->
+                                
+                            </div>
+                            <!--//HEAD CONTENT END-->
+                            
+                            <!--PRICE START-->
+                            <div class="generic_price_tag clearfix">    
+                                <span class="price">
+                                    <span class="sign">$</span>
+                                    <span class="currency">0.99</span>
+                                    <span class="month">/mo</span>
+                                </span>
+                            </div>
+                            <!--//PRICE END-->
+                            
+                        </div>                            
+                        <!--//HEAD PRICE DETAIL END-->
+                        
+                        <!--FEATURE LIST START-->
+                        <div class="generic_feature_list">
+                            <ul>
+                                <li><span>Discover</span> new subscriptions.</li>
+                                <li><span>Manage</span> what you own.</li>
+                                <li><span>Receive</span> billing reminders.</li>
+                            </ul>
+                        </div>
+                        <!--//FEATURE LIST END--> 
+                    </div>
+                </div>
+                <div class="payment-button">
+                    <!-- If status is false then show subscribe button -->
+                    <% if(userStatus === false) { %>
+                        <form action="/subscribe" method="POST">
+                            <script 
+                            src="https://checkout.stripe.com/checkout.js" 
+                            class="stripe-button" 
+                            data-key="pk_test_51HEPplDb5Y9ujDqz1dKFB9V1gM34izHSZ5q6ST7THfIakJeYYs7hUzNOJAUPdNAIlho83p1hJWRDCyzdL12Qgved00ClXck68E" 
+                            data-name="Monthly Plan"                         
+                            data-description="Subcrates monthly subscription."                        
+                            data-amount='99' 
+                            data-label="Subscribe"
+                            data-locale="auto">
+                            </script>
+                        </form>
+                    <% } else if(userStatus === true) { %>
+                        <!-- If status is active then show cancel subscription button -->
+                        <form action="/cancelsubscription" method="POST">
+                            <button type="submit" class="btn" style="font-size: 1rem; letter-spacing: 0.05rem; background-color: #e74c3c; color: whitesmoke;">
+                                Cancel Subscription
+                            </button>
+                        </form>
+                        
+                    <% } %>
+                </div>
             </div>
+
+            
         </div>
 
     </section>

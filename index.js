@@ -55,6 +55,7 @@ const db = admin.firestore();
 // db.enablePersistence();
 const users = db.collection('users');
 const subscriptions = db.collection('subscriptions');
+const usersubscriptions = db.collection('usersubscriptions');
 
 
 
@@ -64,6 +65,7 @@ const subscriptions = db.collection('subscriptions');
 const express = require('express');
 const cookieParser = require('cookie-parser');  // read and write cookies
 const bodyParser = require('body-parser');      // to parse post request body as json
+const stripe = require('stripe')('sk_test_51HEPplDb5Y9ujDqzPU5sDc34YZdAPNBXBxRcYGc38uZKUsm2vSuvvdW69Fpn3T5w86wwUa2yVNNdKV5JmxByQBBg00aOtNBWtt');
 require('datejs');                // use date functions
 
 
@@ -107,8 +109,24 @@ function isAuthenticated(req, res, next) {
       next();
   } else {
     console.log('isAuthenticated has failed');
-      res.render('errorPage', { message: "Error: Please log in first." });
+      res.render('errorPage', { message: "Error: Please log in first.", displaySubscription: false });
   }
+}
+
+
+// Check if user is still subscribed 
+function isSubscribed(req, res, next) {
+
+  users.doc(firebase.auth().currentUser.email).get()
+    .then(user => {
+      var nowInSeconds = Math.trunc(new Date().getTime() / 1000);  
+
+      if(user.data().status == true || nowInSeconds < user.data().expiresAt) {
+        next();
+      } else {
+        res.render('errorPage', { message: 'Your subscription has expired.', displaySubscription: true }); 
+      }
+    })
 }
 
 
@@ -142,11 +160,9 @@ function isAuthenticated(req, res, next) {
     var loginPassword = req.body.loginPassword;
 
 
-
-
     /**
      * SIGN UP BLOCK ON LANDING PAGE
-     */
+    **/
     // When email and password are entered and checked by firebase create new user
     if(req.body.hasOwnProperty('signupButton')) {
       firebase.auth().createUserWithEmailAndPassword(signupEmail, signupPassword)
@@ -159,34 +175,57 @@ function isAuthenticated(req, res, next) {
               .then(result3 => {
               
                 // Current date
-                var date = new Date().toLocaleDateString();
-                // Then update firebase document with the new subsciption that's been added 
-              users.doc(firebase.auth().currentUser.email).update({
-                "userSubscriptions": admin.firestore.FieldValue.arrayUnion({
-                  "subID": 'subcrates',
-                  "subName": 'Subcrates',
-                  "logoLink": 'https://firebasestorage.googleapis.com/v0/b/subcrates.appspot.com/o/subscriptionImages%2Fsubcrates.png?alt=media&token=7472cfaa-3d67-4f12-b517-96d82090b9cd',
-                  "lastPaidDate": date,
-                })
-              });
+                // var date = new Date().toLocaleDateString();
+                var nowInSeconds = Math.trunc(new Date().getTime() / 1000);
+                // 14 day free trial
+                var expiresAtSeconds = nowInSeconds + (86400 * 14);
 
-                // THEN RENDER HOMEPAGE
-                res.redirect('/homepage'); 
+                // Then update firebase document with the new subsciption that's been added 
+                // and also update user with their free trial data
+
+                try {
+                  users.doc(firebase.auth().currentUser.email).update({
+                    // set status to false for free trial until paid subscription is bought.
+                    status: false, 
+                    expiresAt: expiresAtSeconds,
+                    usersubscriptions: admin.firestore.FieldValue.arrayUnion('subcrates')
+                  }).then(result => {
+                    usersubscriptions.add({
+                      subID: 'subcrates',
+                      subName: 'Subcrates',
+                      logoLink: 'https://firebasestorage.googleapis.com/v0/b/subcrates.appspot.com/o/subscriptionImages%2Fsubcrates.png?alt=media&token=7472cfaa-3d67-4f12-b517-96d82090b9cd',
+                      lastPaidDate: nowInSeconds,
+                      nextPayDate: expiresAtSeconds,
+                      userEmail: firebase.auth().currentUser.email
+                    });
+
+                    // THEN RENDER HOMEPAGE
+                    res.redirect('/homepage'); 
+                  })
+                  .catch(e => {
+                    console.log('signup user update error.');
+                    res.render('errorPage', { message: e.message, displaySubscription: false  })  
+                  });
+                } 
+                catch(e) {
+                  console.log('signup add/update error.');
+                  res.render('errorPage', { message: e.message, displaySubscription: false  })
+                }
 
               })
               .catch(err3 => {
                 console.log('signup err3');
-                res.render('errorPage', { message: err3.message })
+                res.render('errorPage', { message: err3.message, displaySubscription: false  })
               })
           })
           .catch(err2 => {
             console.log('signup err2');
-            res.render('errorPage', { message: err2.message })
+            res.render('errorPage', { message: err2.message, displaySubscription: false  })
           })
       })
       .catch((err1) => {
         console.log('signup err1');
-        res.render('errorPage', { message: err1.message })
+        res.render('errorPage', { message: err1.message, displaySubscription: false  })
       });
     } else {
     /**
@@ -206,7 +245,7 @@ function isAuthenticated(req, res, next) {
           res.render('errorPage', { message: "The email is blank!" });
         } else {
           console.log('login err2');
-          res.render('errorPage', { message: err1.message });
+          res.render('errorPage', { message: err1.message, displaySubscription: false });
         }
       })
     }
@@ -218,7 +257,7 @@ function isAuthenticated(req, res, next) {
 
 
   // GET ROUTE - Homepage
-  app.get('/homepage', isAuthenticated, (req, res) => {
+  app.get('/homepage', [isAuthenticated, isSubscribed], (req, res) => {
 
     // Arrays to store categories, unique categories and subscription data
     var allCategories = [];
@@ -248,9 +287,9 @@ function isAuthenticated(req, res, next) {
         res.render('Homepage', {allSubscriptions, uniqueCategories, name: loginEmail});
       })
       .catch((e) => {
-        console.log('SUBSCRIPTION DATABASE COULDN NOT BE ACCESSED.');
+        console.log('SUBSCRIPTION DATABASE COULD NOT BE ACCESSED.');
         console.log(e);
-        res.render('errorPage', {message: e.message})
+        res.render('errorPage', {message: e.message, displaySubscription: false })
       });  
 
   });
@@ -261,7 +300,7 @@ function isAuthenticated(req, res, next) {
   // subscription details page.
   // If name is not in the subscription list in db then return 'Subscription Not found. Use Custom sub
   // to create your own subscription.'
-  app.post('/search', isAuthenticated, (req, res) => {
+  app.post('/search', [isAuthenticated, isSubscribed], (req, res) => {
 
     // Get the name of the subscription from the search body 
     var name = req.body.searchBar;
@@ -277,7 +316,7 @@ function isAuthenticated(req, res, next) {
           }
         });
         res.render('errorPage', 
-        { message: 'No such subscription found in our database. Please use custom subscription to add it. If you would like us to add this subscription let us know by contacting us.'})
+        { message: 'No such subscription found in our database. Please use custom subscription to add it. If you would like us to add this subscription let us know by contacting us.', displaySubscription: false })
       })
 
     
@@ -286,7 +325,7 @@ function isAuthenticated(req, res, next) {
   
 
   // GET ROUTE FOR SUBSCRIPTIONS [FORMAT /subscription/id] where [id] -> the id/name of the subscription being displayed
-  app.get('/subscription/:id', isAuthenticated, (req, res) => {
+  app.get('/subscription/:id', [isAuthenticated, isSubscribed], (req, res) => {
 
     // Get the subscription name which is the document id from the query
     var docID = req.params.id;
@@ -296,7 +335,7 @@ function isAuthenticated(req, res, next) {
         res.render('subscriptionDetails', {subscription});
       })
       .catch(err1 => {
-        res.render('errorPage', { message: err1});
+        res.render('errorPage', { message: err1, displaySubscription: false });
       });
 
   });
@@ -305,7 +344,7 @@ function isAuthenticated(req, res, next) {
 
 
   // GET ROUTE FOR ADDING A SUBSCRIPTION [FORMAT /addsubscription/:id -> the id/name of the subscription being displayed/added]
-  app.get('/addsubscription/:id', (req, res) => {
+  app.get('/addsubscription/:id', [isAuthenticated, isSubscribed], (req, res) => {
 
     // Get the subscription name which is the document id from the query
     var docID = req.params.id;
@@ -315,7 +354,7 @@ function isAuthenticated(req, res, next) {
         res.render('addSubscription', {subscription});
       })
       .catch(err1 => {
-        res.render('errorPage', { message: err1});
+        res.render('errorPage', { message: err1, displaySubscription: false });
       });
 
   });
@@ -323,9 +362,9 @@ function isAuthenticated(req, res, next) {
 
 
   // POST ROUTE FOR ADDING A SUBSCRIPTION [FORMAT /addsubscription/:id -> the id/name of the subscription being displayed/added]
-  app.post('/addsubscription/:id', isAuthenticated, (req, res) => {
+  app.post('/addsubscription/:id', [isAuthenticated, isSubscribed], (req, res) => {
 
-    // Get the subscription name which is the document id from the query
+    // Get the subscription id which is the document id from the query
     var docID = req.params.id;
     
     // Get the subscription innformation from the GET page
@@ -333,6 +372,7 @@ function isAuthenticated(req, res, next) {
     // notify me (in days), notes, logo.
     var subName = req.body.name;
 
+    // plan name
     var plan;
     if(req.body.customPlan != '') {
       plan = req.body.customPlan;
@@ -344,6 +384,7 @@ function isAuthenticated(req, res, next) {
       }
     }
 
+    // price value
     var price;
     if(req.body.customPrice != '') {
       price = Number(req.body.customPrice);
@@ -355,8 +396,8 @@ function isAuthenticated(req, res, next) {
       }
     } 
 
-    var lastPaidlDate = new Date(req.body.lastBillDate);
 
+    // subscription frequency
     var subscriptionFrequency;
     if(req.body.subscriptionFrequency == 'unselected') {
       subscriptionFrequency = '';
@@ -365,6 +406,7 @@ function isAuthenticated(req, res, next) {
     }
 
 
+    // subscription Notification
     var subscriptionNotification;
     if(req.body.subscriptionNotification == 'unselected') {
       subscriptionNotification = 7;
@@ -372,11 +414,36 @@ function isAuthenticated(req, res, next) {
       subscriptionNotification = Number(req.body.subscriptionNotification);
     }
 
+
+    // last paid date
+    var lastPaidlDate = new Date(req.body.lastBillDate);
+    var lastPaidDateSeconds = Math.trunc(lastPaidlDate / 1000);
+
+
+    // next bill date
+    var nextBillInSeconds;
+    if(subscriptionFrequency == 'Weekly') {
+      nextBillInSeconds = lastPaidDateSeconds + (86400 * 7);
+    } else if(subscriptionFrequency == 'Monthly') {
+      nextBillInSeconds = lastPaidDateSeconds + (86400 * 30);
+    } else if(subscriptionFrequency == 'Yearly') {
+      nextBillInSeconds = lastPaidDateSeconds + (86400 * 365);
+    }
+
+
+    // notify At
+    if(subscriptionNotification => 0 && subscriptionNotification < 7) {
+      var notifyAtInSeconds = nextBillInSeconds - (86400 * subscriptionNotification);
+    }
+
+
     // notes
     var subscriptionNotes = req.body.subscriptionNotes;
 
+
     // logo
     var logoLink = req.body.logo;
+
 
 
 
@@ -384,67 +451,68 @@ function isAuthenticated(req, res, next) {
     users.doc(firebase.auth().currentUser.email).get()
       .then(user => {
         // Get the list of current subscriptions
-        let subList = user.data().userSubscriptions;
+        let subList = user.data().usersubscriptions;
 
-        // Check if any subscriptions match with the newly added one
-        for(let i = 0; i < subList.length; i++) {
-          if(docID === subList[i]['subID']) {
-            // Delete that item and store the newly added item
-            users.doc(firebase.auth().currentUser.email).update({
-              userSubscriptions: user.data().userSubscriptions.filter(s => s.subID != docID)
-            }).then(newly => {
-
-              // Then update firebase document with the new subsciption that's been added 
-              users.doc(firebase.auth().currentUser.email).update({
-                "userSubscriptions": admin.firestore.FieldValue.arrayUnion({
-                  "subID": docID,
-                  "subName": subName,
-                  "planName": plan,
-                  "price": price,
-                  "logoLink": logoLink,
-                  "lastPaidDate": lastPaidlDate,
-                  "subscriptionFrequency": subscriptionFrequency,
-                  "subscriptionNotification": subscriptionNotification,
-                  "subscriptionNotes": subscriptionNotes,
+        // Check if any subscriptions match with the newly added one.
+        // If yes, then update the subscription.
+        if(subList.includes(docID)) {
+          usersubscriptions.where('userEmail', '==', firebase.auth().currentUser.email)
+              .where('subID', '==', docID).get()
+              .then(querySnapshot => {
+                querySnapshot.forEach(doc => {
+                  doc.ref.update({
+                    'lastPaidDate': lastPaidDateSeconds,
+                    'nextPayDate': nextBillInSeconds == null ? '' : nextBillInSeconds,
+                    'notifyAt': notifyAtInSeconds == null ? '' : notifyAtInSeconds,
+                    'planName': plan,
+                    'price': price,
+                    'subName': subName,
+                    'subscriptionFrequency': subscriptionFrequency,
+                    'subscriptionNotification': subscriptionNotification,
+                    'subscriptionNotes': subscriptionNotes,
+                  })
+                  .then(result => {
+                    res.redirect('/mycrate');
+                  })
+                  .catch(e1 => {
+                    console.log('user subscription update failed.');
+                    res.render('errorPage', { message: e1, displaySubscription: false });                
+                  });
                 })
-              }).then(result => {
-                // store the new data to user's profile and then redirect to mycrates
-                res.redirect('/mycrate');
-                return;
               })
-              .catch(err3 => {
-                res.render('errorPage', { message: err3});
-              })
-            })
-            .catch(err2 => {
-              console.error("Error removing document: ", err2);
+        } else {
+          // Otherwise add the subscription to user's list and the
+          // [user subscriptions] collection
+          users.doc(firebase.auth().currentUser.email).update({
+            usersubscriptions: admin.firestore.FieldValue.arrayUnion(docID)            
+          }).then(result => {
+            usersubscriptions.add({
+              lastPaidDate: lastPaidDateSeconds,
+              nextPayDate: nextBillInSeconds,
+              notifyAt: notifyAtInSeconds,
+              logoLink: logoLink,
+              planName: plan,
+              price: price,
+              subID: docID,
+              subName: subName,
+              subscriptionFrequency: subscriptionFrequency,
+              subscriptionNotification: subscriptionNotification,
+              subscriptionNotes: subscriptionNotes,
+              userEmail: firebase.auth().currentUser.email
             });
-          } 
+
+            // store the new data to user's profile and then redirect to mycrates
+            res.redirect('/mycrate');
+          })
+          .catch(e2 => {
+            console.log('user subscription add failed');
+            res.render('errorPage', { message: err3, displaySubscription: false });
+          })
         }
 
-        // Otherwise update firebase document with the new subsciption that's been added 
-        users.doc(firebase.auth().currentUser.email).update({
-          "userSubscriptions": admin.firestore.FieldValue.arrayUnion({
-            "subID": docID,
-            "subName": subName,
-            "planName": plan,
-            "price": price,
-            "logoLink": logoLink,
-            "lastPaidDate": lastPaidlDate,
-            "subscriptionFrequency": subscriptionFrequency,
-            "subscriptionNotification": subscriptionNotification,
-            "subscriptionNotes": subscriptionNotes,
-          })
-        }).then(result => {
-          // store the new data to user's profile and then redirect to mycrates
-          res.redirect('/mycrate');
-        })
-        .catch(err3 => {
-          res.render('errorPage', { message: err3});
-        })
       })
       .catch(err1 => {
-      res.render('errorPage', { message: err1});
+      res.render('errorPage', { message: err1, displaySubscription: false });
       })
 
   }); // END POST ROUTE FOR ADDING A SUBSCRIPTION
@@ -453,14 +521,14 @@ function isAuthenticated(req, res, next) {
 
 
   // GET ROUTE FOR EDITINNG A SUBSCRIPTION [FORMAT /addsubscription/:id -> the id/name of the subscription being displayed/added]
-  app.get('/editsubscription/:id', isAuthenticated, (req, res) => {
+  app.get('/editsubscription/:id', [isAuthenticated, isSubscribed], (req, res) => {
 
     // Get the subscription name which is the document id from the query
     var docID = req.params.id;
     var n = 'Custom subscription';
 
 
-
+    // add data to subscription
     let data = {
       subscriptionName: n,
       category: "Custom",
@@ -473,7 +541,7 @@ function isAuthenticated(req, res, next) {
         return;
       })
       .catch(err1 => {
-        res.render('errorPage', { message: err1});
+        res.render('errorPage', { message: err1, displaySubscription: false });
       });
 
   });
@@ -481,34 +549,49 @@ function isAuthenticated(req, res, next) {
 
 
   // GET ROUTE FOR DELETING A SUBSCRIPTION [FORMAT /addsubscription/:id -> the id(name) of the subscription being displayed/added]
-  app.get('/deletesubscription/:id', isAuthenticated, (req, res) => {
+  app.get('/deletesubscription/:id', [isAuthenticated, isSubscribed], (req, res) => {
 
-    // Get the name of the subscription from the id
-    var subName = req.params.id;
+    // Get the id of the subscription from the param id
+    var subID = req.params.id;
 
-    if(subName == 'Subcrates') {
-      res.render('errorPage', { message: 'Error: This subscription can only be edited.'});
+    if(subID == 'subcrates') {
+      res.render('errorPage', { message: 'Error: This subscription can only be edited.', displaySubscription: false });
       return;
     } else {
       // First check if the subscription is already added and delete it if it is
     users.doc(firebase.auth().currentUser.email).get()
       .then(user => {
         // Get the list of current subscriptions
-        let subList = user.data().userSubscriptions;
+        let subList = user.data().usersubscriptions;
         // Check if any subscriptions match with the newly added one
         for(let i = 0; i < subList.length; i++) {
-          if(subName === subList[i]['subName']) {
-            // Delete the subscription by filtering it out of the array
+          if(subID === subList[i]) {
+            // Delete the subscription from user's array list 
             users.doc(firebase.auth().currentUser.email).update({
-              userSubscriptions: user.data().userSubscriptions.filter(s => s.subName != subName)
+              userSubscriptions: admin.firestore.FieldValue.arrayRemove(subID)
             }).then(result => {
-              // Load mycrates page again
-              res.redirect('/mycrate');
-              return;
+              // Delete the subscription from [user subscription] collection
+              // for this user
+              usersubscriptions.where('userEmail', '==', firebase.auth().currentUser.email)
+              .where('subID', '==', subID).get()
+              .then(querySnapshot => {
+                querySnapshot.forEach(doc => {
+                  doc.ref.delete();
+                });
+
+                // Load mycrates page again
+                res.redirect('/mycrate');
+                return;
+              })
+              .catch(er3 => {
+                console.log(err1);
+                res.render('errorPage', { message: err1, displaySubscription: false });
+              });
+
             })
             .catch(err1 => {
               console.log(err1);
-              res.render('errorPage', { message: err1});
+              res.render('errorPage', { message: err1, displaySubscription: false });
             });
           }
         }
@@ -521,7 +604,7 @@ function isAuthenticated(req, res, next) {
   
 
   // GET ROUTE FOR MY CRATE PAGE
-  app.get('/mycrate', isAuthenticated, (req, res) => {
+  app.get('/mycrate', [isAuthenticated, isSubscribed], (req, res) => {
     var dateList = [];
     var weeklyCost = 0.00;
     var monthlyCost = 0.00;
@@ -531,50 +614,64 @@ function isAuthenticated(req, res, next) {
     // use user email to get all the subscriptions and display them
     users.doc(firebase.auth().currentUser.email).get()
       .then(user => {
-        let subList = user.data().userSubscriptions;
+        let subList = [];
 
           // Get firebase date in seconds and set up bill date display and calculate weekly, monthly & yearly expenses
-          subList.forEach((sub) => {
-            // FOR WEEKLY COST
-            if(sub['subscriptionFrequency'] == 'Weekly') {
-              var nextbill = new Date((sub['lastPaidDate']['_seconds'] + 604800) * 1000).toISOString();
-              nextbill = Date.parse(nextbill).toString("M/d/yyyy");
-              dateList.push(nextbill);
+          usersubscriptions.where('userEmail', '==', firebase.auth().currentUser.email)
+            .get()
+            .then(subs => {
+              subs.forEach((sub) => {
+                // add subscription to subList
+                subList.push(sub);
 
-              if(sub['price'] != '') {
-                weeklyCost += sub['price'];
-                monthlyCost += (sub['price'] * 4);
-                yearlyCost += (sub['price'] * 52);
-              }
-            // FOR MONTHLY COST
-            } else if(sub['subscriptionFrequency'] == 'Monthly') {
-              var nextbill = new Date((sub['lastPaidDate']['_seconds'] + 2592000) * 1000).toISOString();
-              nextbill = Date.parse(nextbill).toString("M/d/yyyy");
-              dateList.push(nextbill);
+                // FOR WEEKLY COST
+                if(sub.data().subscriptionFrequency == 'Weekly') {
+                  var nextbill = new Date(sub.data().nextPayDate * 1000).toISOString();
+                  nextbill = Date.parse(nextbill).toString("M/d/yyyy");
+                  dateList.push(nextbill);
 
-              if(sub['price'] != '') {
-                weeklyCost += (sub['price'] / 4);
-                monthlyCost += sub['price'];
-                yearlyCost += (sub['price'] * 12);
-              }
-            // FOR YEARLY COST
-            } else if (sub['subscriptionFrequency'] == 'Yearly') {
-              var nextbill = new Date((sub['lastPaidDate']['_seconds'] + (2592000 * 12)) * 1000).toISOString();
-              nextbill = Date.parse(nextbill).toString("M/d/yyyy");
-              dateList.push(nextbill);
+                  if(sub.data().price != '') {
+                    weeklyCost += sub.data().price;
+                    monthlyCost += (sub.data().price * 4);
+                    yearlyCost += (sub.data().price * 52);
+                  }
+                // FOR MONTHLY COST
+                } else if(sub.data().subscriptionFrequency == 'Monthly') {
+                  var nextbill = new Date(sub.data().nextPayDate * 1000).toISOString();
+                  nextbill = Date.parse(nextbill).toString("M/d/yyyy");
+                  dateList.push(nextbill);
 
-              if(sub['price'] != '') {
-                weeklyCost += (sub['price'] / 52);
-                monthlyCost += (sub['price'] / 12);
-                yearlyCost += sub['price'];
-              }
-            } else {
-              var text = 'Date or frequency is missing';
-              dateList.push(text);
-            }
-          });
+                  if(sub.data().price != '') {
+                    weeklyCost += (sub.data().price / 4);
+                    monthlyCost += sub.data().price;
+                    yearlyCost += (sub.data().price * 12);
+                  }
+                // FOR YEARLY COST
+                } else if (sub.data().subscriptionFrequency == 'Yearly') {
+                  var nextbill = new Date(sub.data().nextPayDate * 1000).toISOString();
+                  nextbill = Date.parse(nextbill).toString("M/d/yyyy");
+                  dateList.push(nextbill);
 
-        res.render('MyCrate/myCrate', {subList, dateList, weeklyCost, monthlyCost, yearlyCost});
+                  if(sub.data().price != '') {
+                    weeklyCost += (sub.data().price / 52);
+                    monthlyCost += (sub.data().price / 12);
+                    yearlyCost += sub.data().price;
+                  }
+                } else {
+                  var text = 'Date or frequency is missing';
+                  dateList.push(text); 
+                }
+              })
+              res.render('MyCrate/myCrate', {subList, dateList, weeklyCost, monthlyCost, yearlyCost});
+            })
+            .catch(e4 => {
+              console.log(e4);
+              res.render('errorPage', { message: e4, displaySubscription: false });    
+            })
+      })
+      .catch(e5 => {
+        console.log(e5);
+        res.render('errorPage', { message: e5, displaySubscription: false });   
       })
 
   });
@@ -584,10 +681,93 @@ function isAuthenticated(req, res, next) {
 
   // GET ROUTE FOR SETTINGS PAGE
   app.get('/settings', isAuthenticated, (req, res) => {
-    res.render('Settings/settings')
+    // Get the status of the user to display the subscription OR cancel subscription
+    // button.
+    users.doc(firebase.auth().currentUser.email).get()
+      .then(user => {
+        var userStatus = user.data().status;
+        res.render('Settings/settings', {userStatus: userStatus, userEmail: firebase.auth().currentUser.email});
+      })
+      .catch(err1 => {
+        console.log(err1);
+        res.render('errorPage', { message: err1, displaySubscription: false });        
+      });
   });
 
 
+
+  // POST ROUTE TO CHARGE SUBSCRIPTION FEE
+  app.post('/subscribe', isAuthenticated, (req,res) => {
+
+    // Create a customer for the user and then assign automatic subscription
+    stripe.customers.create({
+      email: req.body.stripeEmail,
+      source: req.body.stripeToken
+    },function(err, customer) {
+
+      if(err) {
+        res.render('errorPage', { message: err, displaySubscription: false });
+      } else {
+        const { id } = customer;
+
+        stripe.subscriptions.create({
+          customer: id,
+          items: [
+            {
+              plan: 'price_1HEPwKDb5Y9ujDqzgT6Rn9LZ',
+            },
+          ],
+        }, function(err, subscription) {
+
+          console.log(subscription);
+          // Update user's status and subscription expiry time (in seconds) when user
+          // subscribes to Subcrates. 
+          users.doc(firebase.auth().currentUser.email).update({
+            status: true,
+            expiresAt: subscription.current_period_end,
+            subscriptionID: subscription.id
+          });
+
+          if(err) {
+            res.render('errorPage', { message: err, displaySubscription: false });            
+          } else {
+            res.render('Settings/settings', {userStatus: true, userEmail: firebase.auth().currentUser.email});
+          }
+        });
+      }
+    });
+  });
+
+
+// CANCEL SUBSCRIPTION POST ROUTE
+app.post('/cancelsubscription', isAuthenticated, (req, res) => {
+
+  users.doc(firebase.auth().currentUser.email).get()
+    .then(user => {
+      stripe.subscriptions.del(
+        user.data().subscriptionID,
+        // 'sss',
+        function(err, confirmation) {
+    
+          console.log(confirmation);
+    
+          // Update user's status to false 
+          users.doc(firebase.auth().currentUser.email).update({
+            status: false,
+            subscriptionID: ''
+          });
+          
+    
+          if(err) {
+            res.render('errorPage', { message: err, displaySubscription: false });            
+          } else {
+            // After cancelling subscription go to settings screen
+            res.render('Settings/settings', {userStatus: false, userEmail: firebase.auth().currentUser.email});
+          }
+        }
+      );
+    });
+});
 
 
 // RESET PASSWORD PAGE GET ROUTE
@@ -609,7 +789,7 @@ app.post('/resetpassword', (req, res) => {
               res.redirect('/');
           })
   } else {
-      res.render('errorPage', { message: "Enter a valid email" });
+      res.render('errorPage', { message: "Enter a valid email", displaySubscription: false });
   }
 });
 
@@ -626,6 +806,6 @@ app.post('/resetpassword', (req, res) => {
     })
     .catch(err => {
         console.log('logout err')
-        res.render('errorPage', {message: err})
+        res.render('errorPage', {message: err, displaySubscription: false })
     })
   });

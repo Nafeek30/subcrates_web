@@ -84,45 +84,47 @@
                             <div class="myCrate-table-row">
                                 <div class="table-cell">
                                     <p>
-                                        <a href="/addsubscription/<%- subList[i]['subID'] %>" style="color: #2ecc71;">Edit</a>
+                                        <a href="/addsubscription/<%- subList[i].data().subID %>" style="color: #2ecc71;">Edit</a>
                                     </p>
             
                                 </div>
                                 <div class="table-cell">
-                                    <img src="<%- subList[i]['logoLink'] %>" alt="subscription logo" height="100" width="90%" >
+                                    <img src="<%- subList[i].data().logoLink %>" alt="subscription logo" height="100" width="90%" >
                                 </div>
                                 <div class="table-cell">
-                                    <p><%- subList[i]['subName'] %></p>
+                                    <p><%- subList[i].data().subName %></p>
                                 </div>
                                 <div class="table-cell">
-                                    <p><%- subList[i]['planName'] %></p>
+                                    <p><%- subList[i].data().planName %></p>
                                 </div>
                                 <div class="table-cell">
-                                    <% if(subList[i]['price'] == undefined) { %>
+                                    <% if(subList[i].data().price == undefined) { %>
                                         <p></p>
                                     <% } else { %>
-                                        <p>$<%- parseFloat(subList[i]['price']).toFixed(2) %></p>
+                                        <p>$<%- parseFloat(subList[i].data().price).toFixed(2) %></p>
                                     <% } %>
                                 </div>
                                 <div class="table-cell">
                                     <p><%- dateList[i] %></p>
                                 </div>
                                 <div class="table-cell">
-                                    <% if(subList[i]['subscriptionNotification'] == 7) { %>
+                                    <% if(subList[i].data().subscriptionNotification == 7 || subList[i].data().subscriptionNotification == null) { %>
                                         <p>Don't notify me. </p>
+                                    <% } else if(subList[i].data().subscriptionNotification == 0) { %>
+                                        <p>Notify on billing date. </p>
                                     <% } else { %>
-                                    <p><%- subList[i]['subscriptionNotification'] %> day(s) before due</p>
+                                    <p><%- subList[i].data().subscriptionNotification %> day(s) before due</p>
                                     <% } %>
                                 </div>
                                 <div class="table-cell">
-                                    <% if(subList[i]['subscriptionFrequency'] == '') { %>
+                                    <% if(subList[i].data().subscriptionFrequency == '') { %>
                                         <p>Please add billing frequency. </p>
                                     <% } else { %>
-                                    <p><%- subList[i]['subscriptionFrequency'] %></p>
+                                    <p><%- subList[i].data().subscriptionFrequency %></p>
                                     <% } %>
                                 </div>
                                 <div class="table-cell">
-                                    <p><a href="/deletesubscription/<%- subList[i]['subName'] %>" style="color: #e74c3c;">Delete</a></p>
+                                    <p><a href="/deletesubscription/<%- subList[i].data().subID %>" style="color: #e74c3c;">Delete</a></p>
                                 </div>
                             </div>
                             <!--  -->
@@ -133,7 +135,7 @@
                                     Notes:
                                 </h6>
                                 <p>
-                                    <%- subList[i]['subscriptionNotes'] %>
+                                    <%- subList[i].data().subscriptionNotes %>
                                 </p>
                             </div>
                         </div>
@@ -173,8 +175,8 @@
       
             <!-- DISCLAIMERS BEFORE FOOTER -->
             <p style="padding: 2rem 0; color: #4669c8;">
-                Adding subscriptions hint: Use the search field to find subscriptions available in our database. 
-                If you can't find it use custom subscription button to add a custom subscription.
+                Adding subscriptions hint: Use the search field to find subscriptions available in our collection. 
+                If you can't find it, use the '+Custom Subscription' button to add a custom subscription.
             </p>
             <p style="padding: 0.5rem 0; color: #4669c8;">
                 Notes Hint: Click on a subscription to view its notes.
