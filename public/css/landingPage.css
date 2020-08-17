@@ -212,7 +212,7 @@ img {
 }
 
 .landing-Signup {
-    width: 40vw;
+    width: 30vw;
     height: 5vh;
     margin: 5px auto;
     display: flex;
@@ -443,7 +443,7 @@ img {
     .topnav .login-container {
       float: right;
     }
-    .topnav a, .topnav input[type=text], .topnav .login-container button {
+    .topnav a, .topnav input[type=text], .topnav input[type=password], .topnav .login-container button {
       /* float: none; */
       /* display: inline; */
       margin-top: 8px;
