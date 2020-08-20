@@ -732,7 +732,8 @@ function isSubscribed(req, res, next) {
           customer: id,
           items: [
             {
-              plan: 'price_1HEPwKDb5Y9ujDqzgT6Rn9LZ',
+              plan: 'price_1HEQZSDb5Y9ujDqzYReaXCVm',
+              
             },
           ],
         }, function(err, subscription) {
