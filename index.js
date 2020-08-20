@@ -65,7 +65,7 @@ const usersubscriptions = db.collection('usersubscriptions');
 const express = require('express');
 const cookieParser = require('cookie-parser');  // read and write cookies
 const bodyParser = require('body-parser');      // to parse post request body as json
-const stripe = require('stripe')('sk_test_51HEPplDb5Y9ujDqzPU5sDc34YZdAPNBXBxRcYGc38uZKUsm2vSuvvdW69Fpn3T5w86wwUa2yVNNdKV5JmxByQBBg00aOtNBWtt');
+const stripe = require('stripe')('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');
 require('datejs');                // use date functions
 
 
@@ -330,13 +330,21 @@ function isSubscribed(req, res, next) {
     // Get the subscription name which is the document id from the query
     var docID = req.params.id;
 
-    subscriptions.doc(docID).get()
+    // Update homeclick counter for the subscription and navigate to subscription detail page
+    subscriptions.doc(docID).update({
+      homepageViewMore: admin.firestore.FieldValue.increment(1)
+    }).then( result => {
+      subscriptions.doc(docID).get()
       .then( subscription => {
         res.render('subscriptionDetails', {subscription});
       })
       .catch(err1 => {
         res.render('errorPage', { message: err1, displaySubscription: false });
       });
+    })
+    .catch(err2 => {
+      res.render('errorPage', { message: err2, displaySubscription: false });
+    }) 
 
   });
 
@@ -349,14 +357,22 @@ function isSubscribed(req, res, next) {
     // Get the subscription name which is the document id from the query
     var docID = req.params.id;
 
-    subscriptions.doc(docID).get()
+    // Update addFromSubDescPage counter for the subscription and navigate to add subscription page
+    subscriptions.doc(docID).update({
+      addFromSubDescPage: admin.firestore.FieldValue.increment(1)
+    }).then(result => {
+      subscriptions.doc(docID).get()
       .then( subscription => {
         res.render('addSubscription', {subscription});
       })
       .catch(err1 => {
         res.render('errorPage', { message: err1, displaySubscription: false });
       });
-
+    })
+    .catch(err2 => {
+      res.render('errorPage', { message: err2, displaySubscription: false });
+    });
+    
   });
 
 
@@ -447,7 +463,7 @@ function isSubscribed(req, res, next) {
 
 
 
-    // First check if the subscription is already added and delete it if it is
+    // First check if the subscription is already added and update it if it is
     users.doc(firebase.auth().currentUser.email).get()
       .then(user => {
         // Get the list of current subscriptions
@@ -532,6 +548,8 @@ function isSubscribed(req, res, next) {
     let data = {
       subscriptionName: n,
       category: "Custom",
+      homepageViewMore: 0,
+      addFromSubDescPage: 0,
     }
 
      subscriptions.doc(docID).set(data)
