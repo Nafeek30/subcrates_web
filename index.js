@@ -548,6 +548,7 @@ function isSubscribed(req, res, next) {
     let data = {
       subscriptionName: n,
       category: "Custom",
+      image: '',
       homepageViewMore: 0,
       addFromSubDescPage: 0,
     }
