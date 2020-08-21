@@ -815,6 +815,17 @@ app.post('/resetpassword', (req, res) => {
 
 
 
+  // GET ROUTE FOR TERMS OF USE
+  app.get('/tos', (req, res) => {
+    res.render('Policies/termsOfUse');
+  });
+
+
+  // GET ROUTE FOR PRIVACCY
+  app.get('/privacy', (req, res) => {
+    res.render('Policies/privacy');
+  });
+
 
   // GET ROUTE FOR LOGOUT - log out user when they click on [Option > Logout]
   app.get('/logout', (req, res) => {
