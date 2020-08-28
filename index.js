@@ -37,7 +37,6 @@ var firebaseConfig = {
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
-// firebase.analytics();
 
 // Initialize bucket for firebase storage. USE UPLOAD AND DOWNLOADS USING THIS VARIABLE - [bucket]
  const bucket = storage.bucket('gs://subcrates.appspot.com');
@@ -175,7 +174,7 @@ function isSubscribed(req, res, next) {
               .then(result3 => {
               
                 // Current date
-                // var date = new Date().toLocaleDateString();
+                var date = new Date().toLocaleDateString();
                 var nowInSeconds = Math.trunc(new Date().getTime() / 1000);
                 // 14 day free trial
                 var expiresAtSeconds = nowInSeconds + (86400 * 14);
@@ -188,6 +187,7 @@ function isSubscribed(req, res, next) {
                     // set status to false for free trial until paid subscription is bought.
                     status: false, 
                     expiresAt: expiresAtSeconds,
+                    lastLogin: date,
                     usersubscriptions: admin.firestore.FieldValue.arrayUnion('subcrates')
                   }).then(result => {
                     usersubscriptions.add({
@@ -234,10 +234,16 @@ function isSubscribed(req, res, next) {
     // When email and password are entered and checked by firebase then log in user to [homepage]
     firebase.auth().signInWithEmailAndPassword(loginEmail, loginPassword)
       .then(result => {
+        // Current date
+        var date = new Date().toLocaleDateString();
 
+        /// update last login date for user
+        users.doc(firebase.auth().currentUser.email).update({
+          lastLogin: date,
+        });
         // THEN RENDER HOMEPAGE
         res.redirect('/homepage'); 
-
+        
       })
       .catch(err1 => {
         if (loginEmail == "") {
