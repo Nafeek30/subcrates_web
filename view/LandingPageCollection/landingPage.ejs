@@ -249,7 +249,15 @@
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <%- include("../partials/scripts") %>
-
+  <script>
+    // Add mixpanel signup tracker & create user
+    mixpanel.track("Landingpage");
+  </script>
+    <script type="text/javascript">
+      mixpanel.track_links("#nav a", "click nav link", {
+          "referrer": document.referrer
+      });
+    </script>
 
 </body>
 </html>

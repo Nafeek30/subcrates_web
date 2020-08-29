@@ -31,6 +31,8 @@
     "firebase-admin": "^8.12.1",
     "firebase-functions": "^3.7.0",
     "jquery": "^3.5.1",
+    "mixpanel": "^0.11.0",
+    "mixpanel-browser": "^2.39.0",
     "nodemon": "^2.0.3",
     "stripe": "^8.84.0"
   },

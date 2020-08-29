@@ -66,7 +66,9 @@ const cookieParser = require('cookie-parser');  // read and write cookies
 const bodyParser = require('body-parser');      // to parse post request body as json
 const stripe = require('stripe')('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');
 require('datejs');                // use date functions
-
+// Mixpanel imports
+const Mixpanel = require('mixpanel');
+const mixpanel = Mixpanel.init("1eafdc052a8f32cbaf49341a883b96e6");
 
 
 
@@ -197,6 +199,15 @@ function isSubscribed(req, res, next) {
                       lastPaidDate: nowInSeconds,
                       nextPayDate: expiresAtSeconds,
                       userEmail: firebase.auth().currentUser.email
+                    });
+
+                    // Mixpanel user register on signup
+                    // mixpanel.identify('test2@gmail.com');
+                    mixpanel.people.set(
+                      signupEmail,
+                      {
+                      $email: signupEmail,
+                      plan: 'Free'
                     });
 
                     // THEN RENDER HOMEPAGE
