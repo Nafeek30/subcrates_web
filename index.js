@@ -366,6 +366,29 @@ function isSubscribed(req, res, next) {
   });
 
 
+  app.post('/subscription/:id', [isAuthenticated, isSubscribed], (req, res) => {
+
+    // Get the subscription name which is the document id from the query
+    var docID = req.params.id;
+
+    // Get the review innformation from the GET page
+    // Subscriptions to retrieve and store: name, plan, price, last bill date, frequency of renewal, 
+    // notify me (in days), notes, logo.
+    var username = req.body.username;
+    var title = req.body.title;
+    var reviewGiven = req.body.reviewGiven;
+    var givenStarRating = req.body.givenStarRating;
+
+    console.log(docID);
+    console.log(username);
+    console.log(title);
+    console.log(reviewGiven);
+    console.log(givenStarRating);
+
+    res.send('found you');
+
+  });
+
 
 
   // GET ROUTE FOR ADDING A SUBSCRIPTION [FORMAT /addsubscription/:id -> the id/name of the subscription being displayed/added]

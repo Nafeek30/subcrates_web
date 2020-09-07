@@ -28,6 +28,16 @@
   mixpanel.init("1eafdc052a8f32cbaf49341a883b96e6", {batch_requests: true})</script>
 
 
+<!-- PROFITWELL SCRIPT TO TRACK USER CHURN -->
+<script id="profitwell-js" data-pw-auth="1ef166c977519befde386f07c8dc3df6">
+  (function(i,s,o,g,r,a,m){i[o]=i[o]||function(){(i[o].q=i[o].q||[]).push(arguments)};
+  a=s.createElement(g);m=s.getElementsByTagName(g)[0];a.async=1;a.src=r+'?auth='+
+  s.getElementById(o+'-js').getAttribute('data-pw-auth');m.parentNode.insertBefore(a,m);
+  })(window,document,'profitwell','script','https://public.profitwell.com/js/profitwell.js');
+
+  profitwell('start', { 'user_email': firebase.auth().currentUser });
+</script>
+
  <!-- FIRE BASE CONFIGURATION -->
 
 
