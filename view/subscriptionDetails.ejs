@@ -174,35 +174,59 @@
                     </div>
                 </div>
                 <!-- Write your review block -->
+                <div class="add-reviewForm">
+                
                 <h4 class="reviews__heading">Write your review</h4>
-                <form id="add-reviewForm" action="/subscription/<%-subscription.id%>" method="POST" onsubmit>
-                    <div class="input-fields">
-                        <!-- Username -->
-                        <div class="row">
-                            <input type="text" name="username" id="username" class="inputs" placeholder="Username" required>
-
-                            <!-- Give ratings out of 5 -->
-                            <label for="givenStarRating" class="styleDropdown">Rate this subscription out of 5 stars </label>
-                            <select name="givenStarRating" id="givenStarRating" class="styleDropdown">
-                                <option value="unselected" selected>Unselected</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                            </select>
-                        </div>
-                    
-                        <!-- Title Name -->
-                        <input type="text" name="title" id="title" class="inputs" placeholder="Title" value="" required>
-
-                        <!-- Review Given -->
-                        <textarea name="reviewGiven" id="reviewGiven" rows="3" cols="3" placeholder="Write your review..."></textarea>
-
-                        <!-- Submit button -->
-                        <button class="addbutton" type="submit" name="addbutton">Submit</button>
+                <form action="/subscription/<%-subscription.id%>" method="POST" onsubmit>
+                    <div class="form-group">
+                      <input name="username" class="inputs" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Username" required>
                     </div>
-                </form>
+                    <div class="form-group">
+                        <input name="title" class="inputs" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Title" required>
+                      </div>
+                    <div class="form-group">
+                      <label class="select-desc" for="exampleFormControlSelect1">Rate this subscription out of 5 stars: </label>
+                      <select name="givenStarRating" class="form-control" id="exampleFormControlSelect1" required>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                      </select>
+                    </div>
+                    <div class="form-group">
+                      <label class="select-desc" for="exampleFormControlTextarea1">Write your review: </label>
+                      <textarea name="reviewGiven" class="form-control" id="exampleFormControlTextarea1" rows="3" required></textarea>
+                    </div>
+
+                    <input name="subName" class="inputs" type="text" class="form-control" id="exampleFormControlInput1" value="<%- subscription.data().subscriptionName %>" hidden>
+                    
+                    <!-- Submit button -->
+                    <button class="addbutton" type="submit" name="addbutton">Submit</button>
+                  </form>
+                </div>
+                <div class="all-reviews">
+                    <h4 class="reviews__heading">All Reviews</h4>
+
+                    <!-- List of all reviews below -->
+                    <div>
+                        <% for(let i = 0; i < reviewsList.length; i++) { %>
+                        <div class="review-post">
+                            <div class="review-post-info">
+                                <div class="review-post-date">
+                                    <span><%- reviewsList[i].data().username %></span>
+                                    <span style="font-size: 0.75rem; color: #777"><%- Date.parse(new Date(reviewsList[i].data().datePosted * 1000).toISOString()).toString('M/d/yyyy') %></span>
+                                    <span>Rated: <em style="color: #4669c8"><%- reviewsList[i].data().ratingGiven %>.0</em> </span>
+                                </div>
+                                <h6 class="review-post-title" style="text-align: center;"><%- reviewsList[i].data().title %></h6>
+                                <p class="review-post-text">
+                                        <%- reviewsList[i].data().review %>
+                                </p>
+                            </div>
+                        </div>
+                        <% } %>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
