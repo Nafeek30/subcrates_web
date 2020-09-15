@@ -175,8 +175,13 @@
                 </div>
                 <!-- Write your review block -->
                 <div class="add-reviewForm">
-                
-                <h4 class="reviews__heading">Write your review</h4>
+
+                <% if(hasPosted == false) { %>
+                    <h4 class="reviews__heading">Write your review</h4>
+                <% } else if(hasPosted == true) { %>
+                    <h4 class="reviews__heading">Modify your review</h4>
+                <% } %>
+
                 <form action="/subscription/<%-subscription.id%>" method="POST" onsubmit>
                     <div class="form-group">
                       <input name="username" class="inputs" type="text" class="form-control" id="exampleFormControlInput1" placeholder="Username" required>
@@ -195,14 +200,23 @@
                       </select>
                     </div>
                     <div class="form-group">
-                      <label class="select-desc" for="exampleFormControlTextarea1">Write your review: </label>
+                        <% if(hasPosted == false) { %>
+                            <label class="select-desc" for="exampleFormControlTextarea1">Write your review: </label>
+                        <% } else if(hasPosted == true) { %>
+                            <label class="select-desc" for="exampleFormControlTextarea1">Modify your review: </label>
+                        <% } %>
+
                       <textarea name="reviewGiven" class="form-control" id="exampleFormControlTextarea1" rows="3" required></textarea>
                     </div>
 
                     <input name="subName" class="inputs" type="text" class="form-control" id="exampleFormControlInput1" value="<%- subscription.data().subscriptionName %>" hidden>
                     
                     <!-- Submit button -->
-                    <button class="addbutton" type="submit" name="addbutton">Submit</button>
+                    <% if(hasPosted == false) { %>
+                        <button class="addbutton" type="submit" name="addbutton">Submit Review</button>
+                    <% } else if(hasPosted == true) { %>
+                        <button class="addbutton" type="submit" name="addbutton">Modify Review</button>
+                    <% } %>
                   </form>
                 </div>
                 <div class="all-reviews">

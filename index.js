@@ -5,7 +5,7 @@
  * users, subscriptions & other import file names;
  * 
  * 
- * FIRESTORE COLLECTION NAMES: users, subscriptions.
+ * FIRESTORE COLLECTION NAMES: users, subscriptions, reviews, usersubscriptions.
  * 
  */
 
@@ -57,6 +57,8 @@ const subscriptions = db.collection('subscriptions');
 const usersubscriptions = db.collection('usersubscriptions');
 const reviews = db.collection('reviews');
 
+
+firebase.database.enableLogging(true);
 
 
 
@@ -244,20 +246,22 @@ function isSubscribed(req, res, next) {
      * LOG IN BLOCK ON LANDING PAGE
      */
     // When email and password are entered and checked by firebase then log in user to [homepage]
-    firebase.auth().signInWithEmailAndPassword(loginEmail, loginPassword)
+    try {
+      firebase.auth().signInWithEmailAndPassword(loginEmail, loginPassword)
       .then(result => {
         // Current date
         var date = new Date().toLocaleDateString();
 
         /// update last login date for user
-        users.doc(firebase.auth().currentUser.email).update({
-          lastLogin: date,
-        });
+
         // THEN RENDER HOMEPAGE
-        res.render('homepage'); 
+        res.redirect('/homepage'); 
         
       })
-      .catch(err1 => {
+    }
+    catch(e) {
+      console.log(e.toString());
+
         if (loginEmail == "") {
           console.log('login err1');
           res.render('errorPage', { message: "The email is blank!" });
@@ -265,7 +269,7 @@ function isSubscribed(req, res, next) {
           console.log('login err2');
           res.render('errorPage', { message: err1.message, displaySubscription: false });
         }
-      })
+      }
     }
    
   }); // END FOR POST ROUTE ('/') 
@@ -275,6 +279,7 @@ function isSubscribed(req, res, next) {
 
 
   // GET ROUTE - Homepage
+  // [isAuthenticated, isSubscribed],
   app.get('/homepage', [isAuthenticated, isSubscribed], (req, res) => {
 
     // Arrays to store categories, unique categories and subscription data
@@ -287,6 +292,7 @@ function isSubscribed(req, res, next) {
     // Get all subscriptions and store them in array and filter out unique categories
     subscriptions.get()
       .then(subscriptionSnap => {
+
         subscriptionSnap.forEach(singleSubscription => {
           //push all subscription into array
           allSubscriptions.push(singleSubscription);
@@ -298,9 +304,6 @@ function isSubscribed(req, res, next) {
         uniqueCategories = Array.from(new Set(allCategories));
         // Remove custom items from homepage display
         uniqueCategories = uniqueCategories.filter(item => item !== 'Custom');
-        console.log(uniqueCategories.length);
-        console.log(uniqueCategories.length);
-        console.log(uniqueCategories.length);
 
         // imageKeys = Object.keys(allImages);
         // imageValues = Object.values(allImages);
@@ -349,10 +352,10 @@ function isSubscribed(req, res, next) {
   // GET ROUTE FOR SUBSCRIPTIONS [FORMAT /subscription/id] where [id] -> the id/name of the subscription being displayed
   app.get('/subscription/:id', [isAuthenticated, isSubscribed], (req, res) => {
 
-    console.log('HITTTTTT');
     // Get the subscription id which is the document id from the query
     var docID = req.params.id;
     var reviewsList = [];
+    var hasPosted = false;
 
     // Update homeclick counter for the subscription and navigate to subscription detail page
     subscriptions.doc(docID).update({
@@ -364,9 +367,14 @@ function isSubscribed(req, res, next) {
         reviews.where('subID', '==', docID).get()
           .then(reviews => {
             reviews.forEach((f) => {
-            reviewsList.push(f);
+              reviewsList.push(f);
+              // console.log(f.data().userid);
+              // console.log(firebase.auth().currentUser.email);
+              if(f.data().userid == firebase.auth().currentUser.email) {
+                hasPosted = true;
+              }
             });
-            res.render('subscriptionDetails', {subscription, reviewsList});
+            res.render('subscriptionDetails', {subscription, reviewsList, hasPosted});
           })
           .catch(err2 => {
             res.render('errorPage', { message: err2, displaySubscription: false });
@@ -379,13 +387,11 @@ function isSubscribed(req, res, next) {
     .catch(err2 => {
       res.render('errorPage', { message: err2, displaySubscription: false });
     }) 
-
   });
 
 
   app.post('/subscription/:id', [isAuthenticated, isSubscribed], (req, res) => {
 
-    console.log('HITTTT 2');
     // Get the subscription name which is the document id from the query
     var docID = req.params.id;
     var subscription;
@@ -421,35 +427,38 @@ function isSubscribed(req, res, next) {
     .then(user => {
       userSubscription = user.data().status;
       if(userSubscription  != true) {
-        res.redirect('/errorPage', { message: 'You must be a monthly subscriber to leave reviews', displaySubscription: false });  
+        res.render('errorPage', { message: 'You must be a monthly subscriber to leave reviews', displaySubscription: false });  
         return;      
       } else if(userSubscription == true) {
         // check if review exists => 1. if not add it; 2. if yes update it
         reviews.doc(docID+firebase.auth().currentUser.email).get()
         .then(review => {
           if(review.exists) {
+
             // GET previous rating and update it with the new rating
             previousRating = review.data().ratingGiven;
             
             reviews.doc(docID+firebase.auth().currentUser.email).update(data)
             .then(result1 => {
+
               // Then update the subscription's ratings and rating count
               subscriptions.doc(docID).get()
                 .then(subscription => {
+
                   // Calculate upadated rating
                   var rating;
                   var ratingCount;
 
-                  subscription.forEach(f => {
-                    rating = parseFloat(f.data().rating).toFixed(1);
-                    ratingCount = parseInt(f.data().ratingCount);
-                  });
+                    rating = parseFloat(subscription.data().rating).toFixed(1);
+                    ratingCount = parseInt(subscription.data().ratingCount);
                   
 
-                  console.log('------');
+                  console.log('--- Before rating change in db ---');
                   console.log(rating);
                   console.log(ratingCount);
-                  console.log('------');
+                  console.log(previousRating);
+                  console.log(chooseRating);
+                  console.log('--- After rating change in db ---');
                   
                   
                   var newRating = parseFloat(((rating * ratingCount) - previousRating + chooseRating) / ratingCount).toFixed(2);
@@ -458,7 +467,7 @@ function isSubscribed(req, res, next) {
                   console.log(newRating);
                   console.log(newRatingCount);
 
-                  console.log('------');
+                  console.log('--- Rating change code block end ---');
 
                   /// Increase the new star count and decrease the previous star count
                   var subData = {
@@ -492,29 +501,28 @@ function isSubscribed(req, res, next) {
                   };
 
                 // Then update the subscription
-                subscriptions.doc(docID).update(subData);
+                subscriptions.doc(docID).update(subData)
+                  .then(result => {
+                    res.redirect('/subscription/' + docID);
+                    return;
+                  })
 
                 })
-                .catch(err => {
-                  console.log('ERROR: Subscription error while updating review.');
-                  res.render('errorPage', { message: err, displaySubscription: false });
-                })
-            })
-            .then(result2 => {
-              res.redirect('/subscription/' + docID);
-              return;
-            })
+            }) 
             .catch(err1 => {
               res.render('errorPage', { message: err1, displaySubscription: false });
             })
           } else {
+
             /// Otherwise create the new review with the document id being
             /// the [subscriptionId + userid]
 
             reviews.doc(docID+firebase.auth().currentUser.email).set(data)
             .then(result => {
+
               subscriptions.doc(docID).get()
                 .then(subscription => {
+
 
                   // Calculate the new rating
                   var rating = parseFloat(subscription.data().rating).toFixed(1);
