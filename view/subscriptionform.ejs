@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<%- include("partials/head") %>  
+
+	<title>Subcrates - Add or Edit subscription. Add or Edit <%- subscription.data().subscriptionName %> subscription to your crate.</title>
+	<style type="text/css">
+		.modal{
+			overflow-y: auto;
+		}
+	</style>
+</head>
+<body>
+
+	<!-- ALL JS VARIABLES AND DECLARATIONS [START] -->
+	<% let plans = subscription.data().plans %>
+	<% let prices = subscription.data().prices %>
+	<!-- ALL JS VARIABLES AND DECLARATIONS [END] -->
+
+
+	<div class="modal show" id="myModal" style="display: block; padding-right: 8px;">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+
+	      <!-- Modal Header -->
+	      <div class="modal-header" style="border-bottom: 0;">
+	        <button type="button" class="close" onclick="window.history.back()"> < Go Back</button>
+	      </div>
+	      <!-- Modal body -->
+	      <div class="modal-body">
+	        <div class="scription">
+	        	<div class="name_box">
+					<!-- Image on subscription form -->
+					<% if(subscription.data().category != 'Custom') { %>
+						<div class="img_box"><img src="<%- subscription.data().image %>" alt="Image"></div>
+					<% } %>
+
+					<!-- Category & name on subscription form -->
+					<span><%- subscription.data().category %></span>
+					<div class="text"><%- subscription.data().subscriptionName %></div>
+				</div>
+				<form id="add-subscriptionForm" action="/addsubscription/<%-subscription.id%>" method="POST" onsubmit>
+					<div class="form-group">
+						<!-- If the subscription is custom then ask for a subscription name otherwise don't include it. -->
+						<% if(subscription.data().category == 'Custom') { %> 
+							<input type="text" name="name" id="name" value="Custom Subscription" required>
+						 <% } else { %>
+							<input type="text" name="name" id="name" value="<%- subscription.data().subscriptionName %>" readonly>
+						<% } %>
+
+						<!-- Subscription logo -->
+						<input type="text" name="logo" id="logo" value="<%- subscription.data().image %>" hidden>
+					</div>
+
+					<!-- Plans for the subscription -->
+					<div class="heading">Choose a subscription plan</div>
+					<div class="form-group">
+						<select name="subscriptionPlans" id="subscriptionPlans" class="form-control">
+                            <option value="unselected" selected>Unselected</option>
+							<% if( typeof plans !== 'undefined') { %>
+								<% for(let i = 0; i < plans.length; i++) { %>
+									<option value="<%- plans[i] %>"><%- plans[i] %></option>
+								<% } %>
+                            <% } %>
+						</select>
+					</div>
+					<div class="form-group">
+						<input type="text" name="customPlan" id="customPlan" placeholder="Enter Custom plan">
+					</div>
+					<div class="blue_text">If you use a custom plan name leave the dropdown option for plans as 'unselected'.*</div>
+
+					<!-- Plans for the subscription -->
+					<div class="heading">Choose a subscription Price</div>
+					<div class="form-group">
+						<select name="subscriptionPrice" id="subscriptionPrice" class="form-control">
+                            <option value="unselected" selected>Unselected</option>
+							<% if(typeof prices !== 'undefined') { %>
+								<% for(let i = 0; i < prices.length; i++) { %>
+									<% if(prices[i] != 0.01) { %>
+										<option value="<%- prices[i] %>">$<%- prices[i] %></option>
+									<% } %>
+								<% } %>
+							<% } %>
+						</select>
+					</div>
+					<div class="form-group">
+						<input type="text" name="customPrice" id="customPrice" placeholder="Enter Custom price" value="">
+					</div>
+					<div class="blue_text">If you use a custom price value leave the dropdown option for price as 'unselected'.*</div>
+
+					<!-- Last billed date for the subscription -->
+					<div class="form-group">
+						<input type="date" name="lastBillDate" id="lastBillDate" placeholder="Enter last bill date as MM/DD/YYYY">
+						<!-- <img src="../public/assets/images/calendar_icon.png" alt="#"> -->
+					</div>
+					<div class="blue_text">Not setting date in the proper format will cause issues notifying you.*</div>
+
+					<!-- Frequency of the subscription -->
+					<div class="heading">How often does this subscription renew?</div>
+					<div class="form-group">
+						<select name="subscriptionFrequency" id="subscriptionFrequency" class="form-control">
+                            <option value="unselected" selected>Unselected</option>
+							<option value="Weekly">Weekly</option>
+							<option value="Monthly">Monthly</option>
+							<option value="Yearly">Yearly</option>
+						</select>
+					</div>
+
+					<!-- How often do you want to be notified for the subscription -->
+					<div class="heading">Notify me ___ day(s) before bill is due</div>
+					<div class="form-group">
+						<select name="subscriptionNotification" id="subscriptionNotification" class="form-control">
+							<option value="unselected" selected>Unselected</option>
+							<option value="0">0</option>
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+							<option value="6">6</option>
+						</select>
+					</div>
+					<div class="blue_text">We can notify you between 0 - 6 days before your bill is due.
+					'Unselected' means don't notify me about this bill. '0' means
+					notify me on the same day as the bill is due.*</div>
+
+					<!-- Any custom notes for the subscription by the user -->
+					<div class="form-group">
+						<textarea name="subscriptionNotes" id="subscriptionNotes" placeholder="Add note" class="form-control"></textarea>
+					</div>
+					<div class="red_text">Disclaimer: Adding to your crate doesn't subscribe you to the service. Click the name and subscribe on the official website.</div>
+
+					<!-- Add button for the subscription -->
+					<div class="text-center">
+						<button type="submit" name="addbutton" class="btn_blue">Add to My Crate</button>
+					</div>
+				</form>
+	        </div>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+
+	<%- include("partials/foot") %>  
+
+</body>
+</html>

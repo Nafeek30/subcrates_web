@@ -1,0 +1,431 @@
+<!-- 
+	* What code are commented out:
+
+	1. Remember me top right login commented out.
+	2. 
+ -->
+
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<%- include("partials/head") %>  
+	<title>Subcrates - Manage and find subscriptions in one place</title>
+</head>
+<body>
+	<section class="nav_section nav_section2">
+		<div class="container">
+			<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+			  <!-- Brand -->
+			  <a class="navbar-brand" href="/"><img src="../public/assets/images/logo.png" alt="#"></a>
+
+			  <!-- Toggler/collapsibe Button -->
+			  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+			    <span class="navbar-toggler-icon"></span>
+			  </button>
+
+			  <!-- Navbar links -->
+			  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+			    <form  id="landing-loginForm" action="/" method="POST" onsubmit>
+			    	<ul class="navbar-nav ml-auto">
+				      <li class="nav-item">
+				        <div>
+				        	<input type="text" name="loginEmail" class="form-control" placeholder="Email">
+				        	<img src="../public/assets/images/email.png" alt="email_image">
+				        	<!-- <label class="label"> Remember me
+							  <input type="checkbox" checked="checked">
+							  <span class="checkmark"></span>
+							</label> -->
+				        </div>
+				      </li>
+				      <li class="nav-item">
+				        <div>
+				        	<input type="password" name="loginPassword" class="form-control" placeholder="Password">
+				        	<img src="../public/assets/images/lock.png" alt="#">
+				        	<a href="/resetpassword" class="forgot_link">Forgot password?</a>
+				        </div>
+				      </li>
+				      <li class="nav-item">
+									<button name="loginButton" class="btn_blue" type="submit">Login</button>				        
+				      </li>
+				    </ul>
+			    </form>
+			  </div>
+			</nav>
+		</div>
+	</section>
+	<section class="header">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-12 col-md-7 p-0 desktop">
+					<img src="../public/assets/images/landing_1.png" alt="#">
+				</div>
+				<div class="col-12 col-md-5 p-0">
+					<div class="content_box">
+						<span>
+							<h1>Your one stop for<br>
+							Subscriptions.</h1>
+							<p>Discover new subscriptions, gift subscriptions to friends and family and manage subscriptions you own.</p>
+							<div class="desktop w-100">
+								<form id="landing-signupForm" action="/" method="POST" onsubmit>
+									<div class="form-group">
+							        	<input type="text" name="signupEmail" class="form-control" placeholder="Email">
+							        	<img src="../public/assets/images/email.png" alt="#">
+							        </div>
+							        <div class="form-group">
+							        	<input type="password" name="signupPassword" class="form-control" placeholder="Password">
+				        				<img src="../public/assets/images/lock.png" alt="#">
+							        </div>
+							        <button class="btn_blue" name="signupButton" type="submit">Sign Up - It's Free!</button>
+								</form>
+							</div>
+							<div class="mobile w-100">
+								<ul class="nav nav-tabs">
+								    <li class="nav-item">
+								      <a class="nav-link active" data-toggle="tab" href="#signup">Sign Up</a>
+								    </li>
+								    <li class="nav-item">
+								      <a class="nav-link" data-toggle="tab" href="#login">Login</a>
+								    </li>
+								  </ul>
+
+								  <!-- Tab panes -->
+								  <div class="tab-content">
+								    <div id="signup" class="container tab-pane active"><br>
+								        <form id="landing-signupForm" action="/" method="POST" onsubmit>
+											<div class="form-group">
+									        	<input type="text" name="signupEmail" class="form-control" placeholder="Email">
+									        	<img src="../public/assets/images/email.png" alt="#">
+									        </div>
+									        <div class="form-group">
+									        	<input type="password" name="signupPassword" class="form-control" placeholder="Password">
+						        				<img src="../public/assets/images/lock.png" alt="#">
+									        </div>
+									        <button class="btn_blue" name="signupButton" type="submit">Sign Up - It's Free!</button>
+										</form>
+								    </div>
+								    <div id="login" class="container tab-pane fade"><br>
+								        <form  id="landing-loginForm" action="/" method="POST" onsubmit>
+											<div class="form-group">
+									        	<input type="text" name="loginEmail" class="form-control" placeholder="Email">
+									        	<img src="../public/assets/images/email.png" alt="#">
+									        </div>
+									        <div class="form-group">
+									        	<input type="password" name="loginPassword" class="form-control" placeholder="Password">
+						        				<img src="../public/assets/images/lock.png" alt="#">
+									        </div>
+									        <div class="form-group">
+									        	<div class="row">
+									        		<div class="col-6">
+									        			<!-- <label class="label"> Remember me
+														  <input type="checkbox" checked="checked">
+														  <span class="checkmark"></span>
+														</label> -->
+									        		</div>
+									        		<div class="col-6">
+									        			<a href="/resetpassword" class="forgot_link">Forgot password?</a>
+									        		</div>
+									        	</div>
+									        </div>
+									        <button name="loginButton" class="btn_blue" type="submit">Login</button>
+										</form>
+								    </div>
+								  </div>
+							</div>
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="landing_section">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<div class="try_box">
+						<div class="row">
+							<div class="col-12 col-md-6">
+								<div class="heading">Try <span>Subcrates</span> App for Free</div>
+								<p>Download the mobile app to get notifications before you get billed.</p>
+								<div class="app_box">
+									<div class="row">
+										<div class="col-12 col-sm-6 border-right text-center">
+											<a href="https://apps.apple.com/us/app/id1528694362"><img src="../public/assets/images/app_store.png" alt="#"></a>
+											<div class="text">Get Subcrates<br> on the App Store.</div>
+										</div>
+										<div class="col-12 col-sm-6 text-center">
+											<a href="http://play.google.com/store/apps/details?id=com.sub.subcrates"><img src="../public/assets/images/google_play.png" alt="#"></a>
+											<div class="text">Get Subcrates<br> on the Play Store.</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-12">
+					<div class="feature_box">
+						<div class="row">
+							<div class="col-12 col-sm-6">
+								<div class="flexer">
+									<span>
+										<div class="heading">Discover 200+ subscriptions
+										in 20+ categories for all
+										your needs</div>
+										<p>From entertainment to fashion, from literature to health & wellness, we have you covered. We have a collection of over 200+ subscriptions in 20+ categories (that we are continuously expanding) so you can have the best options to choose from. And we make sure they are authentic and safe so you can subscribe without any worry!</p>
+									</span>
+								</div>
+							</div>
+							<div class="col-12 col-sm-6">
+								<img src="../public/assets/images/discover.png" alt="#">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-12">
+					<div class="feature_box">
+						<div class="row">
+							<div class="col-12 col-sm-6 order">
+								<div class="flexer">
+									<span>
+										<div class="heading">View details, plans and
+										monthly expenses of all your
+										subscriptions in one place</div>
+										<p>View all your subscriptions in detail and know exactly what you are paying every week, month and year. According to a 2018 survey by WMG, 84% of Americans underestimate what they spend on subscription-based services. We'll help you stay in the other 16%.</p>
+									</span>
+								</div>
+							</div>
+							<div class="col-12 col-sm-6">
+								<img src="../public/assets/images/plans.png" alt="#">
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-12">
+					<div class="feature_box">
+						<div class="row">
+							<div class="col-12 col-sm-6">
+								<div class="flexer">
+									<span>
+										<div class="heading">Get notifications before you
+										are charged every period
+										with our mobile app for both
+										Android and iOS</div>
+										<p>Subcrates lets you select how many days ahead you want to be notified for each subscription so you're always on top of your bills. No more sneaky charges!.</p>
+									</span>
+								</div>
+							</div>
+							<div class="col-12 col-sm-6">
+								<img src="../public/assets/images/notification.png" alt="#">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="faq_section">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<div class="text-center">
+						<div class="heading">Frequently Asked Questions</div>
+						<!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor<br> incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam</p> -->
+					</div>
+					<div id="accordion">
+
+					  <div class="card">
+					    <div class="card-header">
+					      <a class="card-link active" data-toggle="collapse" href="#collapseOne">
+					        What is Subcrates?
+					      </a>
+					    </div>
+					    <div id="collapseOne" class="collapse show" data-parent="#accordion">
+					      <div class="card-body">
+					        <p>
+										Subcrates is your one-stop for subscriptions. We are a platform that helps you discover
+										 new subscriptions, give subscriptions as gifts and help manage the ones you own. Our mission is 
+										 to have all of the world's subscriptions in one place and give you the most relevent 
+										 information so you can choose the best subscriptions for yourself.
+									</p>
+					      </div>
+					    </div>
+					  </div>
+
+					  <div class="card">
+					    <div class="card-header">
+					      <a class="collapsed card-link" data-toggle="collapse" href="#collapseTwo">
+					        Why use Subcrates?
+					      </a>
+					    </div>
+					    <div id="collapseTwo" class="collapse" data-parent="#accordion">
+					      <div class="card-body">
+					       	<p>
+											As subscriptions become more common, it can be hard to find the right ones for yourself. If you had to guess
+											how many subscriptions you can name off the top of your head, you'd probably be able guess a few dozen. But 
+											there are <strong><em>literally</em></strong> thousands of subscriptions out there in every category you can think of. 
+											It's also hard to remember and manage all of the ones you have. Subcrates solves both of these problems for you by 
+											finding authentic and safe subscriptions and sorting them out in an organized and categorized collection. We also 
+											help you manage your subscriptions and send you notification reminders before you are charged so you don't get any 
+											sneaky charges.
+									</p>
+					      </div>
+					    </div>
+					  </div>
+
+					  <div class="card">
+					    <div class="card-header">
+					      <a class="collapsed card-link" data-toggle="collapse" href="#collapseThree">
+					        How do I add my subscriptions?
+					      </a>
+					    </div>
+					    <div id="collapseThree" class="collapse" data-parent="#accordion">
+					      <div class="card-body">
+					        <p>
+										Once you're logged in, simply search for your subscriptions in the search bar. If it is currently in our collection, you can select it
+										and click 'Add to My Crate' and then fill in all the details. If it is not currently in our collection, then click 'Options'
+										and then click 'My Crate' and add it by clicking on 'Custom Subscription'. Also, if you would like us to add it to our collection you can email
+										us at <span><u><a style="color: #4669c8" href="mailto:suggestions@subscrates.com">suggestions@subscrates.com</a></u></span> and we'll add it as 
+										soon as we can. We always welcome new suggestions!
+									</p>
+									<p style="color: #e74c3c">
+										NOTE: Adding a subscription on Subcrates doesn't subscribe you to the service. Please subscribe 
+										on the official site to get the service and use Subcrates to manage them in one place.
+									</p>
+					      </div>
+					    </div>
+					  </div>
+					  <div class="card">
+					    <div class="card-header">
+					      <a class="collapsed card-link" data-toggle="collapse" href="#collapseFour">
+					        How do I manage my subscriptions?
+					      </a>
+					    </div>
+					    <div id="collapseFour" class="collapse" data-parent="#accordion">
+					      <div class="card-body">
+					        <p>
+											Once you are logged in, click 'Options' and go to 'My Crate'. Here, you'll be able to 
+											see a list of your current subscriptions with their details, add or remove a subscription from your list, 
+											edit information for each subscription you own and view your total weekly, monthly and yearly expenses.
+									</p>
+					      </div>
+					    </div>
+					  </div>
+
+					  <div class="card">
+					    <div class="card-header">
+					      <a class="collapsed card-link" data-toggle="collapse" href="#collapseFive">
+					        Is Subcrates really free?
+					      </a>
+					    </div>
+					    <div id="collapseFive" class="collapse" data-parent="#accordion">
+					      <div class="card-body">
+					        <p>Yes, Subcrates is completely free, forever! :D</p>
+					      </div>
+					    </div>
+					  </div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<section class="subscribe_section">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<div class="blue_box">
+						<div class="row">
+							<div class="col-12 col-sm-8">
+								<div class="heading">Ready to Try Subcrates?</div>
+								<p>Discover 200+ subscriptions from our increasing collection of authentic and safe subscriptions!</p>
+							</div>
+							<div class="col-12 col-sm-4 text-right">
+								<a href="/" class="btn_white">Sign Up - It's Free!</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<footer>
+		<div class="container">
+			<div class="row">
+				<div class="col-12 col-md-4">
+					<a href="#"><img src="../public/assets/images/logo.png" alt="#" class="logo"></a>
+					<p>Subcrates is your one-stop for subscriptions. We are a platform that helps you discover new subscriptions, gift subscriptions to friends and family and manage the subscriptions you own. </p>
+					<!-- <ul class="list-inline social">
+						<li class="list-inline-item"><a href="#"><img src="../public/assets/images/facebook.png" alt="#"></a></li>
+						<li class="list-inline-item"><a href="#"><img src="../public/assets/images/instagram.png" alt="#"></a></li>
+						<li class="list-inline-item"><a href="#"><img src="../public/assets/images/twitter.png" alt="#"></a></li>
+					</ul> -->
+				</div>
+				<div class="col-12 col-md-4">
+					<h4>Links</h4>
+					<div class="row">
+						<div class="col-6">
+							<ul class="links">
+								<!-- <li><a href="#">Home</a></li>
+								<li><a href="#">My Crate</a></li>
+								<li><a href="#">Settings</a></li> -->
+								<li><a href="mailto:support@subcrates.com">Contact Us</a></li>
+							</ul>
+						</div>
+						<div class="col-6">
+							<ul class="links">
+								<li><a href="ailto:suggestions@subscrates.com">Suggestions</a></li>
+								<!-- <li><a href="#">Got Questions</a></li> -->
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="col-12 col-md-4">
+					<h4>Download Subcrates app</h4>
+					<p>Download the mobile app to get notifications for your subscriptions before you get billed.</p>					
+					<div><a href="https://apps.apple.com/us/app/id1528694362"><img src="../public/assets/images/app_store.png" alt="#" class="store"></a></div>
+					<div><a href="http://play.google.com/store/apps/details?id=com.sub.subcrates"><img src="../public/assets/images/google_play.png" alt="#" class="store"></a></div>
+				</div>
+			</div>
+			<hr>
+			<div class="row">
+				<div class="col-12 col-md-6">
+					<p>Copyrights © 2020 <a href="/tos">Subcrates.</a> All rights reserved.</p>
+				</div>
+				<div class="col-12 col-md-6">
+					<ul class="bot_link list-inline">
+						<li class="list-inline-item"><a href="/tos">Terms of Service</a></li>
+						<li class="list-inline-item"><a href="/privacy">Privacy Policy</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+
+	<%- include("partials/foot") %>  
+<script type="text/javascript">
+	var options = {
+	data: [
+		  {"name": "Afghanistan", "code": "AF"},
+		  {"name": "Aland Islands", "code": "AX"},
+		  {"name": "Albania", "code": "AL"},
+		  {"name": "Algeria", "code": "DZ"},
+		  {"name": "American Samoa", "code": "AS"}
+		  ],
+  		getValue: "name",
+		list: {
+			match: {
+				enabled: true
+			}
+		}
+	};
+
+	$("#search_field").easyAutocomplete(options);
+// for mobile
+	$("#mob_search_field").easyAutocomplete(options);
+</script>
+</body>
+</html>

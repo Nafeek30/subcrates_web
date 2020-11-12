@@ -148,7 +148,7 @@ function isSubscribed(req, res, next) {
 
   // ROOT GET ROUTE - Landing page
   app.get('/', (req, res) => {
-    res.render('LandingPageCollection/landingPage');
+    res.render('landing');
   });
 
 
@@ -161,9 +161,13 @@ function isSubscribed(req, res, next) {
 
     // Log in variables
     var loginEmail = req.body.loginEmail;
-    var loginPassword = req.body.loginPassword;
+    var loginPassword = req.body.loginPassword; 
+
+    console.log(loginEmail);
+    console.log(loginPassword); 
 
 
+ 
     /**
      * SIGN UP BLOCK ON LANDING PAGE
     **/
@@ -198,7 +202,7 @@ function isSubscribed(req, res, next) {
                     usersubscriptions.add({
                       subID: 'subcrates',
                       subName: 'Subcrates',
-                      logoLink: 'https://firebasestorage.googleapis.com/v0/b/subcrates.appspot.com/o/subscriptionImages%2Fsubcrates.png?alt=media&token=7472cfaa-3d67-4f12-b517-96d82090b9cd',
+                      logoLink: 'https://firebasestorage.googleapis.com/v0/b/subcrates.appspot.com/o/subscriptionImages%2FSubcrates.png?alt=media&token=d66e4710-7b46-4991-a6d8-55d1a7eebd74',
                       lastPaidDate: nowInSeconds,
                       nextPayDate: expiresAtSeconds,
                       userEmail: firebase.auth().currentUser.email
@@ -309,7 +313,7 @@ function isSubscribed(req, res, next) {
         // imageValues = Object.values(allImages);
 
         // THEN RENDER HOMEPAGE
-        res.render('Homepage', {allSubscriptions, uniqueCategories, name: loginEmail});
+        res.render('index', {allSubscriptions, uniqueCategories, name: loginEmail});
       })
       .catch((e) => {
         console.log('SUBSCRIPTION DATABASE COULD NOT BE ACCESSED.');
@@ -356,6 +360,9 @@ function isSubscribed(req, res, next) {
     var docID = req.params.id;
     var reviewsList = [];
     var hasPosted = false;
+    var myReview = '';
+    var myRating;
+    var myUsername = '';
 
     // Update homeclick counter for the subscription and navigate to subscription detail page
     subscriptions.doc(docID).update({
@@ -372,9 +379,12 @@ function isSubscribed(req, res, next) {
               // console.log(firebase.auth().currentUser.email);
               if(f.data().userid == firebase.auth().currentUser.email) {
                 hasPosted = true;
+                myReview = f.data().review;
+                myRating = f.data().ratingGiven;
+                myUsername = f.data().username;
               }
             });
-            res.render('subscriptionDetails', {subscription, reviewsList, hasPosted});
+            res.render('subscriptions', {subscription, reviewsList, hasPosted, myReview, myRating, myUsername});
           })
           .catch(err2 => {
             res.render('errorPage', { message: err2, displaySubscription: false });
@@ -403,7 +413,6 @@ function isSubscribed(req, res, next) {
     var nowInSeconds = Math.trunc(new Date().getTime() / 1000); 
     var username = req.body.username;
     var chooseRating = parseInt(req.body.givenStarRating);
-    var title = req.body.title;
     var reviewGiven = req.body.reviewGiven;
     var subName = req.body.subName;
 
@@ -414,7 +423,6 @@ function isSubscribed(req, res, next) {
       review: reviewGiven,
       subID: docID,
       subName: subName,
-      title: title,
       userid: firebase.auth().currentUser.email,
       username: username
     };
@@ -594,7 +602,7 @@ function isSubscribed(req, res, next) {
     }).then(result => {
       subscriptions.doc(docID).get()
       .then( subscription => {
-        res.render('addSubscription', {subscription});
+        res.render('subscriptionform', {subscription});
       })
       .catch(err1 => {
         res.render('errorPage', { message: err1, displaySubscription: false });
@@ -617,7 +625,7 @@ function isSubscribed(req, res, next) {
     // Get the subscription innformation from the GET page
     // Subscriptions to retrieve and store: name, plan, price, last bill date, frequency of renewal, 
     // notify me (in days), notes, logo.
-    var subName = req.body.name;
+    var subName = req.body.name; 
 
     // plan name
     var plan;
@@ -669,10 +677,24 @@ function isSubscribed(req, res, next) {
 
     // next bill date
     var nextBillInSeconds;
+    // 0 = January. So, months range from 0 - 11.
+    /// Add 28 if month = [1], add 30 if month = [3, 5, 8, 10] & add 31 if month = [0, 2, 4, 6, 7, 9, 11].
+
+    /// Get current month so we can adjust next pay date based on the month of lastPaidDate
+    var month;
+    month = lastPaidlDate.getMonth();
+
+
     if(subscriptionFrequency == 'Weekly') {
       nextBillInSeconds = lastPaidDateSeconds + (86400 * 7);
     } else if(subscriptionFrequency == 'Monthly') {
-      nextBillInSeconds = lastPaidDateSeconds + (86400 * 30);
+      if(month === 3 || month === 5 || month === 8 || month === 10) {
+        nextBillInSeconds = (lastPaidDateSeconds + (86400 * 30));
+      } else if(month === 0 || month === 2 || month === 4 || month === 6 || month === 7 || month === 9 ||  month === 11) {
+        nextBillInSeconds = (lastPaidDateSeconds + (86400 * 31));
+      } else if(month === 1) {
+        nextBillInSeconds = (lastPaidDateSeconds + (86400 * 28));
+      }
     } else if(subscriptionFrequency == 'Yearly') {
       nextBillInSeconds = lastPaidDateSeconds + (86400 * 365);
     }
@@ -683,15 +705,12 @@ function isSubscribed(req, res, next) {
       var notifyAtInSeconds = nextBillInSeconds - (86400 * subscriptionNotification);
     }
 
-
     // notes
     var subscriptionNotes = req.body.subscriptionNotes;
 
 
     // logo
     var logoLink = req.body.logo;
-
-
 
 
     // First check if the subscription is already added and update it if it is
@@ -707,6 +726,7 @@ function isSubscribed(req, res, next) {
               .where('subID', '==', docID).get()
               .then(querySnapshot => {
                 querySnapshot.forEach(doc => {
+
                   doc.ref.update({
                     'lastPaidDate': lastPaidDateSeconds,
                     'nextPayDate': nextBillInSeconds == null ? '' : nextBillInSeconds,
@@ -730,6 +750,7 @@ function isSubscribed(req, res, next) {
         } else {
           // Otherwise add the subscription to user's list and the
           // [user subscriptions] collection
+
           users.doc(firebase.auth().currentUser.email).update({
             usersubscriptions: admin.firestore.FieldValue.arrayUnion(docID)            
           }).then(result => {
@@ -746,6 +767,10 @@ function isSubscribed(req, res, next) {
               subscriptionNotification: subscriptionNotification,
               subscriptionNotes: subscriptionNotes,
               userEmail: firebase.auth().currentUser.email
+            }).catch(e3 => {
+              
+              console.log('user subscription add failed');
+              res.render('errorPage', { message: e2, displaySubscription: false });
             });
 
             // store the new data to user's profile and then redirect to mycrates
@@ -753,7 +778,7 @@ function isSubscribed(req, res, next) {
           })
           .catch(e2 => {
             console.log('user subscription add failed');
-            res.render('errorPage', { message: err3, displaySubscription: false });
+            res.redirect('/deletesubscription/'+docID);
           })
         }
 
@@ -779,7 +804,7 @@ function isSubscribed(req, res, next) {
     let data = {
       subscriptionName: n,
       category: "Custom",
-      image: '',
+      image: 'https://firebasestorage.googleapis.com/v0/b/subcrates.appspot.com/o/subscriptionImages%2FcustomImage.jpg?alt=media&token=2d597f3b-e044-45b4-98e3-aa39de2d7ad5',
       homepageViewMore: 0,
       addFromSubDescPage: 0,
     }
@@ -864,7 +889,9 @@ function isSubscribed(req, res, next) {
     // use user email to get all the subscriptions and display them
     users.doc(firebase.auth().currentUser.email).get()
       .then(user => {
-        let subList = [];
+        let subList = []; // user subscription list 
+        let subscriptionsList = []; // subscription list with all the data in it
+
 
           // Get firebase date in seconds and set up bill date display and calculate weekly, monthly & yearly expenses
           usersubscriptions.where('userEmail', '==', firebase.auth().currentUser.email)
@@ -911,8 +938,20 @@ function isSubscribed(req, res, next) {
                   var text = 'Date or frequency is missing';
                   dateList.push(text); 
                 }
+
+                
+                subscriptions.doc(sub.data().subID).get()
+                  .then(subscription => {
+                    // add subscription from subscriptions db to subscriptionsList
+                    subscriptionsList.push(subscription);
+                  })
+                  .catch(e6 => {
+                    console.log(e6);
+                    res.render('errorPage', { message: e6, displaySubscription: false });    
+                  })
+   
               })
-              res.render('MyCrate/myCrate', {subList, dateList, weeklyCost, monthlyCost, yearlyCost});
+              res.render('mycrates', {subList, subscriptionsList, dateList, weeklyCost, monthlyCost, yearlyCost});
             })
             .catch(e4 => {
               console.log(e4);
@@ -936,12 +975,19 @@ function isSubscribed(req, res, next) {
     users.doc(firebase.auth().currentUser.email).get()
       .then(user => {
         var userStatus = user.data().status;
-        res.render('Settings/settings', {userStatus: userStatus, userEmail: firebase.auth().currentUser.email});
+        res.render('settings', {userStatus: userStatus, userEmail: firebase.auth().currentUser.email});
       })
       .catch(err1 => {
         console.log(err1);
         res.render('errorPage', { message: err1, displaySubscription: false });        
       });
+  });
+
+
+
+  // HEADLINES PAGE GET ROUTE
+  app.get('/headlines', (req, res) => {
+    res.render('headlines');
   });
 
 
