@@ -27,7 +27,7 @@
 
 	<div class="menu_bar">
 		<div class="top">
-			<span class="close_menu"><img src="../public/assets/images/close.png" alt="#"></span>
+			<span class="close_menu"><img src="../public/images/close.png" alt="#"></span>
 			<div class="form">
 				<form action="/search" method="POST" onsubmit>
 					<input type="text" name="searchBar" placeholder="Search subscription" id="mob_search_field">					
@@ -56,7 +56,7 @@
 		<div class="container">
 			<nav class="navbar navbar-expand-md bg-dark navbar-dark">
 			  <!-- Brand -->
-			  <a class="navbar-brand" href="/homepage"><img src="../public/assets/images/logo.png" alt="#"></a>
+			  <a class="navbar-brand" href="/homepage"><img src="../public/images/logo.png" alt="#"></a>
 
 			  <!-- Toggler/collapsibe Button -->
 			  <button class="navbar-toggler open_menu" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -112,7 +112,7 @@
 						<div class="row">
 							<div class="col-12 col-md-4">
 								<div class="white_box">
-									<div class="img_box"><img src="../public/assets/images/calendar_1.png" alt="#"></div>
+									<div class="img_box"><img src="../public/images/calendar_1.png" alt="#"></div>
 									<div class="head">Total Expenses</div>
 									<p>Weekly</p>
 									<% if(weeklyCost != undefined) { %>
@@ -122,7 +122,7 @@
 							</div>
 							<div class="col-12 col-md-4">
 								<div class="white_box">
-									<div class="img_box"><img src="../public/assets/images/calendar_2.png" alt="#"></div>
+									<div class="img_box"><img src="../public/images/calendar_2.png" alt="#"></div>
 									<div class="head">Total Expenses</div>
 									<p>Monthly</p>
 									<% if(monthlyCost != undefined) { %>
@@ -133,7 +133,7 @@
 							</div>
 							<div class="col-12 col-md-4">
 								<div class="white_box">
-									<div class="img_box"><img src="../public/assets/images/calendar_3.png" alt="#"></div>
+									<div class="img_box"><img src="../public/images/calendar_3.png" alt="#"></div>
 									<div class="head">Total Expenses</div>
 									<p>Yearly</p>
 									<% if(yearlyCost != undefined) { %>
@@ -194,8 +194,8 @@
 										<div class="td"><%- subList[i].data().subscriptionFrequency %></div>
 									<% } %>
 
-									<div class="td"><a href="/addsubscription/<%- subList[i].data().subID %>" ><img src="../public/assets/images/edit.png" alt="#" class="edit"></a></div>
-									<div class="td"><a href="/deletesubscription/<%- subList[i].data().subID %>"><img src="../public/assets/images/delete.png" alt="#" class="trash"></a></div>
+									<div class="td"><a href="/addsubscription/<%- subList[i].data().subID %>" ><img src="../public/images/edit.png" alt="#" class="edit"></a></div>
+									<div class="td"><a href="/deletesubscription/<%- subList[i].data().subID %>"><img src="../public/images/delete.png" alt="#" class="trash"></a></div>
 									<div class="blue_box"><span>Notes:</span> 
 										<%- subList[i].data().subscriptionNotes %>
 								</div>
@@ -216,12 +216,12 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-12 col-md-4">
-					<a href="#"><img src="../public/assets/images/logo.png" alt="#" class="logo"></a>
+					<a href="#"><img src="../public/images/logo.png" alt="#" class="logo"></a>
 					<p>Subcrates is your one-stop for subscriptions. We are a platform that helps you discover new subscriptions, gift subscriptions to friends and family and manage the subscriptions you own.</p>
 					<!-- <ul class="list-inline social">
-						<li class="list-inline-item"><a href="#"><img src="../public/assets/images/facebook.png" alt="#"></a></li>
-						<li class="list-inline-item"><a href="#"><img src="../public/assets/images/instagram.png" alt="#"></a></li>
-						<li class="list-inline-item"><a href="#"><img src="../public/assets/images/twitter.png" alt="#"></a></li>
+						<li class="list-inline-item"><a href="#"><img src="../public/images/facebook.png" alt="#"></a></li>
+						<li class="list-inline-item"><a href="#"><img src="../public/images/instagram.png" alt="#"></a></li>
+						<li class="list-inline-item"><a href="#"><img src="../public/images/twitter.png" alt="#"></a></li>
 					</ul> -->
 				</div>
 				<div class="col-12 col-md-4">
@@ -246,8 +246,8 @@
 				<div class="col-12 col-md-4">
 					<h4>Download Subcrates app</h4>
 					<p>Download the mobile app to get notifications for your subscriptions before you get billed.</p>					
-					<div><a href="https://apps.apple.com/us/app/id1528694362"><img src="../public/assets/images/app_store.png" alt="#" class="store"></a></div>
-					<div><a href="http://play.google.com/store/apps/details?id=com.sub.subcrates"><img src="../public/assets/images/google_play.png" alt="#" class="store"></a></div>
+					<div><a href="https://apps.apple.com/us/app/id1528694362"><img src="../public/images/app_store.png" alt="#" class="store"></a></div>
+					<div><a href="http://play.google.com/store/apps/details?id=com.sub.subcrates"><img src="../public/images/google_play.png" alt="#" class="store"></a></div>
 				</div>
 			</div>
 			<hr>
