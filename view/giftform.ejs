@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<%- include("partials/head") %>  
+
+	<title>Subcrates | Gift Form</title>
+</head>
+<body>
+	<div class="menu_bar">
+		<div class="top">
+			<span class="close_menu"><img src="../public/images/close.png" alt="#"></span>
+			<div class="form">
+				<input type="search" name="menu_search" placeholder="Search" id="mob_search_field">
+				<a href="#" class="search_icon"><img src="../public/images/search_icon.png" alt="#"></a>
+			</div>
+		</div>
+		<ul>
+			<li class="nav-item">
+		        <a class="nav-link" href="#">Home</a>
+		    </li>
+		    <li class="nav-item">
+		        <a class="nav-link" href="#">My Crate</a>
+		    </li>
+		    <li class="nav-item">
+		        <a class="nav-link" href="#">Settings</a>
+		    </li>
+		    <li class="nav-item">
+		        <a class="nav-link" href="#">Headlines</a>
+		    </li>
+		    <li class="nav-item">
+		        <a class="nav-link" href="#">Contact Us</a>
+		    </li>
+		</ul>
+	</div>
+	<section class="nav_section">
+		<div class="container">
+			<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+			  <!-- Brand -->
+			  <a class="navbar-brand" href="#"><img src="../public/images/logo.png" alt="#"></a>
+
+			  <!-- Toggler/collapsibe Button -->
+			  <button class="navbar-toggler open_menu" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+			    <span class="navbar-toggler-icon"></span>
+			  </button>
+
+			  <!-- Navbar links -->
+			  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+			    <ul class="navbar-nav ml-auto">
+			      <li class="nav-item">
+			        <div class="form-search">
+		        		<input type="search" name="search" id="search_field" placeholder="Search">
+		        	</div>
+			      </li>
+			      <li class="nav-item">
+			        <a class="nav-link" href="index.html">Home</a>
+			      </li>
+			      <li class="nav-item">
+			        <a class="nav-link" href="my_crates.html">My Crate</a>
+			      </li>
+			      <li class="nav-item">
+			        <a class="nav-link" href="settings.html">Settings</a>
+			      </li>
+			      <li class="nav-item">
+			        <a class="nav-link" href="headlines.html">Headlines</a>
+			      </li>
+			      <li class="nav-item">
+			        <a class="nav-link" href="#">Contact Us</a>
+			      </li>
+			    </ul>
+			  </div>
+			</nav>
+		</div>
+	</section>
+	<section class="subscripe_section">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<img src="../public/images/dribble-banner.png" alt="#">
+				</div>
+			</div>
+			<div class="row justify-content-center">
+				<div class="col-12 col-md-10">
+					<div class="subscrib_title">
+						<div class="row">
+							<div class="col-12 col-sm-8">
+								<div class="name_box">
+									<div class="img_box"><img src="../public/images/icon_12.png" alt="#"></div>
+									<span>Software</span>
+									<div class="text">Dribbble</div>
+								</div>
+							</div>
+							<div class="col-12 col-sm-4 text-right">
+								<a href="#"><button class="btn_blue">Check Subscription</button></a>
+							</div>
+						</div>
+						<div class="blue_text text-right">To verify this subscription is partnered with subcrates you can check on their official website here.</div>
+					</div>
+					<div class="heading text-center">Please fill out the form below</div>
+					<form method="post" class="giftform">
+						<div class="row justify-content-center">
+							<div class="col-12 col-md-9">
+								<div class="formbox">
+									<div class="row">
+										<div class="col-12 col-md-6">
+											<label>Name of buyer</label>
+											<input type="text" name="" placeholder="Enter name" class="form-control">
+										</div>
+										<div class="col-12 col-md-6">
+											<label>Name of recipient</label>
+											<input type="text" name="" placeholder="Enter recipient" class="form-control">
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-12 col-md-6">
+											<label>Buyer's email</label>
+											<input type="text" name="" placeholder="Enter Email" class="form-control">
+										</div>
+										<div class="col-12 col-md-6">
+											<label>Subscritpion plan name</label>
+											<select class="form-control">
+												<option>Select subscription</option>
+												<option>Select subscription</option>
+												<option>Select subscription</option>
+											</select>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-12 col-md-6">
+											<label>Months to gift</label>
+											<select class="form-control">
+												<option>Select Months</option>
+												<option>Select Months</option>
+												<option>Select Months</option>
+											</select>
+										</div>
+										<div class="col-12 col-md-6">
+											<label>Gifting occasion</label>
+											<select class="form-control">
+												<option>Select Ocassion</option>
+												<option>Select Ocassion</option>
+												<option>Select Ocassion</option>
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="formbox">
+									<div class="row">
+										<div class="col-12">
+											<div class="pricebox">Your Purchase : $49.95 for 5 months</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-12 col-md-6">
+											<label>Card number</label>
+											<input type="text" name="" placeholder="XXXX - XXXX - XXXX - XXXX" class="form-control">
+										</div>
+										<div class="col-12 col-md-6">
+											<label>Name on card</label>
+											<input type="text" name="" placeholder="Card name" class="form-control">
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-12 col-md-6">
+											<label>CVV</label>
+											<input type="text" name="" placeholder="Enter Cvv" class="form-control">
+										</div>
+										<div class="col-12 col-md-6">
+											<label>Zip code</label>
+											<input type="text" name="" placeholder="Enter Cvv" class="form-control">
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-12 col-md-9 text-center">
+								<button class="btn_blue">Pay now</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+	<footer>
+		<div class="container">
+			<div class="row">
+				<div class="col-12 col-md-4">
+					<a href="#"><img src="../public/images/logo.png" alt="#" class="logo"></a>
+					<p>Subcrates is your one-stop for subscriptions. We are a platform that helps you discover new subscriptions and manage the ones you own. </p>
+					<ul class="list-inline social">
+						<li class="list-inline-item"><a href="#"><img src="../public/images/facebook.png" alt="#"></a></li>
+						<li class="list-inline-item"><a href="#"><img src="../public/images/instagram.png" alt="#"></a></li>
+						<li class="list-inline-item"><a href="#"><img src="../public/images/twitter.png" alt="#"></a></li>
+					</ul>
+				</div>
+				<div class="col-12 col-md-4">
+					<h4>Links</h4>
+					<div class="row">
+						<div class="col-6">
+							<ul class="links">
+								<li><a href="#">Home</a></li>
+								<li><a href="#">My Crate</a></li>
+								<li><a href="#">Settings</a></li>
+								<li><a href="#">Contact Us</a></li>
+							</ul>
+						</div>
+						<div class="col-6">
+							<ul class="links">
+								<li><a href="#">Suggestions</a></li>
+								<li><a href="#">Got Questions</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="col-12 col-md-4">
+					<h4>Download Subcrates app</h4>
+					<p>Lorem ipsum dolor sit amet, consectetur ..</p>
+					<div><a href="#"><img src="../public/images/app_store.png" alt="#" class="store"></a></div>
+					<div><a href="#"><img src="../public/images/google_play.png" alt="#" class="store"></a></div>
+				</div>
+			</div>
+			<hr>
+			<div class="row">
+				<div class="col-12 col-md-6">
+					<p>Copyrights © 2020 <a href="#">Subcrates.</a> All rights reserved.</p>
+				</div>
+				<div class="col-12 col-md-6">
+					<ul class="bot_link list-inline">
+						<li class="list-inline-item"><a href="#">Terms of Service</a></li>
+						<li class="list-inline-item"><a href="#">Privacy Policy</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</footer>
+	<div class="modal" id="myModal1">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+
+	      <!-- Modal Header -->
+	      <div class="modal-header" style="border-bottom: 0;">
+	        <button type="button" class="close" data-dismiss="modal"><img src="../public/images/close.png" alt="#"></button>
+	      </div>
+	      <!-- Modal body -->
+	      <div class="modal-body pt-0">
+	        <div class="scription">
+				<form method="post">
+					<div class="heading mt-0">Write A Review</div>
+					<div class="form-group">
+						<input type="text" name="" placeholder="Name">
+					</div>
+					<div class="form-group">
+						<input type="text" name="" placeholder="Email">
+					</div>
+					<div class="form-group">
+						<ul class="list-inline rating">
+							<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+							<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+							<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+							<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+							<li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+						</ul>
+					</div>
+					<div class="form-group">
+						<textarea placeholder="Comments" class="mt-0"></textarea>
+					</div>
+					<div class="form-group text-center">
+						<button class="btn_blue mt-0">Add Review</button>
+					</div>
+				</form>
+	        </div>
+	      </div>
+
+	    </div>
+	  </div>
+	</div>
+
+
+	<%- include("partials/foot") %>  
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('.open_menu').click(function(){
+			$('.menu_bar').addClass('active');
+			$('.navbar-collapse').css('display','none');
+		});
+		$('.close_menu').click(function(){
+			$('.menu_bar').removeClass('active');
+		});
+	});
+</script>
+<script type="text/javascript">
+	var options = {
+	data: [
+		  {"name": "Afghanistan", "code": "AF"},
+		  {"name": "Aland Islands", "code": "AX"},
+		  {"name": "Albania", "code": "AL"},
+		  {"name": "Algeria", "code": "DZ"},
+		  {"name": "American Samoa", "code": "AS"}
+		  ],
+  		getValue: "name",
+		list: {
+			match: {
+				enabled: true
+			}
+		}
+	};
+
+	$("#search_field").easyAutocomplete(options);
+// for mobile
+	$("#mob_search_field").easyAutocomplete(options);
+</script>
+<script type="text/javascript">
+	$('.responsive').slick({
+	  dots: false,
+	  arrow: true,
+	  infinite: false,
+	  speed: 300,
+	  slidesToShow: 3,
+	  slidesToScroll: 6,
+	  responsive: [
+	    {
+	      breakpoint: 1024,
+	      settings: {
+	        slidesToShow: 3,
+	        slidesToScroll: 3,
+	        infinite: true
+	      }
+	    },
+	    {
+	      breakpoint: 600,
+	      settings: {
+	        slidesToShow: 2,
+	        slidesToScroll: 2
+	      }
+	    },
+	    {
+	      breakpoint: 480,
+	      settings: {
+	        slidesToShow: 1,
+	        slidesToScroll: 1,
+	        arrow: false
+	      }
+	    }
+	    // You can unslick at a given breakpoint now by adding:
+	    // settings: "unslick"
+	    // instead of a settings object
+	  ]
+	});
+</script>
+</body>
+</html>

@@ -935,7 +935,7 @@ function isSubscribed(req, res, next) {
                     yearlyCost += sub.data().price;
                   }
                 } else {
-                  var text = 'Date or frequency is missing';
+                  var text = 'Date or frequency missing';
                   dateList.push(text); 
                 }
 
@@ -968,6 +968,28 @@ function isSubscribed(req, res, next) {
 
 
 
+  // HEADLINES PAGE GET ROUTE
+  app.get('/headlines', (req, res) => {
+    res.render('headlines');
+  });
+
+
+
+  // GIFTS PAGE GET ROUTE
+  app.get('/gifts', (req, res) => {
+    res.render('gifts');
+  });
+
+
+
+  // GIFT FORM PAGE GET ROUTE
+  app.get('/giftform', (req, res) => {
+    res.render('giftform');
+  });
+
+
+
+
   // GET ROUTE FOR SETTINGS PAGE
   app.get('/settings', isAuthenticated, (req, res) => {
     // Get the status of the user to display the subscription OR cancel subscription
@@ -983,12 +1005,6 @@ function isSubscribed(req, res, next) {
       });
   });
 
-
-
-  // HEADLINES PAGE GET ROUTE
-  app.get('/headlines', (req, res) => {
-    res.render('headlines');
-  });
 
 
 
@@ -1117,3 +1133,29 @@ app.post('/resetpassword', (req, res) => {
         res.render('errorPage', {message: err, displaySubscription: false })
     })
   });
+
+
+
+  // app.get('/calc', (req, res) => {
+
+  //   var start7 = 45000;
+  //   var start5 = 45000;
+  //   var aggregate7 = 0;
+  //   var aggregate5 = 0;
+  //   var tenMultiple = 10;
+  //   var multiplier7 = 1.07;
+  //   var multiplier5 = 1.05;
+
+  //   for(var i = 0; i < 12; i++) {
+  //     start7 = start7 * multiplier7;
+  //     aggregate7 = aggregate7 + start7;
+
+  //     start5 = start5 * multiplier5;
+  //     aggregate5 = aggregate5 + start5;
+  //   }
+
+  //   console.log('at 1.05: ' + parseInt(aggregate5).toString());
+  //   console.log('at 1.05 ten multiplier: ' + parseInt(aggregate5 * tenMultiple).toString());
+  //   console.log('at 1.07: ' + parseInt(aggregate7).toString());
+  //   console.log('at 1.07 ten multiplier: ' + parseInt(aggregate7 * tenMultiple).toString());
+  // });
