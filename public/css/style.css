@@ -1662,7 +1662,7 @@ footer hr{
     display: none !important;
 }
 input#search_field:focus {
-    width: 160px;
+    width: 190px;
     padding-left: 40px;
     color: #000;
     background-color: #fff;
@@ -1670,12 +1670,14 @@ input#search_field:focus {
 }
 input#search_field {
     padding-left: 10px;
-    color: transparent;
+    /* color: transparent; */
+    color: #000;
     cursor: pointer;
-    background: url(../images/search_icon.png) no-repeat 1.3rem center;
+    /* background: url(../images/search_icon.png) no-repeat 1.3rem center; */
     border: solid 0px #ccc;
     padding: .5rem 1.5rem;
-    width: 42px;
+    /* width: 42px; */
+    width: 190px;
     -webkit-border-radius: 10em;
     -moz-border-radius: 10em;
     border-radius: 10em;

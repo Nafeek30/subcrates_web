@@ -283,13 +283,14 @@ function isSubscribed(req, res, next) {
 
 
   // GET ROUTE - Homepage
-  // [isAuthenticated, isSubscribed],
-  app.get('/homepage', [isAuthenticated, isSubscribed], (req, res) => {
+  // [isAuthenticated],
+  app.get('/homepage', [isAuthenticated], (req, res) => {
 
     // Arrays to store categories, unique categories and subscription data
     var allCategories = [];
     var uniqueCategories = [];
-    var allSubscriptions = [];
+    var allSubscriptions = []; // Stores 7 subscriptions from each category
+    var limitedSubscriptions = []; // Stores ALL subscriptions from each category
 
     var loginEmail = firebase.auth().currentUser.email;
 
@@ -298,8 +299,8 @@ function isSubscribed(req, res, next) {
       .then(subscriptionSnap => {
 
         subscriptionSnap.forEach(singleSubscription => {
-          //push all subscription into array
-          allSubscriptions.push(singleSubscription);
+          // //push all subscription into array
+          limitedSubscriptions.push(singleSubscription);
           // push all categories into array
           allCategories.push(singleSubscription.data().category);
         });
@@ -309,11 +310,30 @@ function isSubscribed(req, res, next) {
         // Remove custom items from homepage display
         uniqueCategories = uniqueCategories.filter(item => item !== 'Custom');
 
-        // imageKeys = Object.keys(allImages);
-        // imageValues = Object.values(allImages);
+
+    // USE THIS PLACE BELOW TO SORT THE [limitedSubscriptions] array by position when you needed.
+    // Filer and give preference to the subscriptions that have paid.
+    // NOTE: Make sure the position of the paid subscriptions are changed as 1, 2, 3, ...
+    // Default value for all subscriptions that [HAVE NOT] paid are 999.
+
+    
+
+    // Only store 6 subscriptions for each category (at most) for homepage to
+    // This saves user data and speed up loading.
+    for (let c = 0; c < uniqueCategories.length; c++) {
+      let counter = 0;
+      for (let i = 0; i < limitedSubscriptions.length; i++) {
+        if (counter < 6 &&
+            uniqueCategories[c] ==
+            limitedSubscriptions[i].data().category) {
+              allSubscriptions.push(limitedSubscriptions[i]);
+          counter++;
+        }
+      }
+    }
 
         // THEN RENDER HOMEPAGE
-        res.render('index', {allSubscriptions, uniqueCategories, name: loginEmail});
+        res.render('homepage', {allSubscriptions, uniqueCategories, name: loginEmail});
       })
       .catch((e) => {
         console.log('SUBSCRIPTION DATABASE COULD NOT BE ACCESSED.');
@@ -325,36 +345,40 @@ function isSubscribed(req, res, next) {
 
 
 
-  // POST ROUTE - SEARCH - Use the name from the search query to find the item and display it in 
-  // subscription details page.
-  // If name is not in the subscription list in db then return 'Subscription Not found. Use Custom sub
-  // to create your own subscription.'
-  app.post('/search', [isAuthenticated, isSubscribed], (req, res) => {
 
-    // Get the name of the subscription from the search body 
-    var name = req.body.searchBar;
+  // GET ROUTE - Subscription Category
+  // [isAuthenticated]
+  // Use the category to find all the subscriptions from that category and display them 
+  app.get('/category/:id', [isAuthenticated], (req, res) => {
 
-    // Get all subscriptions and then find the one whose [subscriptionName] matches [name] and redirect
-    // to [subscriptionDetails] page.
-    subscriptions.get()
-      .then(subscriptionSnap => {
-        subscriptionSnap.forEach(singleSubscription => {
-          if(singleSubscription.data().subscriptionName == name) {
-            res.redirect('/subscription/' + singleSubscription.id);
-            return;
-          }
+    var categorySelected = req.params.id;
+    var allSubscriptions = []; // Holds all the subscriptions information to send to frontend
+
+
+    subscriptions.where('category', '==', categorySelected).get()
+      .then(subscriptionsSnap => {
+        subscriptionsSnap.forEach(singleSubscription => {
+          //push all subscription into array
+          allSubscriptions.push(singleSubscription);
+          console.log(singleSubscription.data().subscriptionName);
         });
-        res.render('errorPage', 
-        { message: 'No such subscription found in our database. Please use custom subscription to add it. If you would like us to add this subscription let us know by contacting us.', displaySubscription: false })
-      })
 
-    
+        // THEN RENDER HOMEPAGE
+        res.render('singlecategory', {allSubscriptions, categorySelected});
+
+      }).catch(err1 => {
+        console.log('subscriptions from category not found for category page.');
+        res.render('errorPage', {message: err1.message, displaySubscription: false })
+      });
+
   });
+
+
 
   
 
   // GET ROUTE FOR SUBSCRIPTIONS [FORMAT /subscription/id] where [id] -> the id/name of the subscription being displayed
-  app.get('/subscription/:id', [isAuthenticated, isSubscribed], (req, res) => {
+  app.get('/subscription/:id', [isAuthenticated], (req, res) => {
 
     // Get the subscription id which is the document id from the query
     var docID = req.params.id;
@@ -400,7 +424,7 @@ function isSubscribed(req, res, next) {
   });
 
 
-  app.post('/subscription/:id', [isAuthenticated, isSubscribed], (req, res) => {
+  app.post('/subscription/:id', [isAuthenticated], (req, res) => {
 
     // Get the subscription name which is the document id from the query
     var docID = req.params.id;
@@ -428,16 +452,12 @@ function isSubscribed(req, res, next) {
     };
 
     // User's subscription status & previous rating of the user's review
-    var userSubscription;
     var previousRating;
   
     users.doc(firebase.auth().currentUser.email).get()
     .then(user => {
       userSubscription = user.data().status;
-      if(userSubscription  != true) {
-        res.render('errorPage', { message: 'You must be a monthly subscriber to leave reviews', displaySubscription: false });  
-        return;      
-      } else if(userSubscription == true) {
+
         // check if review exists => 1. if not add it; 2. if yes update it
         reviews.doc(docID+firebase.auth().currentUser.email).get()
         .then(review => {
@@ -583,7 +603,6 @@ function isSubscribed(req, res, next) {
             })
           }
         })
-      }
     })
 
   });
@@ -591,7 +610,7 @@ function isSubscribed(req, res, next) {
 
 
   // GET ROUTE FOR ADDING A SUBSCRIPTION [FORMAT /addsubscription/:id -> the id/name of the subscription being displayed/added]
-  app.get('/addsubscription/:id', [isAuthenticated, isSubscribed], (req, res) => {
+  app.get('/addsubscription/:id', [isAuthenticated], (req, res) => {
 
     // Get the subscription name which is the document id from the query
     var docID = req.params.id;
@@ -617,7 +636,7 @@ function isSubscribed(req, res, next) {
 
 
   // POST ROUTE FOR ADDING A SUBSCRIPTION [FORMAT /addsubscription/:id -> the id/name of the subscription being displayed/added]
-  app.post('/addsubscription/:id', [isAuthenticated, isSubscribed], (req, res) => {
+  app.post('/addsubscription/:id', [isAuthenticated], (req, res) => {
 
     // Get the subscription id which is the document id from the query
     var docID = req.params.id;
@@ -793,7 +812,7 @@ function isSubscribed(req, res, next) {
 
 
   // GET ROUTE FOR EDITINNG A SUBSCRIPTION [FORMAT /addsubscription/:id -> the id/name of the subscription being displayed/added]
-  app.get('/editsubscription/:id', [isAuthenticated, isSubscribed], (req, res) => {
+  app.get('/editsubscription/:id', [isAuthenticated], (req, res) => {
 
     // Get the subscription name which is the document id from the query
     var docID = req.params.id;
@@ -824,7 +843,7 @@ function isSubscribed(req, res, next) {
 
 
   // GET ROUTE FOR DELETING A SUBSCRIPTION [FORMAT /addsubscription/:id -> the id(name) of the subscription being displayed/added]
-  app.get('/deletesubscription/:id', [isAuthenticated, isSubscribed], (req, res) => {
+  app.get('/deletesubscription/:id', [isAuthenticated], (req, res) => {
 
     // Get the id of the subscription from the param id
     var subID = req.params.id;
@@ -879,7 +898,7 @@ function isSubscribed(req, res, next) {
   
 
   // GET ROUTE FOR MY CRATE PAGE
-  app.get('/mycrate', [isAuthenticated, isSubscribed], (req, res) => {
+  app.get('/mycrate', [isAuthenticated], (req, res) => {
     var dateList = [];
     var weeklyCost = 0.00;
     var monthlyCost = 0.00;
@@ -1008,6 +1027,33 @@ function isSubscribed(req, res, next) {
 
 
 
+
+  // POST ROUTE - SEARCH - Use the name from the search query to find the item and display it in 
+  // subscription details page.
+  // If name is not in the subscription list in db then return 'Subscription Not found. Use Custom sub
+  // to create your own subscription.'
+  app.post('/search', [isAuthenticated], (req, res) => {
+
+    // Get the name of the subscription from the search body 
+    var name = req.body.searchBar;
+
+    // Get all subscriptions and then find the one whose [subscriptionName] matches [name] and redirect
+    // to [subscriptionDetails] page.
+    subscriptions.get()
+      .then(subscriptionSnap => {
+        subscriptionSnap.forEach(singleSubscription => {
+          if(singleSubscription.data().subscriptionName == name) {
+            res.redirect('/subscription/' + singleSubscription.id);
+            return;
+          }
+        });
+        res.render('errorPage', 
+        { message: 'No such subscription found in our database. Please use custom subscription to add it. If you would like us to add this subscription let us know by contacting us.', displaySubscription: false })
+      })
+  });
+
+
+
   // POST ROUTE TO CHARGE SUBSCRIPTION FEE
   app.post('/subscribe', isAuthenticated, (req,res) => {
 
@@ -1097,10 +1143,12 @@ app.post('/resetpassword', (req, res) => {
   const auth = firebase.auth()
 
   if (email != "") {
-      auth.sendPasswordResetEmail(email)
+      auth.sendPasswordResetEmail(email.toString())
           .then(result => {
               res.redirect('/');
-          })
+          }).catch(err1 => {
+            res.render('errorPage', {message: err1, displaySubscription: false })
+          });
   } else {
       res.render('errorPage', { message: "Enter a valid email", displaySubscription: false });
   }

@@ -1,32 +1,21 @@
-<!-- 
-	*** Things commented out but done:
-	1. Today's featured brand list with logos (click doesn't work but it should show 6-second videos)
-	2. View More button subscription categories (categories page is done, needs backend integration and link here)
-	3. Social Media links at the bottom commented out
-	4. Other links at the bottom commented out. Replace later with important links.
-	5. commented contact us AND HEADLINES on navbar section for web & mobile view. Uncomment HEADLINES WHEN IMPLEMENNTED
- -->
-
-
-
-
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<%- include("partials/head") %>  
-	<title>Subcrates Home: Subscription Categories & Subscriptions List</title>
+
+	<title>Subcrates | All available subscriptions for <%- categorySelected %></title>
 </head>
 <body>
 	<div class="menu_bar">
 		<div class="top">
 			<span class="close_menu"><img src="../public/images/close.png" alt="#"></span>
 			<div class="form-search form">
-					<form action="/search" method="POST" onsubmit>
-						<input type="text" name="searchBar" placeholder="Search subscription" id="mob_search_field">					
-					</form>
-			</div>
+				<form action="/search" method="POST" onsubmit>
+					<input type="text" name="searchBar" placeholder="Search subscription" id="mob_search_field">					
+				</form>
+		</div>
 		</div>
 		<ul>
 			<li class="nav-item">
@@ -40,8 +29,8 @@
 		    </li>
 		    <!-- <li class="nav-item">
 		        <a class="nav-link" href="#">Headlines</a>
-		    </li> -->
-		    <!-- <li class="nav-item">
+		    </li>
+		    <li class="nav-item">
 		        <a class="nav-link" href="#">Contact Us</a>
 		    </li> -->
 		</ul>
@@ -61,11 +50,11 @@
 			  <div class="collapse navbar-collapse" id="collapsibleNavbar">
 			    <ul class="navbar-nav ml-auto">
 			      <li class="nav-item">
-			        	<div class="form-search">
-									<form action="/search" method="POST" onsubmit>
-										<input type="text" name="searchBar" id="search_field" placeholder="Search">
-									</form>
-			        	</div>
+			        <div class="form-search">
+		        		<form action="/search" method="POST" onsubmit>
+									<input type="text" name="searchBar" id="search_field" placeholder="Search">
+								</form>
+		        	</div>
 			      </li>
 			      <li class="nav-item">
 			        <a class="nav-link" href="/homepage">Home</a>
@@ -87,177 +76,44 @@
 			</nav>
 		</div>
 	</section>
-	<section class="brand_section">
+	<section class="brand_section no_arrow">
 		<div class="container">
 			<div class="row">
-
-				<!--  ********* Today's Featured Brands personalized for users in the form of instagram 
-					like videos (will be ads) 
-				**********  -->
-
-
-				<!-- <div class="col-12">
-					<div class="brand_select">
-						<div class="heading">Today's Featured Brands</div>
-						<div class="responsive4">
-							<div>
-								<a class="brand_icon" href="#">
-									<img src="../public/images/icon_1.png" alt="#">
-								</a>
-							</div>
-							<div>
-								<a class="brand_icon" href="#">
-									<img src="../public/images/icon_2.png" alt="#">
-								</a>
-							</div>
-							<div>
-								<a class="brand_icon" href="#">
-									<img src="../public/images/icon_3.png" alt="#">
-								</a>
-							</div>
-							<div>
-								<a class="brand_icon" href="#">
-									<img src="../public/images/icon_4.png" alt="#">
-								</a>
-							</div>
-							<div>
-								<a class="brand_icon" href="#">
-									<img src="../public/images/icon_5.png" alt="#">
-								</a>
-							</div>
-							<div>
-								<a class="brand_icon" href="#">
-									<img src="../public/images/icon_6.png" alt="#">
-								</a>
-							</div>
-							<div>
-								<a class="brand_icon" href="#">
-									<img src="../public/images/icon_7.png" alt="#">
-								</a>
-							</div>
-							<div>
-								<a class="brand_icon" href="#">
-									<img src="../public/images/icon_8.png" alt="#">
-								</a>
-							</div>
-							<div>
-								<a class="brand_icon" href="#">
-									<img src="../public/images/icon_1.png" alt="#">
-								</a>
-							</div>
-							<div>
-								<a class="brand_icon" href="#">
-									<img src="../public/images/icon_2.png" alt="#">
-								</a>
-							</div>
-							<div>
-								<a class="brand_icon" href="#">
-									<img src="../public/images/icon_3.png" alt="#">
-								</a>
-							</div>
-							<div>
-								<a class="brand_icon" href="#">
-									<img src="../public/images/icon_4.png" alt="#">
-								</a>
-							</div>
-							<div>
-								<a class="brand_icon" href="#">
-									<img src="../public/images/icon_5.png" alt="#">
-								</a>
-							</div>
-							<div>
-								<a class="brand_icon" href="#">
-									<img src="../public/images/icon_6.png" alt="#">
-								</a>
-							</div>
-							<div>
-								<a class="brand_icon" href="#">
-									<img src="../public/images/icon_7.png" alt="#">
-								</a>
-							</div>
-							<div>
-								<a class="brand_icon" href="#">
-									<img src="../public/images/icon_8.png" alt="#">
-								</a>
-							</div>
-						</div>
-					</div>
-				</div> -->
-				<% for(let i = 0; i < uniqueCategories.length; i++) { %>
 				<div class="col-12">
 					<div class="brand_slide">
 						<div class="featured-section-heading">
-							<div class="heading mb-0"><%- uniqueCategories[i] %></div>
-							<!-- <a class="view-more-section" href="#">View More</a> -->
+							<div class="heading mb-0"><%- categorySelected %> <span style="font-size: 1.5rem; color: gray;">(<%- allSubscriptions.length %>)</span> </div>
 						</div>
+
+				<!-- Divide the subscriptions into rows with each row having 4 subscriptions -->
+				<!-- Outer loop starts from 0 and traverses by 4 -->
+				<% for(let i = 0; i < allSubscriptions.length; i+=4) { %>
 						<div class="responsive">
-								<% allSubscriptions.forEach(subscription => { %>
-									<% if(subscription.data().category === uniqueCategories[i]) { %>
+				<!-- Inner loop starts at i and traveres by 1 UNTIL it reaches [i+4] OR the length of [allSubscriptions] array -->
+				<% for(j = i; j < (i+4); j++) { %>
+					<% if(j < allSubscriptions.length) { %>							
 							<div>
 								<div class="brand_box">
-									<img src="<%- subscription.data().banner %>" alt="#" style="width: 18rem; height: 12rem;">
+									<img src="<%- allSubscriptions[j].data().banner %>" alt="#">
 									<div class="bottom">
 										<div class="name">
-											<div class="img_box"><img src="<%- subscription.data().image %>" alt="#"></div>
-											<span><%- subscription.data().subscriptionName %></span>
+											<div class="img_box"><img src="<%- allSubscriptions[j].data().image %>" alt="#"></div>
+											<span><%- allSubscriptions[j].data().subscriptionName %></span>
 										</div>
-										<p><%- subscription.data().shortDesc %></p>
+										<p><%- allSubscriptions[j].data().shortDesc %></p>
 										<hr>
 										<div class="text-center">
-											<a href="/subscription/<%-subscription.id%>" class="view_link">View More</a>
+											<a href="/subscription/<%-allSubscriptions[j].id%>" class="view_link">View More</a>
 										</div>
 									</div>
 								</div>
 							</div>
-							<% } %>
-            				<% }) %>
+						<% } %>
+						<% } %>
 						</div>
+						<% } %>
 					</div>
 				</div>
-				<% } %>
-
-				<!-- <div class="col-12">
-					<div class="brand_slide">
-						<div class="featured-section-heading">
-							<div class="heading mb-0">Finance</div>
-							<a class="view-more-section" href="#">View More</a>
-						</div>
-						<div class="responsive3">
-							<div>
-								<div class="brand_box">
-									<img src="../public/images/box_img1.png" alt="#">
-									<div class="bottom">
-										<div class="name">
-											<div class="img_box"><img src="../public/images/icon_9.png" alt="#"></div>
-											<span>1Password</span>
-										</div>
-										<p>Online password storage with one-click feature.</p>
-										<hr>
-										<div class="text-center">
-											<a href="#" class="view_link">View More</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div>
-								<div class="brand_box">
-									<img src="../public/images/box_img2.png" alt="#">
-									<div class="bottom">
-										<div class="name">
-											<div class="img_box"><img src="../public/images/icon_10.png" alt="#"></div>
-											<span>Amazon</span>
-										</div>
-										<p>Online password storage with one-click feature.</p>
-										<hr>
-										<div class="text-center">
-											<a href="#" class="view_link">View More</a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div> -->
 			</div>
 		</div>
 	</section>
@@ -265,7 +121,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-12 col-md-4">
-					<a href="#"><img src="../public/images/logo.png" alt="#" class="logo"></a>
+					<a><img src="../public/images/logo.png" alt="#" class="logo"></a>
 					<p>Subcrates is your one-stop for subscriptions. We are a platform that helps you discover new subscriptions, gift subscriptions to friends and family and manage the subscriptions you own. </p>
 					<ul class="list-inline social">
 						<!-- <li class="list-inline-item"><a href="#"><img src="../public/images/facebook.png" alt="#"></a></li>
@@ -278,9 +134,9 @@
 					<div class="row">
 						<div class="col-6">
 							<ul class="links">
-								<!-- <li><a href="index.html">Home</a></li>
-								<li><a href="my_crates.html">My Crate</a></li>
-								<li><a href="settings.html">Settings</a></li> -->
+								<!-- <li><a href="#">Home</a></li>
+								<li><a href="#">My Crate</a></li>
+								<li><a href="#">Settings</a></li> -->
 								<li><a href="mailto:support@subcrates.com">Contact Us</a></li>
 							</ul>
 						</div>
@@ -315,7 +171,8 @@
 	</footer>
 
 
-<%- include("partials/foot") %>  
+	<%- include("partials/foot") %>  
+
 <script type="text/javascript">
 	$('.responsive').slick({
 	  dots: false,
@@ -431,44 +288,6 @@
 	});
 </script>
 <script type="text/javascript">
-	$('.responsive4').slick({
-	  dots: false,
-	  arrow: false,
-	  infinite: false,
-	  speed: 300,
-	  slidesToShow: 8,
-	  slidesToScroll: 8,
-	  responsive: [
-	    {
-	      breakpoint: 1024,
-	      settings: {
-	        slidesToShow: 6,
-	        slidesToScroll: 6,
-	        infinite: true
-	      }
-	    },
-	    {
-	      breakpoint: 600,
-	      settings: {
-	        slidesToShow: 4,
-	        slidesToScroll: 4
-	      }
-	    },
-	    {
-	      breakpoint: 480,
-	      settings: {
-	        slidesToShow: 3,
-	        slidesToScroll: 3,
-	        arrow: false
-	      }
-	    }
-	    // You can unslick at a given breakpoint now by adding:
-	    // settings: "unslick"
-	    // instead of a settings object
-	  ]
-	});
-</script>
-<script type="text/javascript">
 	$(document).ready(function(){
 		$('.open_menu').click(function(){
 			$('.menu_bar').addClass('active');
@@ -482,7 +301,7 @@
 <script type="text/javascript">
 	var options = {
 	data: [
-		  {"name": "Amazon"},
+			{"name": "Amazon"},
 			{"name": "Adobe"},
 			{"name": "Amazon Web Services"},
 			{"name": "Asana"},
