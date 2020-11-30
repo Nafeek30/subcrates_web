@@ -1,3 +1,9 @@
+<!-- 
+	* This page displays a single category of subscriptions depending on which 'View All > ' link
+	* the user has clicked on from the home page.
+ -->
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,15 +30,15 @@
 		    <li class="nav-item">
 		        <a class="nav-link" href="/mycrate">My Crate</a>
 		    </li>
-		    <li class="nav-item">
-		        <a class="nav-link" href="/settings">Settings</a>
-		    </li>
 		    <!-- <li class="nav-item">
 		        <a class="nav-link" href="#">Headlines</a>
-		    </li>
+		    </li>-->
 		    <li class="nav-item">
-		        <a class="nav-link" href="#">Contact Us</a>
-		    </li> -->
+		        <a class="nav-link" href="/gifts">Gifts</a>
+				</li> 
+				<li class="nav-item">
+		      <a class="nav-link" href="/settings">Settings</a>
+		    </li>
 		</ul>
 	</div>
 	<section class="nav_section">
@@ -62,15 +68,15 @@
 			      <li class="nav-item">
 			        <a class="nav-link" href="/mycrate">My Crate</a>
 			      </li>
-			      <li class="nav-item">
-			        <a class="nav-link" href="/settings">Settings</a>
-			      </li>
 			      <!-- <li class="nav-item">
 			        <a class="nav-link" href="headlines.html">Headlines</a>
-			      </li>
+			      </li>-->
 			      <li class="nav-item">
-			        <a class="nav-link" href="#">Contact Us</a>
-			      </li> -->
+			        <a class="nav-link" href="/gifts">Gifts</a>
+						</li> 
+						<li class="nav-item">
+							<a class="nav-link" href="/settings">Settings</a>
+						</li>
 			    </ul>
 			  </div>
 			</nav>
@@ -82,16 +88,16 @@
 				<div class="col-12">
 					<div class="brand_slide">
 						<div class="featured-section-heading">
-							<div class="heading mb-0"><%- categorySelected %> <span style="font-size: 1.5rem; color: gray;">(<%- allSubscriptions.length %>)</span> </div>
+							<div class="heading mb-0"><%- categorySelected %></div>
 						</div>
 
 				<!-- Divide the subscriptions into rows with each row having 4 subscriptions -->
 				<!-- Outer loop starts from 0 and traverses by 4 -->
 				<% for(let i = 0; i < allSubscriptions.length; i+=4) { %>
 						<div class="responsive">
-				<!-- Inner loop starts at i and traveres by 1 UNTIL it reaches [i+4] OR the length of [allSubscriptions] array -->
-				<% for(j = i; j < (i+4); j++) { %>
-					<% if(j < allSubscriptions.length) { %>							
+						<!-- Inner loop starts at i and traveres by 1 UNTIL it reaches [i+4] OR the length of [allSubscriptions] array -->
+						<% for(j = i; j < (i+4); j++) { %>
+							<% if(j < allSubscriptions.length) { %>							
 							<div>
 								<div class="brand_box">
 									<img src="<%- allSubscriptions[j].data().banner %>" alt="#">

@@ -740,7 +740,7 @@ footer hr{
     padding: 1rem 2rem;
 }
 .faq_section .card .card-body p{
-    color: #B1B4BB;
+    color: rgb(103, 104, 107);
     border-top: 0.1rem solid #F2F2F2;
     padding-top: 1rem;
     margin-bottom: 1rem;

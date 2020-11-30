@@ -1,0 +1,100 @@
+<!-- 
+    * [OLD CODE PAGE]
+    * This is the error page that is shown for any errors we want to display. 
+ -->
+
+
+<!doctype html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <%- include("partials/header") %>    
+    <link rel="stylesheet" a href="../public/css/footer.css" />
+    <link rel="stylesheet" a href="../public/css/settings.css" />
+
+
+
+  <title>Error</title>
+</head>
+
+<body>
+    <div class="jumbotron">
+        <div class="alert alert-danger" role="alert">
+             <%=message%>
+        </div>
+    </div>
+
+    <% if(displaySubscription != null && displaySubscription == true) { %>
+      <div class="setting-payment-block">
+          <div class="setting-payment-card">
+              <div class="generic_content clearfix">
+                  
+                  <!--HEAD PRICE DETAIL START-->
+                  <div class="generic_head_price clearfix">
+                  
+                      <!--HEAD CONTENT START-->
+                      <div class="generic_head_content clearfix">
+                      
+                          <!--HEAD START-->
+                          <div class="head_bg"></div>
+                          <div class="head">
+                              <span>Monthly Plan</span>
+                          </div>
+                          <!--//HEAD END-->
+                          
+                      </div>
+                      <!--//HEAD CONTENT END-->
+                      
+                      <!--PRICE START-->
+                      <div class="generic_price_tag clearfix">    
+                          <span class="price">
+                              <span class="sign">$</span>
+                              <span class="currency">0.99</span>
+                              <span class="month">/mo</span>
+                          </span>
+                      </div>
+                      <!--//PRICE END-->
+                      
+                  </div>                            
+                  <!--//HEAD PRICE DETAIL END-->
+                  
+                  <!--FEATURE LIST START-->
+                  <div class="generic_feature_list">
+                      <ul>
+                          <li><span>Discover</span> new subscriptions.</li>
+                          <li><span>Manage</span> your subscriptions.</li>
+                          <li><span>Receive</span> billing reminders.</li>
+                      </ul>
+                  </div>
+                  <!--//FEATURE LIST END--> 
+              </div>
+          </div>
+          <div class="payment-button">
+            <form action="/subscribe" method="POST">
+                <script 
+                src="https://checkout.stripe.com/checkout.js" 
+                class="stripe-button" 
+                data-key="pk_test_51HEPplDb5Y9ujDqz1dKFB9V1gM34izHSZ5q6ST7THfIakJeYYs7hUzNOJAUPdNAIlho83p1hJWRDCyzdL12Qgved00ClXck68E" 
+                data-name="Monthly Plan"                         
+                data-description="Subcrates monthly subscription."                        
+                data-amount='99' 
+                data-label="Subscribe"
+                data-locale="auto">
+                </script>
+            </form>
+          </div>
+      </div>
+    <% } %>
+
+    <%- include("partials/footer") %>
+
+      <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <%- include("partials/scripts") %>
+</body>
+
+</html>

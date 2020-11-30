@@ -1,3 +1,14 @@
+<!-- 
+	* This is the page that displays all the subscriptions that currently offer gifts whether they are
+	* affiliate/partnered subscriptions with just affiliate links OR whether they user our platorm to 
+	* gift and process transactions.
+
+	1. Know More button to show how it works steps have been commented out until we sell subscriptions as
+		a platform.
+	2. 
+ -->
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,33 +23,34 @@
 		<div class="top">
 			<span class="close_menu"><img src="../public/images/close.png" alt="#"></span>
 			<div class="form">
-				<input type="search" name="menu_search" placeholder="Search" id="mob_search_field">
-				<a href="#" class="search_icon"><img src="../public/images/search_icon.png" alt="#"></a>
+				<form action="/search" method="POST" onsubmit>
+					<input type="text" name="searchBar" placeholder="Search subscription" id="mob_search_field">					
+				</form>
 			</div>
 		</div>
 		<ul>
 			<li class="nav-item">
-		        <a class="nav-link" href="#">Home</a>
+		        <a class="nav-link" href="/homepage">Home</a>
 		    </li>
 		    <li class="nav-item">
-		        <a class="nav-link" href="#">My Crate</a>
+		        <a class="nav-link" href="/mycrate">My Crate</a>
 		    </li>
-		    <li class="nav-item">
-		        <a class="nav-link" href="#">Settings</a>
-		    </li>
-		    <li class="nav-item">
+		    <!-- <li class="nav-item">
 		        <a class="nav-link" href="#">Headlines</a>
-		    </li>
+		    </li> -->
 		    <li class="nav-item">
-		        <a class="nav-link" href="#">Gift Subscriptions</a>
-		    </li>
+		        <a class="nav-link" href="/gifts">Gifts</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="/settings">Settings</a>
+			</li>
 		</ul>
 	</div>
 	<section class="nav_section">
 		<div class="container">
 			<nav class="navbar navbar-expand-md bg-dark navbar-dark">
 			  <!-- Brand -->
-			  <a class="navbar-brand" href="#"><img src="../public/images/logo.png" alt="#"></a>
+			  <a class="navbar-brand" href="/homepage"><img src="../public/images/logo.png" alt="#"></a>
 
 			  <!-- Toggler/collapsibe Button -->
 			  <button class="navbar-toggler open_menu" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
@@ -50,24 +62,26 @@
 			    <ul class="navbar-nav ml-auto">
 			      <li class="nav-item">
 			        <div class="form-search">
-		        		<input type="search" name="search" id="search_field" placeholder="Search">
+						<form action="/search" method="POST" onsubmit>
+							<input type="text" name="searchBar" id="search_field" placeholder="Search">
+						</form>
 		        	</div>
 			      </li>
 			      <li class="nav-item">
-			        <a class="nav-link" href="index.html">Home</a>
+			        <a class="nav-link" href="/homepage">Home</a>
 			      </li>
 			      <li class="nav-item">
-			        <a class="nav-link" href="my_crates.html">My Crate</a>
+			        <a class="nav-link" href="/mycrate">My Crate</a>
 			      </li>
-			      <li class="nav-item">
-			        <a class="nav-link" href="settings.html">Settings</a>
-			      </li>
-			      <li class="nav-item">
+			      <!-- <li class="nav-item">
 			        <a class="nav-link" href="headlines.html">Headlines</a>
-			      </li>
+			      </li> -->
 			      <li class="nav-item">
-			        <a class="nav-link" href="#">Gift Subscriptions</a>
-			      </li>
+			        <a class="nav-link" href="/gifts">Gifts</a>
+				  </li>
+				  <li class="nav-item">
+					<a class="nav-link" href="/settings">Settings</a>
+				  </li>
 			    </ul>
 			  </div>
 			</nav>
@@ -79,8 +93,8 @@
 				<div class="col-12 col-md-8 text-center">
 					<img src="../public/images/gift.png" alt="#">
 					<div class="heading">Subcrates makes it easy & simple to<br class="hidden-xs"> gift subscriptions to friends and family.</div>
-					<p>Subcrates has partnered up with the following subscriptions so you can give your friends and family subscriptions as gifts! Celebrate the holidays, someone's birthday or just give someone you think will like a subscription today! You can choose how many months you want to gift and it's easy and simple.</p>
-					<a href="#" data-toggle="modal" data-target="#myModal" class="btn_blue">Know more</a>
+					<p>Subcrates has partnered up with the following subscriptions so you can give your friends and family subscription gifts! Celebrate the holidays, someone's birthday or just give someone you think will like a subscription today! You can choose how many months you want to gift and it's easy and simple.</p>
+					<!-- <a href="#" data-toggle="modal" data-target="#myModal" class="btn_blue">Know more</a> -->
 				</div>
 			</div>
 		</div>
@@ -91,422 +105,37 @@
 				<div class="col-12">
 					<div class="brand_slide">
 						<div class="featured-section-heading">
-							<div class="heading heading_sm mb-0">Here are the subscriptions offered on Subcrates currently</div>
+							<div class="heading heading_sm mb-0">Here are the subscriptions partnered with Subcrates currently</div>
 						</div>
+
+						<!-- Divide the subscriptions into rows with each row having 4 subscriptions -->
+						<!-- Outer loop starts from 0 and traverses by 4 -->
+						<% for(let i = 0; i < allSubscriptions.length; i+=4) { %>
 						<div class="responsive">
+							<!-- Inner loop starts at i and traveres by 1 UNTIL it reaches [i+4] OR the length of [allSubscriptions] array -->
+							<% for(j = i; j < (i+4); j++) { %>
+								<% if(j < allSubscriptions.length) { %>	
 							<div>
 								<div class="brand_box">
-									<img src="../public/images/box_img1.png" alt="#">
+									<img src="<%- allSubscriptions[j].data().banner %>" alt="#">
 									<div class="bottom">
 										<div class="name">
-											<div class="img_box"><img src="../public/images/icon_9.png" alt="#"></div>
-											<span>1Password</span>
+											<div class="img_box"><img src="<%- allSubscriptions[j].data().image %>" alt="#"></div>
+											<span><%- allSubscriptions[j].data().subscriptionName %></span>
 										</div>
-										<p>Online password storage with one-click feature.</p>
+										<p><%- allSubscriptions[j].data().shortDesc %></p>
 										<hr>
 										<div class="row justify-content-between">
-											<a href="#" class="blue_link">View More</a>
-											<a href="/giftform" class="green_link">Gift</a>
+											<a href="/subscription/<%-allSubscriptions[j].id%>" class="blue_link">View More</a>
+											<a href="<%-allSubscriptions[j].data().giftLink%>" class="green_link">Gift</a>
 										</div>
 									</div>
 								</div>
 							</div>
-							<div>
-								<div class="brand_box">
-									<img src="../public/images/box_img2.png" alt="#">
-									<div class="bottom">
-										<div class="name">
-											<div class="img_box"><img src="../public/images/icon_10.png" alt="#"></div>
-											<span>Amazon</span>
-										</div>
-										<p>Online password storage with one-click feature.</p>
-										<hr>
-										<div class="row justify-content-between">
-											<a href="#" class="blue_link">View More</a>
-											<a href="/giftform" class="green_link">Gift</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div>
-								<div class="brand_box">
-									<img src="../public/images/box_img3.png" alt="#">
-									<div class="bottom">
-										<div class="name">
-											<div class="img_box"><img src="../public/images/icon_11.png" alt="#"></div>
-											<span>Adobe</span>
-										</div>
-										<p>Online password storage with one-click feature.</p>
-										<hr>
-										<div class="row justify-content-between">
-											<a href="#" class="blue_link">View More</a>
-											<a href="/giftform" class="green_link">Gift</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div>
-								<div class="brand_box">
-									<img src="../public/images/box_img4.png" alt="#">
-									<div class="bottom">
-										<div class="name">
-											<div class="img_box"><img src="../public/images/icon_12.png" alt="#"></div>
-											<span>Dribbble</span>
-										</div>
-										<p>Online password storage with one-click feature.</p>
-										<hr>
-										<div class="row justify-content-between">
-											<a href="#" class="blue_link">View More</a>
-											<a href="/giftform" class="green_link">Gift</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div>
-								<div class="brand_box">
-									<img src="../public/images/box_img1.png" alt="#">
-									<div class="bottom">
-										<div class="name">
-											<div class="img_box"><img src="../public/images/icon_9.png" alt="#"></div>
-											<span>1Password</span>
-										</div>
-										<p>Online password storage with one-click feature.</p>
-										<hr>
-										<div class="row justify-content-between">
-											<a href="#" class="blue_link">View More</a>
-											<a href="/giftform" class="green_link">Gift</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div>
-								<div class="brand_box">
-									<img src="../public/images/box_img2.png" alt="#">
-									<div class="bottom">
-										<div class="name">
-											<div class="img_box"><img src="../public/images/icon_10.png" alt="#"></div>
-											<span>Amazon</span>
-										</div>
-										<p>Online password storage with one-click feature.</p>
-										<hr>
-										<div class="row justify-content-between">
-											<a href="#" class="blue_link">View More</a>
-											<a href="/giftform" class="green_link">Gift</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div>
-								<div class="brand_box">
-									<img src="../public/images/box_img3.png" alt="#">
-									<div class="bottom">
-										<div class="name">
-											<div class="img_box"><img src="../public/images/icon_11.png" alt="#"></div>
-											<span>Adobe</span>
-										</div>
-										<p>Online password storage with one-click feature.</p>
-										<hr>
-										<div class="row justify-content-between">
-											<a href="#" class="blue_link">View More</a>
-											<a href="/giftform" class="green_link">Gift</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div>
-								<div class="brand_box">
-									<img src="../public/images/box_img4.png" alt="#">
-									<div class="bottom">
-										<div class="name">
-											<div class="img_box"><img src="../public/images/icon_12.png" alt="#"></div>
-											<span>Dribbble</span>
-										</div>
-										<p>Online password storage with one-click feature.</p>
-										<hr>
-										<div class="row justify-content-between">
-											<a href="#" class="blue_link">View More</a>
-											<a href="/giftform" class="green_link">Gift</a>
-										</div>
-									</div>
-								</div>
-							</div>
+							<% } %>
+							<% } %>
 						</div>
-						<div class="responsive2">
-							<div>
-								<div class="brand_box">
-									<img src="../public/images/box_img1.png" alt="#">
-									<div class="bottom">
-										<div class="name">
-											<div class="img_box"><img src="../public/images/icon_9.png" alt="#"></div>
-											<span>1Password</span>
-										</div>
-										<p>Online password storage with one-click feature.</p>
-										<hr>
-										<div class="row justify-content-between">
-											<a href="#" class="blue_link">View More</a>
-											<a href="/giftform" class="green_link">Gift</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div>
-								<div class="brand_box">
-									<img src="../public/images/box_img2.png" alt="#">
-									<div class="bottom">
-										<div class="name">
-											<div class="img_box"><img src="../public/images/icon_10.png" alt="#"></div>
-											<span>Amazon</span>
-										</div>
-										<p>Online password storage with one-click feature.</p>
-										<hr>
-										<div class="row justify-content-between">
-											<a href="#" class="blue_link">View More</a>
-											<a href="/giftform" class="green_link">Gift</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div>
-								<div class="brand_box">
-									<img src="../public/images/box_img3.png" alt="#">
-									<div class="bottom">
-										<div class="name">
-											<div class="img_box"><img src="../public/images/icon_11.png" alt="#"></div>
-											<span>Adobe</span>
-										</div>
-										<p>Online password storage with one-click feature.</p>
-										<hr>
-										<div class="row justify-content-between">
-											<a href="#" class="blue_link">View More</a>
-											<a href="#" class="green_link">Gift</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div>
-								<div class="brand_box">
-									<img src="../public/images/box_img4.png" alt="#">
-									<div class="bottom">
-										<div class="name">
-											<div class="img_box"><img src="../public/images/icon_12.png" alt="#"></div>
-											<span>Dribbble</span>
-										</div>
-										<p>Online password storage with one-click feature.</p>
-										<hr>
-										<div class="row justify-content-between">
-											<a href="#" class="blue_link">View More</a>
-											<a href="#" class="green_link">Gift</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div>
-								<div class="brand_box">
-									<img src="../public/images/box_img1.png" alt="#">
-									<div class="bottom">
-										<div class="name">
-											<div class="img_box"><img src="../public/images/icon_9.png" alt="#"></div>
-											<span>1Password</span>
-										</div>
-										<p>Online password storage with one-click feature.</p>
-										<hr>
-										<div class="row justify-content-between">
-											<a href="#" class="blue_link">View More</a>
-											<a href="#" class="green_link">Gift</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div>
-								<div class="brand_box">
-									<img src="../public/images/box_img2.png" alt="#">
-									<div class="bottom">
-										<div class="name">
-											<div class="img_box"><img src="../public/images/icon_10.png" alt="#"></div>
-											<span>Amazon</span>
-										</div>
-										<p>Online password storage with one-click feature.</p>
-										<hr>
-										<div class="row justify-content-between">
-											<a href="#" class="blue_link">View More</a>
-											<a href="#" class="green_link">Gift</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div>
-								<div class="brand_box">
-									<img src="../public/images/box_img3.png" alt="#">
-									<div class="bottom">
-										<div class="name">
-											<div class="img_box"><img src="../public/images/icon_11.png" alt="#"></div>
-											<span>Adobe</span>
-										</div>
-										<p>Online password storage with one-click feature.</p>
-										<hr>
-										<div class="row justify-content-between">
-											<a href="#" class="blue_link">View More</a>
-											<a href="#" class="green_link">Gift</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div>
-								<div class="brand_box">
-									<img src="../public/images/box_img4.png" alt="#">
-									<div class="bottom">
-										<div class="name">
-											<div class="img_box"><img src="../public/images/icon_12.png" alt="#"></div>
-											<span>Dribbble</span>
-										</div>
-										<p>Online password storage with one-click feature.</p>
-										<hr>
-										<div class="row justify-content-between">
-											<a href="#" class="blue_link">View More</a>
-											<a href="#" class="green_link">Gift</a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="responsive3">
-							<div>
-								<div class="brand_box">
-									<img src="../public/images/box_img1.png" alt="#">
-									<div class="bottom">
-										<div class="name">
-											<div class="img_box"><img src="../public/images/icon_9.png" alt="#"></div>
-											<span>1Password</span>
-										</div>
-										<p>Online password storage with one-click feature.</p>
-										<hr>
-										<div class="row justify-content-between">
-											<a href="#" class="blue_link">View More</a>
-											<a href="#" class="green_link">Gift</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div>
-								<div class="brand_box">
-									<img src="../public/images/box_img2.png" alt="#">
-									<div class="bottom">
-										<div class="name">
-											<div class="img_box"><img src="../public/images/icon_10.png" alt="#"></div>
-											<span>Amazon</span>
-										</div>
-										<p>Online password storage with one-click feature.</p>
-										<hr>
-										<div class="row justify-content-between">
-											<a href="#" class="blue_link">View More</a>
-											<a href="#" class="green_link">Gift</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div>
-								<div class="brand_box">
-									<img src="../public/images/box_img3.png" alt="#">
-									<div class="bottom">
-										<div class="name">
-											<div class="img_box"><img src="../public/images/icon_11.png" alt="#"></div>
-											<span>Adobe</span>
-										</div>
-										<p>Online password storage with one-click feature.</p>
-										<hr>
-										<div class="row justify-content-between">
-											<a href="#" class="blue_link">View More</a>
-											<a href="#" class="green_link">Gift</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div>
-								<div class="brand_box">
-									<img src="../public/images/box_img4.png" alt="#">
-									<div class="bottom">
-										<div class="name">
-											<div class="img_box"><img src="../public/images/icon_12.png" alt="#"></div>
-											<span>Dribbble</span>
-										</div>
-										<p>Online password storage with one-click feature.</p>
-										<hr>
-										<div class="row justify-content-between">
-											<a href="#" class="blue_link">View More</a>
-											<a href="#" class="green_link">Gift</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div>
-								<div class="brand_box">
-									<img src="../public/images/box_img1.png" alt="#">
-									<div class="bottom">
-										<div class="name">
-											<div class="img_box"><img src="../public/images/icon_9.png" alt="#"></div>
-											<span>1Password</span>
-										</div>
-										<p>Online password storage with one-click feature.</p>
-										<hr>
-										<div class="row justify-content-between">
-											<a href="#" class="blue_link">View More</a>
-											<a href="#" class="green_link">Gift</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div>
-								<div class="brand_box">
-									<img src="../public/images/box_img2.png" alt="#">
-									<div class="bottom">
-										<div class="name">
-											<div class="img_box"><img src="../public/images/icon_10.png" alt="#"></div>
-											<span>Amazon</span>
-										</div>
-										<p>Online password storage with one-click feature.</p>
-										<hr>
-										<div class="row justify-content-between">
-											<a href="#" class="blue_link">View More</a>
-											<a href="#" class="green_link">Gift</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div>
-								<div class="brand_box">
-									<img src="../public/images/box_img3.png" alt="#">
-									<div class="bottom">
-										<div class="name">
-											<div class="img_box"><img src="../public/images/icon_11.png" alt="#"></div>
-											<span>Adobe</span>
-										</div>
-										<p>Online password storage with one-click feature.</p>
-										<hr>
-										<div class="row justify-content-between">
-											<a href="#" class="blue_link">View More</a>
-											<a href="#" class="green_link">Gift</a>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div>
-								<div class="brand_box">
-									<img src="../public/images/box_img4.png" alt="#">
-									<div class="bottom">
-										<div class="name">
-											<div class="img_box"><img src="../public/images/icon_12.png" alt="#"></div>
-											<span>Dribbble</span>
-										</div>
-										<p>Online password storage with one-click feature.</p>
-										<hr>
-										<div class="row justify-content-between">
-											<a href="#" class="blue_link">View More</a>
-											<a href="#" class="green_link">Gift</a>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
+						<% } %>
 					</div>
 				</div>
 			</div>
@@ -517,11 +146,14 @@
 			<div class="row">
 				<div class="col-12 col-md-4">
 					<a href="#"><img src="../public/images/logo.png" alt="#" class="logo"></a>
-					<p>Subcrates is your one-stop for subscriptions. We are a platform that helps you discover new subscriptions and manage the ones you own. </p>
+					<p>
+						Subcrates is your one-stop for subscriptions. We are a platform that helps you discover new subscriptions,
+						 gift subscriptions to friends and family and manage the subscriptions you own.
+					</p>
 					<ul class="list-inline social">
-						<li class="list-inline-item"><a href="#"><img src="../public/images/facebook.png" alt="#"></a></li>
+						<!-- <li class="list-inline-item"><a href="#"><img src="../public/images/facebook.png" alt="#"></a></li>
 						<li class="list-inline-item"><a href="#"><img src="../public/images/instagram.png" alt="#"></a></li>
-						<li class="list-inline-item"><a href="#"><img src="../public/images/twitter.png" alt="#"></a></li>
+						<li class="list-inline-item"><a href="#"><img src="../public/images/twitter.png" alt="#"></a></li> -->
 					</ul>
 				</div>
 				<div class="col-12 col-md-4">
@@ -529,36 +161,36 @@
 					<div class="row">
 						<div class="col-6">
 							<ul class="links">
-								<li><a href="#">Home</a></li>
+								<!-- <li><a href="#">Home</a></li>
 								<li><a href="#">My Crate</a></li>
-								<li><a href="#">Settings</a></li>
-								<li><a href="#">Contact Us</a></li>
+								<li><a href="#">Settings</a></li> -->
+								<li><a href="mailto:support@subcrates.com">Contact Us</a></li>
 							</ul>
 						</div>
 						<div class="col-6">
 							<ul class="links">
-								<li><a href="#">Suggestions</a></li>
-								<li><a href="#">Got Questions</a></li>
+								<li><a href="mailto:suggestions@subscrates.com">Suggestions</a></li>
+								<!-- <li><a href="#">Got Questions</a></li> -->
 							</ul>
 						</div>
 					</div>
 				</div>
 				<div class="col-12 col-md-4">
 					<h4>Download Subcrates app</h4>
-					<p>Lorem ipsum dolor sit amet, consectetur ..</p>
-					<div><a href="#"><img src="../public/images/app_store.png" alt="#" class="store"></a></div>
-					<div><a href="#"><img src="../public/images/google_play.png" alt="#" class="store"></a></div>
+					<p>Download the mobile app to get notifications for your subscriptions before you get billed.</p>
+					<div><a href="https://apps.apple.com/us/app/id1528694362"><img src="../public/images/app_store.png" alt="#" class="store"></a></div>
+					<div><a href="http://play.google.com/store/apps/details?id=com.sub.subcrates"><img src="../public/images/google_play.png" alt="#" class="store"></a></div>
 				</div>
 			</div>
 			<hr>
 			<div class="row">
 				<div class="col-12 col-md-6">
-					<p>Copyrights © 2020 <a href="#">Subcrates.</a> All rights reserved.</p>
+					<p>Copyrights © 2020 <a href="/tos">Subcrates.</a> All rights reserved.</p>
 				</div>
 				<div class="col-12 col-md-6">
 					<ul class="bot_link list-inline">
-						<li class="list-inline-item"><a href="#">Terms of Service</a></li>
-						<li class="list-inline-item"><a href="#">Privacy Policy</a></li>
+						<li class="list-inline-item"><a href="/tos">Terms of Service</a></li>
+						<li class="list-inline-item"><a href="/privacy">Privacy Policy</a></li>
 					</ul>
 				</div>
 			</div>
@@ -726,11 +358,204 @@
 <script type="text/javascript">
 	var options = {
 	data: [
-		  {"name": "Afghanistan", "code": "AF"},
-		  {"name": "Aland Islands", "code": "AX"},
-		  {"name": "Albania", "code": "AL"},
-		  {"name": "Algeria", "code": "DZ"},
-		  {"name": "American Samoa", "code": "AS"}
+	{"name": "Amazon"},
+			{"name": "Adobe"},
+			{"name": "Amazon Web Services"},
+			{"name": "Asana"},
+			{"name": "Basecamp"},
+			{"name": "Google Cloud"},
+			{"name": "Heroku"},
+			{"name": "Jamf"},
+			{"name": "Jira"},
+			{"name": "LastPass"},
+			{"name": "Microsoft Azure"},
+			{"name": "Monday"},
+			{"name": "One Month"},
+			{"name": "QuickBooks"},
+			{"name": "Shopify"},
+			{"name": "Slack"},
+			{"name": "Square"},
+			{"name": "Squarespace"},
+			{"name": "Stripe"},
+			{"name": "Subcrates"},
+			{"name": "Trello"},
+			{"name": "Zoom"},
+			{"name": "Apple TV+"},
+			{"name": "Disney+"},
+			{"name": "Hulu"},
+			{"name": "Netflix"},
+			{"name": "Prime Video"},
+			{"name": "Amazon Music"},
+			{"name": "Apple Music"},
+			{"name": "Cruchyroll"},
+			{"name": "GeForce Now"},
+			{"name": "Google Play Music"},
+			{"name": "Google Stadia"},
+			{"name": "HBO MAX"},
+			{"name": "HBO NOW"},
+			{"name": "Pandora"},
+			{"name": "Peacock"},
+			{"name": "Playstation Now"},
+			{"name": "SiriusXM Internet Radio"},
+			{"name": "Spotify"},
+			{"name": "Youtube Premium"},
+			{"name": "Acorns"},
+			{"name": "Betterment"},
+			{"name": "Dave"},
+			{"name": "Mint"},
+			{"name": "Robinhood Gold"},
+			{"name": "Stash"},
+			{"name": "Wealthfront"},
+			{"name": "YNAB"},
+			{"name": "Allure Beauty Box"},
+			{"name": "Bath Bevy"},
+			{"name": "BeautyFIX"},
+			{"name": "Birchbox"},
+			{"name": "BoxyCharm"},
+			{"name": "Dollar Shave Club"},
+			{"name": "Dr. Squatch"},
+			{"name": "Harry's"},
+			{"name": "Ipsy Glam Bag"},
+			{"name": "AT&T"},
+			{"name": "Boost Mobile"},
+			{"name": "CenturyLink"},
+			{"name": "Cricket"},
+			{"name": "Frontier"},
+			{"name": "HeughesNet"},
+			{"name": "Sprint"},
+			{"name": "TMobile"},
+			{"name": "US Cellular"},
+			{"name": "Verizon"},
+			{"name": "BarkBox"},
+			{"name": "Bullymake Box"},
+			{"name": "Cat Claws Club Box"},
+			{"name": "CatLadyBox"},
+			{"name": "KitNipBox"},
+			{"name": "Pet Treater"},
+			{"name": "PupBox"},
+			{"name": "Bean Box"},
+			{"name": "Blue Apron"},
+			{"name": "Candy Club"},
+			{"name": "HelloFresh"},
+			{"name": "Home Chef"},
+			{"name": "SaloonBox"},
+			{"name": "Sips by"},
+			{"name": "Ultimate SODA Samplers"},
+			{"name": "Winc"},
+			{"name": "Bespoke Post"},
+			{"name": "Bloomin' Bin"},
+			{"name": "CleanCut"},
+			{"name": "GlobeIn Artisan Box"},
+			{"name": "Grove"},
+			{"name": "House Plant Box"},
+			{"name": "Post Home Box"},
+			{"name": "Second Nature"},
+			{"name": "The Honest Company"},
+			{"name": "Bitsbox"},
+			{"name": "Bluum"},
+			{"name": "FabKids"},
+			{"name": "Green Kid Crafts"},
+			{"name": "Groovy Lab"},
+			{"name": "KidPik"},
+			{"name": "KiwiCo"},
+			{"name": "Ok Baby Box"},
+			{"name": "Sensory Theraplay"},
+			{"name": "Bloomberg BW"},
+			{"name": "BOTM"},
+			{"name": "Car and Driver"},
+			{"name": "Esquire"},
+			{"name": "Forbes"},
+			{"name": "Fresh Fiction Box"},
+			{"name": "Good Housekeeping"},
+			{"name": "National Geographic"},
+			{"name": "OwlCrate"},
+			{"name": "People"},
+			{"name": "Rolling Stone"},
+			{"name": "Scribd"},
+			{"name": "The Economist"},
+			{"name": "The New Yorker"},
+			{"name": "Time"},
+			{"name": "Vogue"},
+			{"name": "Cairn"},
+			{"name": "Ellie"},
+			{"name": "FabFitFun"},
+			{"name": "Gainz Box"},
+			{"name": "MindWander"},
+			{"name": "Muscle Box"},
+			{"name": "Persona"},
+			{"name": "YogaClub"},
+			{"name": "Dia & Co"},
+			{"name": "Emma & Chloe"},
+			{"name": "Gentleman's Box"},
+			{"name": "Le Tote"},
+			{"name": "Pura Vida"},
+			{"name": "Rocksbox"},
+			{"name": "SprezzaBox"},
+			{"name": "Stitch Fix"},
+			{"name": "Style Plan"},
+			{"name": "Trunk Club"},
+			{"name": "DoorDash DashPass"},
+			{"name": "Grubhub+"},
+			{"name": "InstaCart Express"},
+			{"name": "Electricity"},
+			{"name": "Gas"},
+			{"name": "Water"},
+			{"name": "ESPN+"},
+			{"name": "FuboTV"},
+			{"name": "MLB TV"},
+			{"name": "NFL Game Pass"},
+			{"name": "UFC Fight Pass"},
+			{"name": "LootCrate"},
+			{"name": "UBER Ride Pass"},
+			{"name": "1Password"},
+			{"name": "Apple Arcade"},
+			{"name": "Apple News"},
+			{"name": "Audible"},
+			{"name": "Backblaze"},
+			{"name": "CBS All Access"},
+			{"name": "DAZN"},
+			{"name": "Deezer"},
+			{"name": "Digital Occean"},
+			{"name": "Dribbble"},
+			{"name": "Dropbox"},
+			{"name": "EA Play"},
+			{"name": "Evernote"},
+			{"name": "Fastmail"},
+			{"name": "Feedbin"},
+			{"name": "Framer X"},
+			{"name": "Github"},
+			{"name": "Go Daddy"},
+			{"name": "Google Domains"},
+			{"name": "Google Drive"},
+			{"name": "Headspace"},
+			{"name": "Hover"},
+			{"name": "Kindle Unlimited"},
+			{"name": "LinkedIn"},
+			{"name": "Medium"},
+			{"name": "Nintendo Switch Online"},
+			{"name": "One Drive"},
+			{"name": "Overcast"},
+			{"name": "Playstation Plus"},
+			{"name": "Pocket"},
+			{"name": "Sleep Cycle"},
+			{"name": "Sling TV"},
+			{"name": "Sound Cloud"},
+			{"name": "Starz"},
+			{"name": "Tidal"},
+			{"name": "Tinder"},
+			{"name": "Twitch"},
+			{"name": "Vimeo"},
+			{"name": "Vultr"},
+			{"name": "Weebly"},
+			{"name": "World of Warcraft"},
+			{"name": "Xbox Live"},
+			{"name": "Campaign Monitor"},
+			{"name": "Zapier"},
+			{"name": "Hotstar"},
+			{"name": "Duolingo"},
+			{"name": "Invision"},
+			{"name": "Myfitnesspal"},
+			{"name": "Philo"},
 		  ],
   		getValue: "name",
 		list: {

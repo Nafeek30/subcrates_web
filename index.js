@@ -316,7 +316,7 @@ function isSubscribed(req, res, next) {
     // NOTE: Make sure the position of the paid subscriptions are changed as 1, 2, 3, ...
     // Default value for all subscriptions that [HAVE NOT] paid are 999.
 
-    
+
 
     // Only store 6 subscriptions for each category (at most) for homepage to
     // This saves user data and speed up loading.
@@ -360,7 +360,6 @@ function isSubscribed(req, res, next) {
         subscriptionsSnap.forEach(singleSubscription => {
           //push all subscription into array
           allSubscriptions.push(singleSubscription);
-          console.log(singleSubscription.data().subscriptionName);
         });
 
         // THEN RENDER HOMEPAGE
@@ -995,8 +994,26 @@ function isSubscribed(req, res, next) {
 
 
   // GIFTS PAGE GET ROUTE
+  // This route filters all the subscriptions that can be gifted based on [canGift] variable in the
+  // database and sends it to the [gift.ejs] page
   app.get('/gifts', (req, res) => {
-    res.render('gifts');
+    var allSubscriptions = []; // holds all the subscriptions that can be gifted
+
+    subscriptions.where('canGift', '==', true).get()
+      .then(subscriptionsSnap => {
+        subscriptionsSnap.forEach(singleSubscription => {
+          //push all subscriptions that can be gifted into array
+          allSubscriptions.push(singleSubscription);
+          console.log(singleSubscription.data().category);
+        });
+
+        // THEN RENDER GIFT PAGE
+        res.render('gifts', {allSubscriptions});
+
+      }).catch(err1 => {
+        console.log(err1);
+        res.render('errorPage', { message: err1, displaySubscription: false });
+      });
   });
 
 
@@ -1131,7 +1148,7 @@ app.post('/cancelsubscription', isAuthenticated, (req, res) => {
 
 // RESET PASSWORD PAGE GET ROUTE
 app.get('/resetpassword', (req, res) => {
-  res.render('resetPassword');
+  res.render('reset_password');
 });
 
 
@@ -1145,7 +1162,7 @@ app.post('/resetpassword', (req, res) => {
   if (email != "") {
       auth.sendPasswordResetEmail(email.toString())
           .then(result => {
-              res.redirect('/');
+              res.render('reset_sent');
           }).catch(err1 => {
             res.render('errorPage', {message: err1, displaySubscription: false })
           });
