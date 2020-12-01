@@ -158,14 +158,28 @@ function isSubscribed(req, res, next) {
     var signupEmail = req.body.signupEmail;
     var signupPassword = req.body.signupPassword;
 
+    // cut off any whitespaces from sign up credentials
+    if(signupEmail != null) {
+      signupEmail = signupEmail.toString().trim();
+    }
+    if(signupPassword != null) {
+      signupPassword = signupPassword.toString().trim();
+    }
+
+
 
     // Log in variables
     var loginEmail = req.body.loginEmail;
     var loginPassword = req.body.loginPassword; 
 
-    console.log(loginEmail);
-    console.log(loginPassword); 
 
+    // cut off any whitespaces from login credentials
+    if(loginEmail != null) {
+      loginEmail = loginEmail.toString().trim();
+    }
+    if(loginPassword != null) {
+      loginPassword = loginPassword.toString().trim();
+    }
 
  
     /**
