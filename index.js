@@ -154,9 +154,9 @@ function isSubscribed(req, res, next) {
 
 
   // BUSINESS SIGN UP GET ROUTE - Business Landing page
-  app.get('/business', (req, res) => {
-    res.render('business_signup');
-  });
+  // app.get('/business', (req, res) => {
+  //   res.render('business_signup');
+  // });
 
 
   /// ROOT POST ROUTE - Landing Page For Signup && Login
@@ -1066,9 +1066,9 @@ function isSubscribed(req, res, next) {
 
 
   // GET ROUTE FOR BUSINESS DASHBOARD PAGE
-  app.get('/businessdash', (req, res) => {
-    res.render('business_dashboard');
-  });
+  // app.get('/businessdash', (req, res) => {
+  //   res.render('business_dashboard');
+  // });
 
 
 
