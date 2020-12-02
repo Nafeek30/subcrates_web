@@ -152,6 +152,13 @@ function isSubscribed(req, res, next) {
   });
 
 
+
+  // BUSINESS SIGN UP GET ROUTE - Business Landing page
+  app.get('/business', (req, res) => {
+    res.render('business_signup');
+  });
+
+
   /// ROOT POST ROUTE - Landing Page For Signup && Login
   app.post('/', (req, res) => {
     // Sign up variables
@@ -1053,6 +1060,14 @@ function isSubscribed(req, res, next) {
         console.log(err1);
         res.render('errorPage', { message: err1, displaySubscription: false });        
       });
+  });
+
+
+
+
+  // GET ROUTE FOR BUSINESS DASHBOARD PAGE
+  app.get('/businessdash', (req, res) => {
+    res.render('business_dashboard');
   });
 
 

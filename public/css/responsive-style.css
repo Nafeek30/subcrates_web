@@ -27,6 +27,9 @@
 	.slick-arrow.slick-next{
 	    right: -2rem;
 	}
+	.dashboard_section .business_box .imgbox{
+	    min-height: 8.5rem;
+	}
 }
 @media(max-width: 1200px){
 	html, body{
@@ -107,6 +110,14 @@
 	}
 	.order{
 	    order: initial;
+	}
+	.dashboard_section .purchase_info .col{
+		-ms-flex: 0 0 100%;
+	    flex: 0 0 100%;
+	    max-width: 100%;
+	}
+	.dashboard_section2{
+    	padding-top: 14rem;
 	}
 }
 @media(max-width: 576px){

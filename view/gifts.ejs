@@ -93,7 +93,12 @@
 				<div class="col-12 col-md-8 text-center">
 					<img src="../public/images/gift.png" alt="#">
 					<div class="heading">Subcrates makes it easy & simple to<br class="hidden-xs"> gift subscriptions to friends and family.</div>
-					<p>Subcrates has partnered up with the following subscriptions so you can give your friends and family subscription gifts! Celebrate the holidays, someone's birthday or just give someone you think will like a subscription today! You can choose how many months you want to gift and it's easy and simple.</p>
+					<p>
+						Subcrates has partnered up with the following subscriptions so you can give your friends and 
+						family subscription gifts! Celebrate the holidays, a birthday, your pet or even treat yourself with
+						 a gift today! 
+						 <!-- You can choose how many months you want to gift and it's easy and simple. -->
+					</p>
 					<!-- <a href="#" data-toggle="modal" data-target="#myModal" class="btn_blue">Know more</a> -->
 				</div>
 			</div>
@@ -122,6 +127,8 @@
 										<div class="name">
 											<div class="img_box"><img src="<%- allSubscriptions[j].data().image %>" alt="#"></div>
 											<span><%- allSubscriptions[j].data().subscriptionName %></span>
+											<br>
+											<span style="font-size: 0.8rem; color: #9AACE1;">Category: <%- allSubscriptions[j].data().category %></span>
 										</div>
 										<p><%- allSubscriptions[j].data().shortDesc %></p>
 										<hr>

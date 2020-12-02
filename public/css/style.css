@@ -740,7 +740,7 @@ footer hr{
     padding: 1rem 2rem;
 }
 .faq_section .card .card-body p{
-    color: rgb(103, 104, 107);
+    color: #B1B4BB;
     border-top: 0.1rem solid #F2F2F2;
     padding-top: 1rem;
     margin-bottom: 1rem;
@@ -1975,7 +1975,7 @@ select.form-control {
 .header_box p{
     color: #95A9E0;
     margin-top: 1rem;
-    font-size: 0.9rem;
+    font-size: 1.2rem;
 }
 .header_box .btn_blue{
     background: #627FD0;
@@ -2114,4 +2114,324 @@ select.form-control {
 .modal-body .scription2 .context_text b{
     color: black;
     font-size: 1.05rem;
+}
+.dashboard_section{
+    position: relative;
+    padding: 5rem 0;
+    background: white;
+}
+.dashboard_section .heading{
+    color: #0E1823;
+    font-size: 2.75rem;
+    font-weight: 600;
+    margin-bottom: .5rem;
+    text-align: left;
+}
+.dashboard_section .heading_sm{
+    font-size: 2.25rem;
+}
+.dashboard_section .grey_text{
+    color: #9A9DA6;
+    font-size: 0.95rem;
+    font-weight: 300;
+    margin-bottom: 1rem;
+}
+.dashboard_section .grey_text.red{
+    color: #EB6378;
+}
+.dashboard_section .dash_button_sec{
+    display: inline-block;
+    width: 100%;
+    position: relative;
+    margin-bottom: 2rem;
+}
+.dashboard_section .dash_button_sec .dash_btn{
+    display: inline-block;
+    width: 100%;
+    position: relative;
+    border: 0.1rem solid #E5E7EC;
+    border-radius: 1rem;
+    margin-top: 1.5rem;
+    padding: 1.5rem 1.5rem;
+    padding-left: 6.5rem;
+    transition: all ease .4s;
+    -webkit-transition: all ease .4s;
+    -moz-transition: all ease .4s;
+    -ms-transition: all ease .4s;
+    -o-transition: all ease .4s;
+}
+.dashboard_section .dash_button_sec .dash_btn .img_box{
+    display: flex;
+    border: .1rem solid #E5E7EC;
+    border-radius: 1rem;
+    width: 4rem;
+    height: 4rem;
+    justify-content: center;
+    align-items: center;
+    padding: .5rem;
+    position: absolute;
+    left: 1.5rem;
+    top: 1.25rem;
+}
+.dashboard_section .dash_button_sec .dash_btn .button_name{
+    color: #1E2732;
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+.dashboard_section .dash_button_sec .dash_btn .button_price{
+    color: #5273CC;
+    font-weight: 600;
+    font-size: 1.05rem;
+}
+.dashboard_section .dash_button_sec .dash_btn:hover,.dashboard_section .dash_button_sec .dash_btn:focus{
+    box-shadow: 0px 0px 1rem #E5E7EC;
+    border: 0.1rem solid transparent;
+}
+.dashboard_section .blue_text{
+    color: #5A78CC;
+    text-align: center;
+    font-size: 1rem;
+    margin-bottom: 5rem;
+}
+.dashboard_section .purchase_info{
+    display: inline-block;
+    width: 100%;
+    position: relative;
+    border: 0.1rem solid #E5E7EC;
+    border-radius: 1rem;
+    margin-top: 1rem;
+    padding: 1rem 2rem;
+    padding-bottom: 0;
+}
+.dashboard_section .purchase_info .date{
+    color: #3D445C;
+    font-size: 1rem;
+    display: inline-block;
+    width: 100%;
+    position: relative;
+    font-weight: 500;
+}
+.dashboard_section .purchase_info .date a{
+    float: right;
+    display: inline-block;
+    color: #4C6ECA;
+}
+.dashboard_section .purchase_info hr{
+    border-top: 0.1rem solid #F0F1F3;
+    margin: 1rem -.5rem;
+}
+.dashboard_section .purchase_info .text_box{
+    display: inline-block;
+    width: 100%;
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+.dashboard_section .purchase_info .text_box .head{
+    color: #363D57;
+    font-size: 1rem;
+    font-weight: 500;
+}
+.dashboard_section .purchase_info .text_box .text{
+    color: #4C6ECA;
+    font-size: 1rem;
+    font-weight: 500;
+}
+.dashboard_section .purchase_info .text_box .text.text_grey{
+    color: #848895;
+}
+.dashboard_section .dash_button{
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 0;
+    border-bottom: 0.1rem solid #EBECEF;
+    text-align: center;
+}
+.dashboard_section .dash_button a{
+    display: inline-block;
+    width: 100%;
+    position: relative;
+    padding: 1.5rem 1rem;
+    color: #A4A7AE;
+    border-bottom: 0.15rem solid transparent;
+    margin-bottom: -.1rem;
+    font-size: 1.05rem;
+    transition: all ease .4s;
+    -webkit-transition: all ease .4s;
+    -moz-transition: all ease .4s;
+    -ms-transition: all ease .4s;
+    -o-transition: all ease .4s;
+}
+.dashboard_section .dash_button a:hover,.dashboard_section .dash_button a:focus{
+    border-bottom: 0.15rem solid #4669C8;
+    color: #4669C8;
+}
+.dashboard_section .dash_button a.active{
+    border-bottom: 0.15rem solid #4669C8;
+    color: #4669C8;
+}
+.dashboard_section .dash_button a .imgbox{
+    display: inline-block;
+    width: 1.35rem;
+    height: 1rem;
+    position: relative;
+    margin-right: .5rem;
+}
+.dashboard_section .dash_button a .imgbox img{
+    position: absolute;
+    left: 0;
+    top: 0rem;
+    filter: grayscale(1);
+    width: 1.5rem;
+    transition: all ease .4s;
+    -webkit-transition: all ease .4s;
+    -moz-transition: all ease .4s;
+    -ms-transition: all ease .4s;
+    -o-transition: all ease .4s;
+}
+.dashboard_section .dash_button a.active .imgbox img{
+    filter: grayscale(0);
+}
+.dashboard_section .dash_button a:hover .imgbox img,.dashboard_section .dash_button a:focus .imgbox img{
+    filter: grayscale(0);
+}
+.dashboard_section .form_box{
+    display: none;
+}
+.dashboard_section .form_box.active{
+    display: block;
+}
+.dashboard_section .top_img{
+    width: 50%;
+    margin-top: 5rem;
+    margin-bottom: 1rem;
+}
+.dashboard_section .form-group{
+    margin-bottom: 0;
+    margin-top: 1.5rem;
+    position: relative;
+}
+.dashboard_section .form-group input.form-control{
+    width: 100%;
+    position: relative;
+    border: 0.1rem solid #E5E7EC;
+    height: 3.5rem;
+    border-radius: .5rem;
+    padding-left: 3rem;
+    color: #9FA2AC;
+}
+.dashboard_section .form-group select.form-control{
+    width: 100%;
+    position: relative;
+    border: 0.1rem solid #E5E7EC;
+    height: 3.5rem;
+    border-radius: .5rem;
+    padding-left: 3rem;
+    color: #9FA2AC;
+}
+.dashboard_section .form-group input.form-control::placeholder{
+    color: #9FA2AC;
+}
+.dashboard_section .form-group select.form-control2{
+    color: #323953;
+    font-weight: 500;
+}
+.dashboard_section .form-group img{
+    position: absolute;
+    left: 1.25rem;
+    top: 1.3rem;
+    width: 1rem;
+}
+.dashboard_section .btn_white{
+    border: 0.1rem solid #E5E7EC;
+    width: 100%;
+    color: #323A54;
+    background: white;
+    border-radius: .5rem;
+    display: inline-block;
+    width: 100%;
+    font-size: 1.1rem;
+    padding: .75rem 1rem;
+    margin-top: 3rem;
+    transition: all ease .4s;
+    -webkit-transition: all ease .4s;
+    -moz-transition: all ease .4s;
+    -ms-transition: all ease .4s;
+    -o-transition: all ease .4s;
+}
+.dashboard_section .btn_white:hover,.dashboard_section .btn_white:focus{
+    background: #323A54;
+    color: white;
+}
+.dashboard_section .btn_blue{
+    border: 0.1rem solid #4669C8;
+    width: 100%;
+    color: white;
+    background: #4669C8;
+    border-radius: .5rem;
+    display: inline-block;
+    width: 100%;
+    font-size: 1.1rem;
+    padding: .75rem 1rem;
+    margin-top: 3rem;
+    transition: all ease .4s;
+    -webkit-transition: all ease .4s;
+    -moz-transition: all ease .4s;
+    -ms-transition: all ease .4s;
+    -o-transition: all ease .4s;
+}
+.dashboard_section .btn_blue:hover,.dashboard_section .btn_blue:focus{
+    background: white;
+    color: #4669C8;
+}
+.dashboard_section .hr{
+    border-top: 0.1rem solid #F5F6F7;
+    margin-top: 8rem;
+    margin-bottom: 4rem;
+}
+.dashboard_section .business_box{
+    border: 0.1rem solid #E5E7EC;
+    padding: 2rem 1rem;
+    position: relative;
+    text-align: center;
+    border-radius: 1rem;
+    display: inline-block;
+    width: 100%;
+    margin-top: 1rem;
+    transition: all ease .4s;
+    -webkit-transition: all ease .4s;
+    -moz-transition: all ease .4s;
+    -ms-transition: all ease .4s;
+    -o-transition: all ease .4s;
+}
+.dashboard_section .business_box .imgbox{
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    min-height: 6.5rem;
+}
+.dashboard_section .business_box .imgbox img{
+    max-width: 6rem;
+}
+.dashboard_section .business_box .head{
+    color: #0E1823;
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: .5rem;
+}
+.dashboard_section .business_box .grey_text{
+    color: #A5A8B0;
+}
+.dashboard_section .business_box:hover,.dashboard_section .business_box:focus{
+    box-shadow: 0px 0px 1rem #e5e7ec87;
+    border: 0.1rem solid transparent;
+}
+.dashboard_section .blue_head {
+    color: #323953;
+    text-align: left;
+    margin-top: 2rem;
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-bottom: -1rem;
 }

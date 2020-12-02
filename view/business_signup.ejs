@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<%- include("partials/head") %> 
+
+	<title>Subcrates | Business Sign Up</title>
+</head>
+<body>
+	<section class="nav_section">
+		<div class="container">
+			<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+			  <!-- Brand -->
+			  <a class="navbar-brand" href="/"><img src="../public/images/logo.png" alt="#"></a>
+			</nav>
+		</div>
+	</section>
+	<section class="dashboard_section dashboard_section2">
+		<form method="post">
+			<div class="dash_button">
+				<div class="container">
+					<div class="row justify-content-center m-0">
+						<div class="col-12 col-md-3 p-0">
+							<a href="#formOne" class="active">
+								<div class="imgbox">
+									<img src="../public/images/signup_a.png" alt="#">
+								</div>
+								<span>Sign up Details  >></span>
+							</a>
+						</div>
+						<div class="col-12 col-md-3 p-0">
+							<a href="#formTwo">
+								<div class="imgbox">
+									<img src="../public/images/bank-card_a.png" alt="#">
+								</div>
+								<span>Banking Details   >></span>
+							</a>
+						</div>
+						<div class="col-12 col-md-3 p-0">
+							<a href="#formThree">
+								<div class="imgbox">
+									<img src="../public/images/gift-2_a.png" alt="#">
+								</div>
+								<span>Subscription Gift Details</span>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="container">
+				<div class="form_box active" id="formOne">
+					<div class="row justify-content-center">
+						<div class="col-12 col-md-5 text-center">
+							<img src="../public/images/signup_details.png" alt="#" class="top_img">
+							<div class="heading text-center">Signup Details </div>
+							<div class="grey_text">
+								Enter business details below.
+							</div>
+							<div class="row">
+								<div class="col-12 col-md-6">
+									<div class="form-group">
+										<input type="text" name="firstName" placeholder="First name" class="form-control" required oninvalid="alert('First Name is empty!')">
+										<img src="../public/images/signup.png" alt="#">
+									</div>
+								</div>
+								<div class="col-12 col-md-6">
+									<div class="form-group">
+										<input type="text" name="lastName" placeholder="Last name" class="form-control" required oninvalid="alert('Last Name is empty!')">
+										<img src="../public/images/signup.png" alt="#">
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-12">
+									<div class="form-group">
+										<input type="text" name="businessName" placeholder="Registered Business name" class="form-control" required oninvalid="alert('Business Name is empty!')">
+										<img src="../public/images/business_name.png" alt="#">
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-12">
+									<div class="form-group">
+										<input type="text" name="businessEmail" placeholder="Business email" class="form-control" required oninvalid="alert('Business Email is empty!')">
+										<img src="../public/images/email.png" alt="#">
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-12">
+									<div class="form-group">
+										<input type="text" name="businessPhone" placeholder="Business phone (xxx-xxx-xxxx)" class="form-control" required oninvalid="alert('Business Phone is empty!')">
+										<img src="../public/images/phone.png" alt="#">
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-12">
+									<div class="form-group">
+										<input type="password" name="businessPassword" placeholder="Password" class="form-control" required oninvalid="alert('Password is empty!')">
+										<img src="../public/images/lock.png" alt="#">
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<!-- <div class="col-12 col-md-6">
+									<button class="btn_white">Back</button>
+								</div> -->
+								<!-- <div class="col-12 col-md-6">
+									<button class="btn_blue">Next</button>
+								</div> -->
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form_box" id="formTwo">
+					<div class="row justify-content-center">
+						<div class="col-12 col-md-5 text-center">
+							<img src="../public/images/banking_details.png" alt="#" class="top_img">
+							<div class="heading text-center">Banking Details</div>
+							<div class="grey_text red">Please make sure your banking information is correct<br> or you won't receive your payouts.</div>
+							<div class="row">
+								<div class="col-12">
+									<div class="form-group">
+										<input type="text" name="businessRecipient" placeholder="Recipient's Legal Name" class="form-control" required oninvalid="alert('Recipient Legal Name is empty!')">
+										<img src="../public/images/signup.png" alt="#">
+									</div>
+								</div>
+							</div>	
+							<div class="row">
+								<div class="col-12">
+									<div class="form-group">
+										<input type="text" name="routingNumber" placeholder="Routing Number" class="form-control" required oninvalid="alert('Recipient Legal Name is empty!')">
+										<img src="../public/images/routing_number.png" alt="#">
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-12">
+									<div class="form-group">
+										<input type="text" name="accountNumber" placeholder="Account Number" class="form-control" required oninvalid="alert('Recipient Legal Name is empty!')">
+										<img src="../public/images/account_number.png" alt="#">
+									</div>
+								</div>
+							</div>
+							<div class="grey_text text-left mb-0 mt-3">Your bank account must be a checking account</div>
+							<div class="row">
+								<div class="col-12">
+									<div class="form-group">
+										<input type="text" name="" placeholder="Recipient's Legal Address" class="form-control">
+										<img src="../public/images/map-pin.png" alt="#">
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-12">
+									<div class="form-group">
+										<input type="text" name="" placeholder="Address line 2" class="form-control">
+										<img src="../public/images/map-pin.png" alt="#">
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-12 col-md-6">
+									<div class="form-group">
+										<input type="text" name="" placeholder="City" class="form-control">
+										<img src="../public/images/map-pin.png" alt="#">
+									</div>
+								</div>
+								<div class="col-12 col-md-6">
+									<div class="form-group">
+										<input type="text" name="" placeholder="State" class="form-control">
+										<img src="../public/images/map-pin.png" alt="#">
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-12 col-md-6">
+									<div class="form-group">
+										<select class="form-control">
+											<option>Country</option>
+											<option>Country</option>
+											<option>Country</option>
+										</select>
+										<img src="../public/images/map-pin.png" alt="#">
+									</div>
+								</div>
+								<div class="col-12 col-md-6">
+									<div class="form-group">
+										<input type="text" name="" placeholder="Zip Code" class="form-control">
+										<img src="../public/images/map-pin.png" alt="#">
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<!-- <div class="col-12 col-md-6">
+									<button class="btn_white">Back</button>
+								</div> -->
+								<!-- <div class="col-12 col-md-6">
+									<button class="btn_blue">Next</button>
+								</div> -->
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="form_box" id="formThree">
+					<div class="row justify-content-center">
+						<div class="col-12 col-md-5 text-center">
+							<img src="../public/images/subscription_details.png" alt="#" class="top_img">
+						</div>
+					</div>
+					<div class="row justify-content-center">
+						<div class="col-12 col-md-7">
+							<div class="heading text-center">Subscription Gift Details</div>
+						</div>
+					</div>
+					<div class="row justify-content-center">	
+						<div class="col-12 col-md-5 text-center">
+							<div class="grey_text">Currently you can create 5 Gifts</div>
+							<div class="row">
+								<div class="col-12 col-md-6">
+									<div class="form-group">
+										<input type="text" name="" placeholder="Gift name" class="form-control">
+										<img src="../public/images/gift-21.png" alt="#">
+									</div>
+								</div>
+								<div class="col-12 col-md-6">
+									<div class="form-group">
+										<input type="text" name="" placeholder="Gift price" class="form-control">
+										<img src="../public/images/price.png" alt="#">
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-12 col-md-6">
+									<div class="form-group">
+										<input type="text" name="" placeholder="Gift name" class="form-control">
+										<img src="../public/images/gift-21.png" alt="#">
+									</div>
+								</div>
+								<div class="col-12 col-md-6">
+									<div class="form-group">
+										<input type="text" name="" placeholder="Gift price" class="form-control">
+										<img src="../public/images/price.png" alt="#">
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-12 col-md-6">
+									<div class="form-group">
+										<input type="text" name="" placeholder="Gift name" class="form-control">
+										<img src="../public/images/gift-21.png" alt="#">
+									</div>
+								</div>
+								<div class="col-12 col-md-6">
+									<div class="form-group">
+										<input type="text" name="" placeholder="Gift price" class="form-control">
+										<img src="../public/images/price.png" alt="#">
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-12 col-md-6">
+									<div class="form-group">
+										<input type="text" name="" placeholder="Gift name" class="form-control">
+										<img src="../public/images/gift-21.png" alt="#">
+									</div>
+								</div>
+								<div class="col-12 col-md-6">
+									<div class="form-group">
+										<input type="text" name="" placeholder="Gift price" class="form-control">
+										<img src="../public/images/price.png" alt="#">
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-12 col-md-6">
+									<div class="form-group">
+										<input type="text" name="" placeholder="Gift name" class="form-control">
+										<img src="../public/images/gift-21.png" alt="#">
+									</div>
+								</div>
+								<div class="col-12 col-md-6">
+									<div class="form-group">
+										<input type="text" name="" placeholder="Gift price" class="form-control">
+										<img src="../public/images/price.png" alt="#">
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-12">
+									<div class="blue_head">Revenue Terms</div>
+									<div class="form-group">
+										<select class="form-control form-control2">
+											<option>5% - Commit till Dec 31st, 2021</option>
+											<option>5% - Commit till Dec 31st, 2021</option>
+											<option>5% - Commit till Dec 31st, 2021</option>
+										</select>
+										<img src="../public/images/file.png" alt="#">
+									</div>
+								</div>
+							</div>
+							<div class="grey_text text-left mt-3 mb-0">Please read the gifting terms & conditions to understand what commitment vs no commitment means <a href="#">here</a></div>
+							<div class="row">
+								<!-- <div class="col-12 col-md-6">
+									<button class="btn_white">Back</button>
+								</div> -->
+								<div class="col-12 col-md-6">
+									<button class="btn_blue" type="submit">Sign Up</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row justify-content-center">
+					<div class="col-12">
+						<hr class="hr">
+					</div>
+					<div class="col-12 col-md-5 text-center">
+						<div class="heading heading_sm text-center">Subcrates features</div>
+						<div class="grey_text">
+							<!-- Lorem ipsum dolor sit amet, consectetur adipiscing<br> elit, sed do eiusmod tempor incididunt -->
+						</div>
+					</div>
+					<div class="col-12 col-md-10">
+						<div class="row">
+							<div class="col-12 col-md-4">
+								<div class="business_box">
+									<div class="imgbox"><img src="../public/images/create_gift.png" alt="#"></div>
+									<div class="head">Create Gifts</div>
+									<div class="grey_text">
+										Set up upto 5 subscriptions and gift cards to sell on Subcrates.
+									</div>
+								</div>
+							</div>
+							<div class="col-12 col-md-4">
+								<div class="business_box">
+									<div class="imgbox"><img src="../public/images/track_gift.png" alt="#"></div>
+									<div class="head">Track gift purchases</div>
+									<div class="grey_text">
+										Track orders, pending payouts, completed payouts, gift codes sent to recipients, and much more from 
+										your business dashboard.
+									</div>
+								</div>
+							</div>
+							<div class="col-12 col-md-4">
+								<div class="business_box">
+									<div class="imgbox"><img src="../public/images/get_paid.png" alt="#"></div>
+									<div class="head">Get Paid</div>
+									<div class="grey_text">
+										Get payouts every week directly to your account. 
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	</section>
+	<footer>
+		<div class="container">
+			<div class="row">
+				<div class="col-12 col-md-4">
+					<a><img src="../public/images/logo.png" alt="#" class="logo"></a>
+					<p>
+						Subcrates is your one-stop for subscriptions. We are a platform that helps you 
+						discover new subscriptions, gift subscriptions to friends and family and manage the 
+						subscriptions you own. 
+					</p>
+					<ul class="list-inline social">
+						<!-- <li class="list-inline-item"><a href="#"><img src="../public/images/facebook.png" alt="#"></a></li>
+						<li class="list-inline-item"><a href="#"><img src="../public/images/instagram.png" alt="#"></a></li>
+						<li class="list-inline-item"><a href="#"><img src="../public/images/twitter.png" alt="#"></a></li> -->
+					</ul>
+				</div>
+				<div class="col-12 col-md-4">
+					<h4>Links</h4>
+					<div class="row">
+						<div class="col-6">
+							<ul class="links">
+								<!-- <li><a href="#">Home</a></li>
+								<li><a href="#">My Crate</a></li>-->
+								<li><a href="mailto:support@subcrates.com">Contact Us</a></li>
+								<li><a href="/business">Business</a></li> 
+							</ul>
+						</div>
+						<div class="col-6">
+							<ul class="links">
+								<li><a href="mailto:suggestions@subscrates.com">Suggestions</a></li>
+								<!-- <li><a href="#">Got Questions</a></li> -->
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="col-12 col-md-4">
+					<h4>Download Subcrates app</h4>
+					<p>Download the mobile app to get notifications for your subscriptions before you get billed.</p>
+					<div><a href="https://apps.apple.com/us/app/id1528694362"><img src="../public/images/app_store.png" alt="#" class="store"></a></div>
+					<div><a href="http://play.google.com/store/apps/details?id=com.sub.subcrates"><img src="../public/images/google_play.png" alt="#" class="store"></a></div>
+				</div>
+			</div>
+			<hr>
+			<div class="row">
+				<div class="col-12 col-md-6">
+					<p>Copyrights © 2020 <a href="/tos">Subcrates.</a> All rights reserved.</p>
+				</div>
+				<div class="col-12 col-md-6">
+					<ul class="bot_link list-inline">
+						<li class="list-inline-item"><a href="/tos">Terms of Service</a></li>
+						<li class="list-inline-item"><a href="/privacy">Privacy Policy</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</footer>
+
+
+	<%- include("partials/foot") %> 
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('.open_menu').click(function(){
+			$('.menu_bar').addClass('active');
+			$('.navbar-collapse').css('display','none');
+		});
+		$('.close_menu').click(function(){
+			$('.menu_bar').removeClass('active');
+		});
+	});
+</script>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('.btn_white').click(function(){
+			$('.saved_profile').removeClass('active');
+			$('.edit_profile').addClass('active');
+			$('.btn_white2').addClass('active');
+			$('.btn_white').removeClass('active');
+		});
+		$('.btn_white2').click(function(){
+			$('.saved_profile').addClass('active');
+			$('.edit_profile').removeClass('active');
+			$('.btn_white2').removeClass('active');
+			$('.btn_white').addClass('active');
+		});
+	});
+</script>
+<script>
+	$(document).ready(function(){
+		$('#datepicker').datepicker({
+	        uiLibrary: 'bootstrap4'
+	    });
+	});
+</script>
+<script type="text/javascript">
+	var options = {
+	data: [
+		  {"name": "Afghanistan", "code": "AF"},
+		  {"name": "Aland Islands", "code": "AX"},
+		  {"name": "Albania", "code": "AL"},
+		  {"name": "Algeria", "code": "DZ"},
+		  {"name": "American Samoa", "code": "AS"}
+		  ],
+  		getValue: "name",
+		list: {
+			match: {
+				enabled: true
+			}
+		}
+	};
+
+	$("#search_field").easyAutocomplete(options);
+// for mobile
+	$("#mob_search_field").easyAutocomplete(options);
+</script>
+<script type="text/javascript">
+	$('.dashboard_section .dash_button a').on('click', function(event){
+		var hash = window.location.hash;
+		$('.dashboard_section .dash_button a, .dashboard_section .form_box').removeClass('active');
+		$(this).addClass('active');
+		$(hash).addClass('active');
+	});
+</script>
+
+
+</body>
+</html>
