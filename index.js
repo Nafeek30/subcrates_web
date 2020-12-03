@@ -1229,27 +1229,3 @@ app.post('/resetpassword', (req, res) => {
   });
 
 
-
-  // app.get('/calc', (req, res) => {
-
-  //   var start7 = 45000;
-  //   var start5 = 45000;
-  //   var aggregate7 = 0;
-  //   var aggregate5 = 0;
-  //   var tenMultiple = 10;
-  //   var multiplier7 = 1.07;
-  //   var multiplier5 = 1.05;
-
-  //   for(var i = 0; i < 12; i++) {
-  //     start7 = start7 * multiplier7;
-  //     aggregate7 = aggregate7 + start7;
-
-  //     start5 = start5 * multiplier5;
-  //     aggregate5 = aggregate5 + start5;
-  //   }
-
-  //   console.log('at 1.05: ' + parseInt(aggregate5).toString());
-  //   console.log('at 1.05 ten multiplier: ' + parseInt(aggregate5 * tenMultiple).toString());
-  //   console.log('at 1.07: ' + parseInt(aggregate7).toString());
-  //   console.log('at 1.07 ten multiplier: ' + parseInt(aggregate7 * tenMultiple).toString());
-  // });
