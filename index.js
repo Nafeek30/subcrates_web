@@ -310,8 +310,8 @@ function isSubscribed(req, res, next) {
     // Arrays to store categories, unique categories and subscription data
     var allCategories = [];
     var uniqueCategories = [
-      'Software', 'Entertainment', 'Health & Wellness', 'Home', 'Pets', 'Sports', 'Kids', 'Literature',
-      'Personal Care', 'Finance', 'Gaming', 'Productivity', 'Cloud Service', 'Wireless & Internet', 
+      'Design', 'Entertainment', 'Health & Wellness', 'Home', 'Pets', 'Sports', 'Kids', 'Literature',
+      'Personal Care', 'Finance', 'Software', 'Gaming', 'Productivity', 'Cloud Service', 'Wireless & Internet', 
       'Food & Drink', 'Fashion', 'Delivery', 'Utility', 'Novelty', 'Ride sharing'
     ];
     var allSubscriptions = []; // Stores 7 subscriptions from each category
@@ -1032,7 +1032,7 @@ function isSubscribed(req, res, next) {
         subscriptionsSnap.forEach(singleSubscription => {
           //push all subscriptions that can be gifted into array
           allSubscriptions.push(singleSubscription);
-          console.log(singleSubscription.data().category);
+          console.log(singleSubscription.data().subscriptionName);
         });
 
         // THEN RENDER GIFT PAGE
@@ -1044,7 +1044,7 @@ function isSubscribed(req, res, next) {
       });
   });
 
-
+ 
 
   // GIFT FORM PAGE GET ROUTE
   app.get('/giftform', (req, res) => {

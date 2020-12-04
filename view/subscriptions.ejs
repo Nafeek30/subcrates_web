@@ -132,6 +132,10 @@
 					</div>
 					<div class="heading">Subscription Info</div>
 					<p><%- subscription.data().longDesc %></p>
+					<% if(subscription.data().shippingEstimate != '') { %>
+						<div class="heading">Shipping Estimation</div>
+						<p><%- subscription.data().shippingEstimate %></p>
+					<% } %>
 					<div class="heading">Pricing</div>
 					<div class="row">
 						<div class="col-12">
