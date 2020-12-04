@@ -310,7 +310,7 @@ function isSubscribed(req, res, next) {
     // Arrays to store categories, unique categories and subscription data
     var allCategories = [];
     var uniqueCategories = [
-      'Design', 'Entertainment', 'Health & Wellness', 'Home', 'Pets', 'Sports', 'Kids', 'Literature',
+      'Entertainment', 'Health & Wellness', 'Home', 'Pets', 'Sports', 'Kids', 'Design', 'Literature',
       'Personal Care', 'Finance', 'Software', 'Gaming', 'Productivity', 'Cloud Service', 'Wireless & Internet', 
       'Food & Drink', 'Fashion', 'Delivery', 'Utility', 'Novelty', 'Ride sharing'
     ];
