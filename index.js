@@ -309,7 +309,11 @@ function isSubscribed(req, res, next) {
 
     // Arrays to store categories, unique categories and subscription data
     var allCategories = [];
-    var uniqueCategories = [];
+    var uniqueCategories = [
+      'Software', 'Entertainment', 'Health & Wellness', 'Home', 'Pets', 'Sports', 'Kids', 'Literature',
+      'Personal Care', 'Finance', 'Gaming', 'Productivity', 'Cloud Service', 'Wireless & Internet', 
+      'Food & Drink', 'Fashion', 'Delivery', 'Utility', 'Novelty', 'Ride sharing'
+    ];
     var allSubscriptions = []; // Stores 7 subscriptions from each category
     var limitedSubscriptions = []; // Stores ALL subscriptions from each category
 
@@ -327,15 +331,18 @@ function isSubscribed(req, res, next) {
         });
          
         // Filter all categories to get unique categories and put in array
-        uniqueCategories = Array.from(new Set(allCategories));
+        // uniqueCategories = Array.from(new Set(allCategories));
         // Remove custom items from homepage display
-        uniqueCategories = uniqueCategories.filter(item => item !== 'Custom');
+        // uniqueCategories = uniqueCategories.filter(item => item !== 'Custom');
+
+
 
 
     // USE THIS PLACE BELOW TO SORT THE [limitedSubscriptions] array by position when you needed.
     // Filer and give preference to the subscriptions that have paid.
     // NOTE: Make sure the position of the paid subscriptions are changed as 1, 2, 3, ...
     // Default value for all subscriptions that [HAVE NOT] paid are 999.
+    limitedSubscriptions.sort((a, b) => (a.data().position > b.data().position) ? 1 : -1);
 
 
 
@@ -1017,7 +1024,7 @@ function isSubscribed(req, res, next) {
   // GIFTS PAGE GET ROUTE
   // This route filters all the subscriptions that can be gifted based on [canGift] variable in the
   // database and sends it to the [gift.ejs] page
-  app.get('/gifts', (req, res) => {
+  app.get('/gifts', [isAuthenticated], (req, res) => {
     var allSubscriptions = []; // holds all the subscriptions that can be gifted
 
     subscriptions.where('canGift', '==', true).get()
