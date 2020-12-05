@@ -217,7 +217,7 @@ function isSubscribed(req, res, next) {
                 // and also update user with their free trial data
 
                 try {
-                  users.doc(firebase.auth().currentUser.email).update({
+                  users.doc(signupEmail).set({
                     // set status to false for free trial until paid subscription is bought.
                     status: false, 
                     expiresAt: expiresAtSeconds,
@@ -230,7 +230,7 @@ function isSubscribed(req, res, next) {
                       logoLink: 'https://firebasestorage.googleapis.com/v0/b/subcrates.appspot.com/o/subscriptionImages%2FSubcrates.png?alt=media&token=d66e4710-7b46-4991-a6d8-55d1a7eebd74',
                       lastPaidDate: nowInSeconds,
                       nextPayDate: expiresAtSeconds,
-                      userEmail: firebase.auth().currentUser.email
+                      userEmail: signupEmail
                     });
 
                     // Mixpanel user register on signup
