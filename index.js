@@ -148,10 +148,7 @@ function isSubscribed(req, res, next) {
 
   // ROOT GET ROUTE - Landing page
   app.get('/', (req, res) => {
-    // track an event with optional properties
-    mixpanel.track('landing', {
-      'platform': 'web',
-    });
+
     res.render('landing');
   });
 
@@ -243,9 +240,6 @@ function isSubscribed(req, res, next) {
                     });
 
 
-                    mixpanel.track('signup', {
-                      'platform': 'web',
-                    });
                     // THEN RENDER HOMEPAGE
                     res.redirect('/homepage'); 
                   })
@@ -285,9 +279,6 @@ function isSubscribed(req, res, next) {
         // Current date
         var date = new Date().toLocaleDateString();
 
-        mixpanel.track('login', {
-          'platform': 'web',
-        });
 
         // THEN RENDER HOMEPAGE
         res.redirect('/homepage'); 
@@ -370,9 +361,6 @@ function isSubscribed(req, res, next) {
       }
     }
 
-    mixpanel.track('homepage', {
-      'platform': 'web',
-    });
 
         // THEN RENDER HOMEPAGE
         res.render('homepage', {allSubscriptions, uniqueCategories, name: loginEmail});
@@ -404,9 +392,6 @@ function isSubscribed(req, res, next) {
           allSubscriptions.push(singleSubscription);
         });
 
-        mixpanel.track('category_page', {
-          'category': categorySelected,
-        });
         // THEN RENDER HOMEPAGE
         res.render('singlecategory', {allSubscriptions, categorySelected});
 
@@ -453,9 +438,6 @@ function isSubscribed(req, res, next) {
               }
             });
 
-            mixpanel.track('subscription', {
-              'name': docID,
-            });  
 
             res.render('subscriptions', {subscription, reviewsList, hasPosted, myReview, myRating, myUsername});
           })
@@ -807,10 +789,6 @@ function isSubscribed(req, res, next) {
                     'subscriptionNotes': subscriptionNotes,
                   })
                   .then(result => {
-                    
-                    mixpanel.track('add_subscription', {
-                      'add_what': docID,
-                    });
 
                     res.redirect('/mycrate');
                   })
@@ -926,10 +904,6 @@ function isSubscribed(req, res, next) {
                 querySnapshot.forEach(doc => {
                   doc.ref.delete();
                 });
-
-                mixpanel.track('delete', {
-                  'delete_what': subID,
-                });
                 
                 // Load mycrates page again
                 res.redirect('/mycrate');
@@ -1029,9 +1003,6 @@ function isSubscribed(req, res, next) {
    
               })
 
-              mixpanel.track('mycrates', {
-                'platform': 'web',
-              });
               res.render('mycrates', {subList, subscriptionsList, dateList, weeklyCost, monthlyCost, yearlyCost});
             })
             .catch(e4 => {
@@ -1070,10 +1041,6 @@ function isSubscribed(req, res, next) {
           console.log(singleSubscription.data().subscriptionName);
         });
 
-        mixpanel.track('gifts', {
-          'platform': 'web',
-        });
-
         // THEN RENDER GIFT PAGE
         res.render('gifts', {allSubscriptions});
 
@@ -1101,9 +1068,6 @@ function isSubscribed(req, res, next) {
       .then(user => {
         var userStatus = user.data().status;
 
-        mixpanel.track('settings', {
-          'platform': 'web',
-        });
         res.render('settings', {userStatus: userStatus, userEmail: firebase.auth().currentUser.email});
       })
       .catch(err1 => {
@@ -1241,10 +1205,6 @@ app.post('/resetpassword', (req, res) => {
   if (email != "") {
       auth.sendPasswordResetEmail(email.toString())
           .then(result => {
-
-            mixpanel.track('forget_pass_reset', {
-              'platform': 'web',
-            });
 
               res.render('reset_sent');
           }).catch(err1 => {
