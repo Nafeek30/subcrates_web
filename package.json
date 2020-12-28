@@ -34,6 +34,7 @@
     "mixpanel": "^0.11.0",
     "mixpanel-browser": "^2.39.0",
     "nodemon": "^2.0.3",
+    "plaid": "^8.1.0",
     "stripe": "^8.84.0"
   },
   "devDependencies": {}

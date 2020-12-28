@@ -21,15 +21,6 @@
 	html, body{
 		font-size: 13px;
 	}
-	.slick-arrow.slick-prev{
-	    left: -2rem;
-	}
-	.slick-arrow.slick-next{
-	    right: -2rem;
-	}
-	.dashboard_section .business_box .imgbox{
-	    min-height: 8.5rem;
-	}
 }
 @media(max-width: 1200px){
 	html, body{
@@ -40,116 +31,121 @@
 	html, body{
 		font-size: 10px;
 	}
-	.header .content_box label {
-	    color: #9FA1AB;
-	    font-size: 1.1rem;
-	    padding-left: 1.85rem;
-	}
-	input#search_field {
-		padding: .5rem 1.9rem;
+}
+@media(max-width: 991px){
+	html, body{
+		font-size: 11px;
 	}
 }
 @media(max-width: 767px){
 	html, body{
-		font-size: 12px;
+		font-size: 14px;
 	}
-	.navbar-dark .navbar-toggler{
-	    border: 0.1rem solid #E2E6E9;
+	.debt_section{
+		border-bottom: 0;
 	}
-	.navbar-dark .navbar-toggler-icon{
-	    background: url(../images/menu.png);
-	    background-size: 100% 60%;
-	    background-repeat: no-repeat;
-	    background-position: center;
+	.debt_section .debt{
+	    width: 80%;
+	    margin-bottom: 2rem;
 	}
-	.header .content_box span{
-	    width: 100%
+	.debt_section .flexer{
+	    width: 100%;
 	}
-	.landing_section .try_box{
-	    background: #F5F5F9;
+	.debt_section form{
+	    width: 100%;
 	}
-	.nav_section2 .navbar-toggler{
+	.feat_section{
+		padding-top: 2rem;
+	}
+	.feat_section .try_box .text_box ,.feat_section .try_box .img_box{
+	    -ms-flex: 0 0 100%;
+	    flex: 0 0 100%;
+	    max-width: 100%;
+	}
+	.feat_section .try_box .text_box .flexer{
+	    border-radius: 0;
+	    border-top-left-radius: 1.5rem;
+	    border-top-right-radius: 1.5rem;
+	    padding: 4rem 1rem;
+	}
+	.feat_section .try_box .text_box img{
+	    width: 8rem;
+	    margin: 0 1rem;
+	}
+	.feat_section .try_box .img_box img{
+	    border-radius: 0;
+	    border-bottom-left-radius: 1.5rem;
+	    border-bottom-right-radius: 1.5rem;
+	}
+	.bot_feat{
+	    padding: 0 1.5rem;
+	}
+	.feat_section .try_box .text_box h3{
+	    font-size: 1.85rem;
+	}
+	.feat_section .try_box .text_box p{
+	    font-size: 1.1rem;
+	    color: #A1A3AD;
+	    margin-bottom: 3.5rem;
+	}
+	.feat_section .try_box .text_box p br{
 	    display: none;
 	}
-	footer .col-md-6 p{
+	.feat_section .try_box .text_box .d-flex{
+	    display: block !important;
+	}
+	.feat_section .try_box .text_box .d-flex a{
+	    display: block;
+	    margin-top: 1.25rem;
+	}
+	.feat_section .try_box .text_box .d-flex a img{
+	    width: 14rem;
+	}
+	.bot_feat .keybox .imgbox{
+	    justify-content: flex-start;
+	    align-items: center;
+	    margin-bottom: .5rem;
+	}
+	.bot_feat .keybox .imgbox img{
+	    width: 3rem;
+	}
+	.bot_feat .keybox .imgbox h4 {
+	    margin-left: 1.5rem;
+	    text-align: left;
+	    margin-bottom: 0rem;
+	}
+	.bot_feat .keybox p{
+	    text-align: left;
+	}
+	footer p a{
+		color: #4669C8;
+	}
+	footer .col-md-6 p {
 	    text-align: center;
 	}
-	footer .bot_link{
+	footer .bot_link {
 	    text-align: center;
 	    margin-bottom: 1rem;
 	}
 	footer .bot_link li a{
-	    padding: 0 1rem;
+		padding: 0 .5rem;
 	}
-	.subscripe_section .col {
-	    -ms-flex: 0 0 50%;
-	    flex: 0 0 50%;
-	    max-width: 50%;
+	.debt_section h3 {
+    	font-size: 2rem;
+    }
+    .debt_section p {
+	    font-size: 1.2rem;
 	}
-	.subscripe_section .comparison{
-		padding: 0;
+	.bot_feat h3{
+		font-size: 2rem;
 	}
-	.subscripe_section .grey_rate{
-		padding: 0;
-		text-align: center;
+	.bot_feat p{
+		font-size: 1rem;
 	}
-	.crate_section .expense_box .white_box{
-		margin-bottom: 1rem;
+	.bot_feat h3, .bot_feat p{
+		text-align: left;
 	}
-	.crate_section .title .btn_blue{
-		padding: 1rem 1rem;
-	}
-	.slick-arrow{
-		display: none !important;
-	}
-	.desktop{
-	    display: none !important;
-	}
-	.mobile{
-	    display: inline-block !important;
-	}
-	.order{
-	    order: initial;
-	}
-	.dashboard_section .purchase_info .col{
-		-ms-flex: 0 0 100%;
-	    flex: 0 0 100%;
-	    max-width: 100%;
-	}
-	.dashboard_section2{
-    	padding-top: 14rem;
-	}
-}
-@media(max-width: 576px){
-	.header .content_box{
-		padding: 3rem;
-	}
-	.landing_section .try_box .border-right{
-		border: 0 !important;
-	}
-	.subscribe_section .blue_box{
-		text-align: center;
-		padding: 2rem;
-	}
-	.subscribe_section .blue_box .text-right{
-		text-align: center !important;
-	}
-	.menu_bar ul li a{
-		font-size: 1.5rem;
-    	padding: 1.5rem 2rem;
-	}
-}
-@media(max-width: 480px){
-	.brand_slide .brand_box, .brand_slide .brand_box img {
-	    width: 99% !important;
-	}
-	.payments_row .col-6{
-		flex:0 100%;
-		max-width: 100%;
-	}
-}
-@media screen and (min-width: 600px) and (max-width: 767px){
-	.headline_section .white_box .bottom ul li{
-		font-size: 0.8rem;
+	.bot_feat p br{
+		display: none;
 	}
 }

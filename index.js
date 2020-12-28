@@ -65,6 +65,7 @@ firebase.database.enableLogging(true);
 
 /* ALL OTHER IMPORTS */
 const express = require('express');
+const plaid = require('plaid');
 const cookieParser = require('cookie-parser');  // read and write cookies
 const bodyParser = require('body-parser');      // to parse post request body as json
 const stripe = require('stripe')('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');
@@ -86,6 +87,12 @@ app.set('views', './view');
 
 // Use public folder for all static content
 app.use('/public', express.static(__dirname + '/public'));
+
+
+// Setup plaid
+let plaid_client_id = '5fcb490a05b46200122a3972';
+let plaid_secret = 'b616b0da74f6f4eb83235a1733fb78';
+let plaid_env = 'sandbox';
 
 
 // parse to json when we get data from post request
@@ -149,7 +156,7 @@ function isSubscribed(req, res, next) {
   // ROOT GET ROUTE - Landing page
   app.get('/', (req, res) => {
 
-    res.render('landing');
+    res.render('comingSoon');
   });
 
 
@@ -306,7 +313,7 @@ function isSubscribed(req, res, next) {
 
   // GET ROUTE - Homepage
   // [isAuthenticated],
-  app.get('/homepage', [isAuthenticated], (req, res) => {
+  app.get('/TEST', [isAuthenticated], (req, res) => {
 
     // Arrays to store categories, unique categories and subscription data
     var allCategories = [];
@@ -1225,7 +1232,8 @@ app.post('/resetpassword', (req, res) => {
 
   // GET ROUTE FOR PRIVACCY
   app.get('/privacy', (req, res) => {
-    res.render('Policies/privacy');
+    // res.render('Policies/privacy');
+
   });
 
 
