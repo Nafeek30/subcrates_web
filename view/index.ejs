@@ -7,6 +7,7 @@
 	<link rel="stylesheet" type="text/css" href="../public/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="../public/css/style.css">
 	<link rel="stylesheet" type="text/css" href="../public/css/responsive-style.css">
+	<%- include("partials/header") %> 
 	<title>Subcrates | Build savings and investments with just $1 a day.</title>
 </head>
 <body>
@@ -169,5 +170,9 @@
 <script type="text/javascript" src="assets/js/jquery-3.3.1.js"></script>
 <script type="text/javascript" src="assets/js/popper.js"></script>
 <script type="text/javascript" src="assets/js/bootstrap-4.js"></script>
+<script>
+    // Add mixpanel signup tracker & create user
+    mixpanel.track("LandingPage");
+</script>
 </body>
 </html>

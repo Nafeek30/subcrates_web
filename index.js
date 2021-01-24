@@ -172,13 +172,22 @@ function isSubscribed(req, res, next) {
         'email': userListEmail.toString(),
         'joined': firebase.firestore.Timestamp.now().toDate()
       }).then(result => {
-        res.render('comingSoon', {displaySuccess: true})
+
+        // Mixpanel user register on signup
+        // mixpanel.identify('test2@gmail.com');
+        mixpanel.people.set(
+          userListEmail,
+          {
+          $email: userListEmail
+        });
+
+        res.render('comingSoon')
       });
 
       /// Otherwise send error message
     } catch(e) {
       console.log(e.toString());
-      res.render('comingSoon', {displaySuccess: false})
+      res.render('failedToAdd')
     }
     
   });
