@@ -244,13 +244,13 @@ img{
 }
 .debt_section h3{
     color: #0E1823;
-    font-size: 2.75rem;
+    font-size: 2.6rem;
     font-weight: 600;
     margin-bottom: 2rem;
 }
 .debt_section p{
     color: #9296A0;
-    font-size: 1.05rem;
+    font-size: 1.2rem;
     margin-bottom: 2rem;
     line-height: 1.75;
 }
@@ -282,7 +282,6 @@ img{
     line-height: 1;
     font-size: 1.15rem;
     width: 100%;
-    margin-top: 2rem;
     margin-bottom: 2rem;
     border: 0;
     transition: all ease .4s;
@@ -295,7 +294,7 @@ img{
     background: linear-gradient(to left, #037ADE, #03E5B7 70%);
 }
 .debt_section .green_text{
-    color: #3BD7A4;
+    color: #037ADE;
     font-size: 1rem;
 }
 .feat_section{

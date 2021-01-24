@@ -8,14 +8,14 @@
 	<link rel="stylesheet" type="text/css" href="../public/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="../public/css/style.css">
 	<link rel="stylesheet" type="text/css" href="../public/css/responsive-style.css">
-	<title>Subcrates | Subcrates makes your finances simple and stress free.</title>
+	<title>Subcrates | Build savings and investments with just $1 a day.</title>
 </head>
 <body>
 	<section class="nav_section">
 		<div class="container">
 			<nav class="navbar navbar-expand-md bg-dark navbar-dark">
 			  <!-- Brand -->
-			  <a class="navbar-brand" href="#"><img src="../public/images/logo.png" alt="#"></a>
+			  <a class="navbar-brand" href="/"><img src="../public/images/logo.png" alt="#"></a>
 
 			    <ul class="navbar-nav ml-auto">
 			      <li class="nav-item">
@@ -30,9 +30,11 @@
 			<div class="row justify-content-center">
 				<div class="col-12 col-md-4 text-center">
 					<form method="post">
-							<div class="success_text">Coming Soon!</div>
-						<!-- <div class="success_text">Your email was sent successfully</div>
-						<div class="error_text">Your email failed to send</div> -->
+						<% if(displaySuccess == true) { %>
+							<div class="success_text">Your email was added successfully.</div>
+						<% } else { %>
+							<div class="error_text">Your email failed to send. Please try again later.</div>
+						<% } %>
 					</form>
 				</div>
 			</div>
@@ -43,7 +45,7 @@
 			<div class="row">
 				<div class="col-12 col-md-4">
 					<a href="#"><img src="../public/images/logo.png" alt="#" class="logo"></a>
-					<p>Subcrates automates your budgeting, savings and investments with bank-level security so you can live stress-free. </p>
+					<p>Subcrates helps you create a habit of saving and investing with as little as $1 a day. </p>
 					<!-- <ul class="list-inline social">
 						<li class="list-inline-item"><a href="#"><img src="../public/images/facebook.png" alt="#"></a></li>
 						<li class="list-inline-item"><a href="#"><img src="../public/images/instagram.png" alt="#"></a></li>

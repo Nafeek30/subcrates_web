@@ -56,6 +56,7 @@ const users = db.collection('users');
 const subscriptions = db.collection('subscriptions');
 const usersubscriptions = db.collection('usersubscriptions');
 const reviews = db.collection('reviews');
+const earlyUsersList = db.collection('earlyUsersList');
 
 
 firebase.database.enableLogging(true);
@@ -155,8 +156,31 @@ function isSubscribed(req, res, next) {
 
   // ROOT GET ROUTE - Landing page
   app.get('/', (req, res) => {
+    res.render('index');
+  });
 
-    res.render('comingSoon');
+
+  app.post('/', (req, res) => {
+
+    /// Take user to a confirmation page if successfully added to db.
+    var userListEmail = req.body.userListEmail.toString();
+    
+    try {
+
+      /// If user is added to email list then send success message
+      earlyUsersList.doc(userListEmail).set({
+        'email': userListEmail.toString(),
+        'joined': firebase.firestore.Timestamp.now().toDate()
+      }).then(result => {
+        res.render('comingSoon', {displaySuccess: true})
+      });
+
+      /// Otherwise send error message
+    } catch(e) {
+      console.log(e.toString());
+      res.render('comingSoon', {displaySuccess: false})
+    }
+    
   });
 
 
@@ -168,7 +192,7 @@ function isSubscribed(req, res, next) {
 
 
   /// ROOT POST ROUTE - Landing Page For Signup && Login
-  app.post('/', (req, res) => {
+  app.post('/REMOVE_THIS_STRING_OF_TEXT_LATER', (req, res) => {
     // Sign up variables
     var signupEmail = req.body.signupEmail;
     var signupPassword = req.body.signupPassword;
