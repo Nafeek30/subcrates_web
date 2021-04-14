@@ -76,6 +76,14 @@ const Mixpanel = require('mixpanel');
 const mixpanel = Mixpanel.init("1eafdc052a8f32cbaf49341a883b96e6");
 
 
+/// Twilio imports
+/// SETUP Twilio
+var accountSid = 'AC0b7ab74b4ed874f16579a1846cc75302'; // Your Account SID from www.twilio.com/console
+var authToken = '44c83c0481e90b4c51c2eab23ff20736';   // Your Auth Token from www.twilio.com/console
+
+var twilio = require('twilio');
+var client = new twilio(accountSid, authToken);
+
 
 // Set up express and our local PORT
 const PORT = process.env.PORT || 3000;
@@ -163,25 +171,36 @@ function isSubscribed(req, res, next) {
   app.post('/', (req, res) => {
 
     /// Take user to a confirmation page if successfully added to db.
-    var userListEmail = req.body.userListEmail.toString();
+    var userPhoneNumber = req.body.phoneNumber.toString();
     
     try {
-
-      /// If user is added to email list then send success message
-      earlyUsersList.doc(userListEmail).set({
-        'email': userListEmail.toString(),
-        'joined': firebase.firestore.Timestamp.now().toDate()
+      /// Send message to the phone number entered
+      client.messages.create({
+        body: 'Hello from Node',
+        to: '+1'+ userPhoneNumber,  // Text this number
+        from: '+19166196718' // From a valid Twilio number
       }).then(result => {
+        console.log('--------');
+        console.log(userPhoneNumber);
+        console.log('--------');
+        console.log(result.sid);
+        console.log('--------');
+        console.log(result.toString());
+        console.log('--------');
 
         // Mixpanel user register on signup
         // mixpanel.identify('test2@gmail.com');
-        mixpanel.people.set(
-          userListEmail,
-          {
-          $email: userListEmail
-        });
+        // mixpanel.people.set(
+        //   userPhoneNumber,
+        //   {
+        //   $phone: userPhoneNumber
+        // });
 
         res.render('comingSoon')
+      }).catch(e => {
+        // If failed to send message
+        console.log(e.toString());
+      res.render('failedToAdd')
       });
 
       /// Otherwise send error message
