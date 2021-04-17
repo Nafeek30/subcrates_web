@@ -176,17 +176,10 @@ function isSubscribed(req, res, next) {
     try {
       /// Send message to the phone number entered
       client.messages.create({
-        body: 'Hello from Node',
+        body: 'Subcrates app download links: For iOS - https://apps.apple.com/us/app/subcrates/id1550907713. For Android - https://play.google.com/store/apps/details?id=com.sub.subcrates. ',
         to: '+1'+ userPhoneNumber,  // Text this number
         from: '+19166196718' // From a valid Twilio number
       }).then(result => {
-        console.log('--------');
-        console.log(userPhoneNumber);
-        console.log('--------');
-        console.log(result.sid);
-        console.log('--------');
-        console.log(result.toString());
-        console.log('--------');
 
         // Mixpanel user register on signup
         // mixpanel.identify('test2@gmail.com');
